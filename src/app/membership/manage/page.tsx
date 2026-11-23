@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { fetchUserSubscriptionServer } from './ApiServerActions';
-import { fetchAdminProfileServer } from '@/app/admin/manage-usage/ApiServerActions';
+import { fetchUserProfileByUserIdServer } from '@/lib/userProfileByUserId';
 import { SubscriptionManagementClient } from './SubscriptionManagementClient';
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default async function SubscriptionManagementPage() {
   let error = null;
 
   try {
-    userProfile = await fetchAdminProfileServer(userId);
+    userProfile = await fetchUserProfileByUserIdServer(userId);
     if (userProfile?.id) {
       subscription = await fetchUserSubscriptionServer(userProfile.id);
     }

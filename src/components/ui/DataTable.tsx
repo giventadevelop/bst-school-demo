@@ -4,7 +4,7 @@ import React from 'react';
 import {
   AdminHoverTooltipPortal,
   useAdminHoverTooltip,
-} from '@/components/admin/AdminHoverTooltip';
+} from '@/components/ui/HoverTooltip';
 
 export interface Column<T> {
   key: keyof T | string;

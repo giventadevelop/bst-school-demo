@@ -56,7 +56,6 @@ const isPublicRouteClerk = createRouteMatcher([
   '/facilities(.*)',
   '/pages(.*)',
   '/staff(.*)',
-  '/api/auth/admin-status',
   '/api/public(.*)',
   '/api/proxy(.*)',
   '/api/liturgy(.*)',

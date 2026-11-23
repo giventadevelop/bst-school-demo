@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import AdminListSearchCombobox from '@/components/admin/AdminListSearchCombobox';
+import AdminListSearchCombobox from '@/components/search/ListSearchCombobox';
 import { matchesPublicSearchFields } from '@/lib/publicTypeaheadSearch';
 
 interface FocusGroupWithEvents {

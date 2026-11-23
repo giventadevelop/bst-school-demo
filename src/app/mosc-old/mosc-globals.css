@@ -17,71 +17,71 @@
 @layer base {
   :root {
     /* Core System Colors */
-    --color-background: #F5F1E8;
+    --color-background: #FFFFFF;
     /* soft cream */
-    --color-foreground: #2D2A26;
+    --color-foreground: #1E1E1E;
     /* near-black with warm undertones */
     --color-border: rgba(139, 125, 107, 0.2);
     /* warm earth tone with transparency */
     --color-input: #FFFFFF;
     /* pure white */
-    --color-ring: #8B7D6B;
+    --color-ring: #0F5E9C;
     /* warm earth tone */
 
     /* Card Colors */
     --color-card: #FFFFFF;
     /* pure white */
-    --color-card-foreground: #2D2A26;
+    --color-card-foreground: #1E1E1E;
     /* near-black with warm undertones */
 
     /* Popover Colors */
     --color-popover: #FFFFFF;
     /* pure white */
-    --color-popover-foreground: #2D2A26;
+    --color-popover-foreground: #1E1E1E;
     /* near-black with warm undertones */
 
     /* Muted Colors */
-    --color-muted: #EDE7D3;
+    --color-muted: #F6F6F6;
     /* lighter complement */
     --color-muted-foreground: #5A5550;
     /* muted brown */
 
     /* Primary Colors */
-    --color-primary: #8B7D6B;
+    --color-primary: #B1040E;
     /* warm earth tone */
     --color-primary-foreground: #FFFFFF;
     /* white */
 
     /* Secondary Colors */
-    --color-secondary: #A0926B;
+    --color-secondary: #F6F6F6;
     /* lighter complement */
-    --color-secondary-foreground: #2D2A26;
+    --color-secondary-foreground: #1E1E1E;
     /* near-black with warm undertones */
 
     /* Accent Colors */
-    --color-accent: #6B4E3D;
+    --color-accent: #0F5E9C;
     /* rich brown */
     --color-accent-foreground: #FFFFFF;
     /* white */
 
     /* Success Colors */
-    --color-success: #4A6741;
+    --color-success: #0B6B4B;
     /* muted sage green */
     --color-success-foreground: #FFFFFF;
     /* white */
 
     /* Warning Colors */
-    --color-warning: #A67C52;
+    --color-warning: #8A5A00;
     /* warm amber */
     --color-warning-foreground: #FFFFFF;
     /* white */
 
     /* Error/Destructive Colors */
-    --color-error: #8B4A42;
+    --color-error: #750209;
     /* subdued terracotta */
     --color-error-foreground: #FFFFFF;
     /* white */
-    --color-destructive: #8B4A42;
+    --color-destructive: #750209;
     /* subdued terracotta */
     --color-destructive-foreground: #FFFFFF;
     /* white */
@@ -155,15 +155,15 @@
 
 /* Sacred Typography System */
 .font-heading {
-  font-family: 'Crimson Text', serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
 }
 
 .font-body {
-  font-family: 'Source Sans Pro', sans-serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
 }
 
 .font-caption {
-  font-family: 'Lato', sans-serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
 }
 
 .font-mono {
@@ -177,7 +177,7 @@
   flex-direction: column !important;
   background-color: var(--color-background) !important;
   color: var(--color-foreground) !important;
-  font-family: 'Source Sans Pro', sans-serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
 }
 
 .mosc-main {
@@ -190,7 +190,7 @@
   padding: 0 !important;
   background-color: var(--color-background) !important;
   color: var(--color-foreground) !important;
-  font-family: 'Source Sans Pro', sans-serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
   font-feature-settings: "rlig" 1, "calt" 1 !important;
 }
 

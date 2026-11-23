@@ -1,92 +1,75 @@
-/*
- * /school design system. Every rule is scoped to .school-theme (set by src/app/school/layout.tsx),
- * so nothing here reaches the rest of the application.
- * Source of truth: replica/design/tokens.json (channels below are the same hex values as R G B).
- * The `sch-*` Tailwind colours and fonts that read these variables are declared in tailwind.config.js.
- */
+/* sch-* channels stay so existing school pages keep working after the Direction A token swap. */
+
 .school-theme {
-  --sch-bg: 251 248 241;
+  --sch-bg: 255 255 255;
   --sch-surface: 255 255 255;
-  --sch-surface-alt: 242 236 221;
-  --sch-border: 226 217 195;
-  --sch-border-input: 133 122 97;
-  --sch-text: 27 42 38;
-  --sch-text-muted: 85 98 93;
-  --sch-accent: 15 92 77;
-  --sch-accent-strong: 10 65 54;
+  --sch-surface-alt: 246 246 246;
+  --sch-border: 226 226 226;
+  --sch-border-input: 107 107 107;
+  --sch-text: 30 30 30;
+  --sch-text-muted: 92 92 92;
+  --sch-accent: 177 4 14;
+  --sch-accent-strong: 143 3 11;
   --sch-on-accent: 255 255 255;
-  --sch-gold: 138 100 16;
-  --sch-gold-bright: 230 185 92;
-  --sch-laterite: 168 63 37;
-  --sch-ink: 11 59 50;
-  --sch-on-ink: 246 241 228;
-  --sch-on-ink-muted: 185 207 199;
-  --sch-danger: 179 38 30;
-  --sch-success: 31 122 77;
+  --sch-gold: 138 90 0;
+  --sch-gold-bright: 242 176 30;
+  --sch-laterite: 177 4 14;
+  --sch-ink: 30 30 30;
+  --sch-on-ink: 255 255 255;
+  --sch-on-ink-muted: 233 233 233;
+  --sch-danger: 117 2 9;
+  --sch-success: 11 107 75;
 
-  --sch-shadow-card: 0 1px 2px rgb(11 59 50 / 0.06), 0 6px 20px rgb(11 59 50 / 0.07);
-  --sch-shadow-pop: 0 18px 48px rgb(11 59 50 / 0.2);
-  --sch-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --sch-shadow-card: 0 1px 2px rgba(30, 30, 30, 0.05), 0 8px 24px rgba(30, 30, 30, 0.06);
+  --sch-shadow-pop: 0 2px 4px rgba(30, 30, 30, 0.06), 0 16px 36px rgba(30, 30, 30, 0.12);
 
-  background-color: rgb(var(--sch-bg));
-  color: rgb(var(--sch-text));
-  font-family: var(--font-sch-sans), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  font-size: 1rem;
-  line-height: 1.625;
+  background-color: var(--ground, #fff);
+  color: var(--ink, #1e1e1e);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 26px;
   -webkit-font-smoothing: antialiased;
 }
 
 .school-theme :focus-visible {
-  outline: 2px solid rgb(var(--sch-accent));
-  outline-offset: 3px;
-  border-radius: 4px;
+  outline: 3px solid var(--focus, #0f5e9c);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .school-theme .sch-on-dark :focus-visible {
-  outline-color: rgb(var(--sch-gold-bright));
+  outline-color: #fff;
 }
 
-/* Kasavu border: the gold-edged band of a Kerala handloom, used as the section divider. */
 .school-theme .sch-kasavu {
-  height: 10px;
-  background:
-    linear-gradient(rgb(var(--sch-gold-bright)), rgb(var(--sch-gold-bright))) 0 2px / 100% 2px no-repeat,
-    linear-gradient(rgb(var(--sch-gold-bright)), rgb(var(--sch-gold-bright))) 0 6px / 100% 1px no-repeat,
-    rgb(var(--sch-ink));
+  height: 4px;
+  background: linear-gradient(90deg, var(--red) 0 33%, var(--gold) 33% 66%, var(--green) 66%);
 }
 
-/* Arch frame: a nod to the arched verandas of traditional Kerala school buildings. */
 .school-theme .sch-arch {
-  border-radius: 999px 999px 16px 16px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
-/* Faint woven texture for dark bands. */
-.school-theme .sch-weave {
-  background-image:
-    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.035) 0 2px, transparent 2px 14px),
-    repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.035) 0 2px, transparent 2px 14px);
-}
-
 .school-theme .sch-card {
-  background: rgb(var(--sch-surface));
-  border: 1px solid rgb(var(--sch-border));
-  border-radius: 12px;
-  box-shadow: var(--sch-shadow-card);
-  transition: transform 240ms var(--sch-ease), box-shadow 240ms var(--sch-ease), border-color 240ms var(--sch-ease);
+  background: #fff;
+  border: 1px solid var(--line, rgba(30, 30, 30, 0.14));
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .school-theme a.sch-card:hover {
   transform: translateY(-3px);
-  border-color: rgb(var(--sch-accent) / 0.45);
-  box-shadow: var(--sch-shadow-pop);
+  box-shadow: var(--shadow-lift);
 }
 
 .school-theme .sch-prose {
-  max-width: 720px;
+  max-width: 70ch;
   white-space: pre-wrap;
-  font-size: 1.0625rem;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--body);
 }
 
 .school-theme .sch-ticker {
@@ -102,12 +85,8 @@
 }
 
 @keyframes sch-ticker {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {

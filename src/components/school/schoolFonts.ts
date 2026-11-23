@@ -1,7 +1,22 @@
-import { Fraunces, Manrope } from 'next/font/google';
+import { Noto_Sans_Malayalam, Roboto } from 'next/font/google';
 
-const display = Fraunces({ subsets: ['latin'], variable: '--font-sch-display', display: 'swap' });
-const sans = Manrope({ subsets: ['latin'], variable: '--font-sch-sans', display: 'swap' });
+/** Direction A type: Roboto for the interface, Noto Sans Malayalam for Malayalam lines. */
+export const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-roboto',
+  display: 'swap',
+});
 
-/** Class list that turns an element into a school-themed scope: tokens from school-theme.css plus both fonts. */
-export const schoolThemeClass = `school-theme ${display.variable} ${sans.variable}`;
+export const malayalam = Noto_Sans_Malayalam({
+  subsets: ['malayalam'],
+  weight: ['400', '600', '800'],
+  variable: '--font-malayalam',
+  display: 'swap',
+});
+
+/** Class list for the school shell: Direction A tokens, both fonts, and the design-system root. */
+export const schoolThemeClass = `school-theme theme-a site ${roboto.variable} ${malayalam.variable}`;
+
+/** Class list for the document body so the rest of the app uses the same type. */
+export const appFontClass = `${roboto.className} ${roboto.variable} ${malayalam.variable}`;

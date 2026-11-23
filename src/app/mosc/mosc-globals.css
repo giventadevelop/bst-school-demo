@@ -2,10 +2,6 @@
 /* Import base styles but override for MOSC */
 @import '../globals.css';
 
-/* Import Sacred Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
 
 @tailwind base;
@@ -15,74 +11,49 @@
 @layer base {
   :root {
     /* Core System Colors */
-    --color-background: #F5F1E8;
-    /* soft cream */
-    --color-foreground: #2D2A26;
-    /* near-black with warm undertones */
-    --color-border: rgba(139, 125, 107, 0.2);
-    /* warm earth tone with transparency */
+    --color-background: #FFFFFF;
+    --color-foreground: #1E1E1E;
+    --color-border: rgba(30, 30, 30, 0.14);
     --color-input: #FFFFFF;
-    /* pure white */
-    --color-ring: #8B7D6B;
-    /* warm earth tone */
+    --color-ring: #0F5E9C;
 
     /* Card Colors */
     --color-card: #FFFFFF;
-    /* pure white */
-    --color-card-foreground: #2D2A26;
-    /* near-black with warm undertones */
+    --color-card-foreground: #1E1E1E;
 
     /* Popover Colors */
     --color-popover: #FFFFFF;
-    /* pure white */
-    --color-popover-foreground: #2D2A26;
-    /* near-black with warm undertones */
+    --color-popover-foreground: #1E1E1E;
 
     /* Muted Colors */
-    --color-muted: #EDE7D3;
-    /* lighter complement */
-    --color-muted-foreground: #5A5550;
-    /* muted brown */
+    --color-muted: #F6F6F6;
+    --color-muted-foreground: rgba(30, 30, 30, 0.68);
 
-    /* Primary Colors */
-    --color-primary: #8B7D6B;
-    /* warm earth tone */
+    /* Primary Colors — brand red */
+    --color-primary: #B1040E;
     --color-primary-foreground: #FFFFFF;
-    /* white */
 
     /* Secondary Colors */
-    --color-secondary: #A0926B;
-    /* lighter complement */
-    --color-secondary-foreground: #2D2A26;
-    /* near-black with warm undertones */
+    --color-secondary: #F6F6F6;
+    --color-secondary-foreground: #1E1E1E;
 
     /* Accent Colors */
-    --color-accent: #6B4E3D;
-    /* rich brown */
+    --color-accent: #0F5E9C;
     --color-accent-foreground: #FFFFFF;
-    /* white */
 
     /* Success Colors */
-    --color-success: #4A6741;
-    /* muted sage green */
+    --color-success: #0B6B4B;
     --color-success-foreground: #FFFFFF;
-    /* white */
 
     /* Warning Colors */
-    --color-warning: #A67C52;
-    /* warm amber */
+    --color-warning: #8A5A00;
     --color-warning-foreground: #FFFFFF;
-    /* white */
 
     /* Error/Destructive Colors */
-    --color-error: #8B4A42;
-    /* subdued terracotta */
+    --color-error: #750209;
     --color-error-foreground: #FFFFFF;
-    /* white */
-    --color-destructive: #8B4A42;
-    /* subdued terracotta */
+    --color-destructive: #750209;
     --color-destructive-foreground: #FFFFFF;
-    /* white */
 
     /* Legacy variable mapping for compatibility */
     --background: var(--color-background);
@@ -134,7 +105,7 @@
   }
 
   .sacred-gradient {
-    background: linear-gradient(135deg, #F5F1E8 0%, #EDE7D3 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #F6F6F6 100%);
   }
 
   .circular-frame {
@@ -152,16 +123,10 @@
 }
 
 /* Sacred Typography System */
-.font-heading {
-  font-family: 'Crimson Text', serif !important;
-}
-
-.font-body {
-  font-family: 'Source Sans Pro', sans-serif !important;
-}
-
+.font-heading,
+.font-body,
 .font-caption {
-  font-family: 'Lato', sans-serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
 }
 
 .font-mono {
@@ -175,7 +140,7 @@
   flex-direction: column !important;
   background-color: var(--color-background) !important;
   color: var(--color-foreground) !important;
-  font-family: 'Source Sans Pro', sans-serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
 }
 
 .mosc-main {
@@ -188,7 +153,7 @@
   padding: 0 !important;
   background-color: var(--color-background) !important;
   color: var(--color-foreground) !important;
-  font-family: 'Source Sans Pro', sans-serif !important;
+  font-family: var(--font-roboto), Roboto, system-ui, sans-serif !important;
   font-feature-settings: "rlig" 1, "calt" 1 !important;
 }
 

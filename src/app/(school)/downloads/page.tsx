@@ -39,7 +39,7 @@ export default async function SchoolDownloadsPage() {
                   href={asset.fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-sch-accent px-5 text-sm font-semibold text-sch-accent hover:bg-sch-accent hover:text-sch-on-accent"
+                  className="btn btn-outline"
                 >
                   <Download aria-hidden className="h-4 w-4" />
                   Download<span className="sr-only">: {asset.title}</span>

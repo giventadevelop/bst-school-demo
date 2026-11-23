@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { appFontClass } from "../components/school/schoolFonts";
 import "./globals.css";
+import "../styles/school-ds.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import TrpcProvider from "@/lib/trpc/Provider";
 import Script from "next/script";
@@ -19,8 +20,6 @@ import { headers } from "next/headers";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { getAppUrl, getTenantId, getApiBaseUrl, getAppUrlFromRequestHeaders } from "@/lib/env";
 import { fetchWithJwtRetry } from "@/lib/proxyHandler";
-import { isAdminRole } from "@/lib/utils";
-import { resolveIsTenantAdmin } from "@/lib/resolveTenantAdminStatus";
 import { getAuthPrimaryHost, getClerkSatelliteHost, isSatelliteHostname } from "@/lib/clerkSatellite";
 import { buildClerkProfileInsert, decideClerkProfileIdentity } from "@/lib/clerkProfileIdentity";
 import { getSharedAdsensePublisherIdForMeta } from "@/lib/adsense/sharedPublisherId";
@@ -48,8 +47,6 @@ const debugLog = (...args: unknown[]) => { if (DEBUG_LAYOUT) console.log(...args
 
 const CLERK_KEY = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? process.env.AMPLIFY_NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? '';
 
-const inter = Inter({ subsets: ["latin"] });
-
 // CRITICAL: Mark layout as dynamic to prevent Next.js 15+ from detecting headers() access during static analysis
 // This allows headers() to be called without triggering the "headers() should be awaited" error
 export const dynamic = 'force-dynamic';
@@ -62,7 +59,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   debugLog('[LAYOUT] Root layout executing');
-  let isTenantAdmin = false;
   const satelliteDomain = getClerkSatelliteHost() || process.env.NEXT_PUBLIC_CLERK_DOMAIN || process.env.AMPLIFY_NEXT_PUBLIC_CLERK_DOMAIN || 'www.mosc-temp.com';
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.AMPLIFY_NEXT_PUBLIC_APP_URL || '';
   let clerkProps: { isSatellite?: boolean; domain?: string; signInUrl?: string; signUpUrl?: string; allowedRedirectOrigins?: string[] } = appUrl ? { allowedRedirectOrigins: [appUrl] } : {};
@@ -72,42 +68,6 @@ export default async function RootLayout({
   const headersList = await headers();
   const hostname = headersList.get('host') || '';
   const pathname = headersList.get('x-pathname') || '';
-
-  // Define public routes that don't require authentication checks
-  // These routes can skip auth() calls to avoid Next.js 15+ headers() async errors
-  const publicRoutePatterns = [
-    /^\/$/,
-    /^\/sign-in/,
-    /^\/sign-up/,
-    /^\/sso-callback/,
-    /^\/api\/webhooks/,
-    /^\/api\/public/,
-    /^\/api\/proxy/,
-    /^\/api\/event\/success/,
-    /^\/api\/membership\/success/,
-    /^\/membership\/success/,
-    /^\/membership\/qr/,
-    /^\/api\/diagnostic/,
-    /^\/api\/logs/,
-    /^\/mosc-old/,
-    /^\/mosc(?!-old)/,  // /mosc, /mosc/..., /mosc-redesign/... (Syro + rocket redesign; not /mosc-old)
-    /^\/events/,
-    /^\/sponsors/,
-    /^\/gallery/,
-    /^\/about/,
-    /^\/contact/,
-    /^\/polls/,
-    /^\/charity-theme/,
-    /^\/calendar/,
-    /^\/focus-groups/,
-    /^\/pricing/,
-    /^\/membership/,
-  ];
-
-  // Check if this is a public route
-  // If pathname is empty (header not set) or headers() failed, default to treating as public route to avoid auth errors
-  // This ensures TestSprite/Playwright tests can run on public pages without headers() errors
-  const isPublicRoute = !pathname || publicRoutePatterns.some(pattern => pattern.test(pathname));
 
   const isSatellite = isSatelliteHostname(hostname);
 
@@ -127,8 +87,7 @@ export default async function RootLayout({
       afterSignOutUrl: '/',
     };
 
-  // Determine tenant-scoped admin flag on the server
-  // Run auth + profile lookup on all routes that show the main Header (including /) so Admin menu appears for admins (per clerk_auth rule).
+  // Run auth + profile lookup on routes that show the main header, including the homepage.
   // Only skip /mosc-old, /mosc, /mosc-redesign — ConditionalLayout does not render the main Header there.
   // CRITICAL: Also skip during Clerk satellite sync (?__clerk_synced=true). On the first
   // load after redirect from primary, the session cookie is being established for SUBSEQUENT
@@ -236,8 +195,7 @@ export default async function RootLayout({
                   const identity = decideClerkProfileIdentity(emailRows, userId);
 
                   if (identity.action === 'use') {
-                    const owned = emailRows.find((row: { userId?: string; clerkUserId?: string }) => row?.userId === userId || row?.clerkUserId === userId);
-                    isTenantAdmin = isAdminRole(owned?.userRole);
+                    debugLog('[Layout] Reusing the profile row owned by this Clerk user');
                   } else if (identity.action === 'insert') {
                     debugLog('[Layout] Inserting a profile row for this Clerk user id');
                     const payload = buildClerkProfileInsert({
@@ -255,8 +213,7 @@ export default async function RootLayout({
                       body: JSON.stringify(payload),
                     });
                     if (createRes.ok) {
-                      const created = await createRes.json().catch(() => null);
-                      isTenantAdmin = isAdminRole(created?.userRole ?? payload.userRole);
+                      debugLog('[Layout] Inserted a profile row for this Clerk user');
                     } else {
                       console.error('[Layout] Failed to insert Clerk profile:', createRes.status);
                     }
@@ -335,14 +292,7 @@ export default async function RootLayout({
                         tenantId: updated?.tenantId,
                         rawProfile: JSON.stringify(updated, null, 2)
                       });
-                      isTenantAdmin = isAdminRole(updated?.userRole);
-                      debugLog('[Layout] ✅ Successfully updated userId. Admin status:', {
-                        isTenantAdmin,
-                        userRole: updated?.userRole,
-                        roleMatch: isAdminRole(updated?.userRole),
-                        roleType: typeof updated?.userRole,
-                        roleValue: JSON.stringify(updated?.userRole)
-                      });
+                      debugLog('[Layout] Successfully updated userId', { userRole: updated?.userRole });
                     } else {
                       const errorText = await updateRes.text();
                       console.error('[Layout] Failed to update userId:', updateRes.status);
@@ -396,41 +346,21 @@ export default async function RootLayout({
               tenantId: p?.tenantId,
               rawProfile: JSON.stringify(p, null, 2)
             });
-            isTenantAdmin = isAdminRole(p?.userRole);
-            debugLog('[Layout] ✅ Found existing profile. Admin status:', {
-              isTenantAdmin,
-              userRole: p?.userRole,
-              roleMatch: isAdminRole(p?.userRole),
-              roleType: typeof p?.userRole,
-              roleValue: JSON.stringify(p?.userRole)
-            });
+            debugLog('[Layout] Found existing profile', { userRole: p?.userRole });
           }
         }
 
-        // Direct backend lookup (by-user + email fallback) when proxy path did not set admin
-        if (!isTenantAdmin) {
-          const email = currentUserData?.emailAddresses?.[0]?.emailAddress ?? null;
-          isTenantAdmin = await resolveIsTenantAdmin(userId, email);
-          debugLog('[Layout] resolveIsTenantAdmin fallback:', { isTenantAdmin, userId, email });
-        }
       }
     } catch (e) {
-      // Fail closed (no admin) on error
-      console.error('[Layout] ❌ Error determining admin status:', e);
-      isTenantAdmin = false;
+      console.error('[Layout] Error during profile lookup:', e);
     }
   } else {
-    // pathname empty - skip auth to avoid edge cases
-    debugLog('[Layout] 🔍 No pathname, skipping auth checks');
-    isTenantAdmin = false;
+    debugLog('[Layout] No pathname, skipping auth checks');
   }
-
-  debugLog('[Layout] 🔍 Final admin status:', { isTenantAdmin, isPublicRoute, pathname });
   } catch (layoutError: unknown) {
     const err = layoutError instanceof Error ? layoutError : new Error(String(layoutError));
     console.error('[LAYOUT-ERROR] Root layout failed:', err.message);
     console.error('[LAYOUT-ERROR] Stack:', err.stack);
-    isTenantAdmin = false;
   }
 
   // Clerk v7 / Core 3: ClerkProvider must be inside <body>, not wrapping <html>.
@@ -453,7 +383,7 @@ export default async function RootLayout({
           <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Epilogue:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         </head>
-        <body className={inter.className + " flex flex-col min-h-screen"} suppressHydrationWarning>
+        <body className={appFontClass + " flex flex-col min-h-screen"} suppressHydrationWarning>
           {CLERK_KEY ? (
           <ClerkProvider publishableKey={CLERK_KEY} {...clerkProps}>
           <ClerkSyncUrlCleanup />
@@ -464,7 +394,7 @@ export default async function RootLayout({
           <TrpcProvider>
             <TenantSettingsProvider>
               <ConditionalLayout
-                header={<Header hideMenuItems={false} isTenantAdmin={isTenantAdmin} />}
+                header={<Header hideMenuItems={false} />}
                 footer={<Footer />}
                 schoolHeader={<SchoolSiteHeader />}
                 schoolFooter={<SchoolSiteFooter />}
@@ -505,7 +435,7 @@ export default async function RootLayout({
           <TrpcProvider>
             <TenantSettingsProvider>
               <ConditionalLayout
-                header={<Header hideMenuItems={false} isTenantAdmin={isTenantAdmin} />}
+                header={<Header hideMenuItems={false} />}
                 footer={<Footer />}
                 schoolHeader={<SchoolSiteHeader />}
                 schoolFooter={<SchoolSiteFooter />}

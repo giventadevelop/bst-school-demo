@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BST Higher Secondary · Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="school-ds.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&amp;family=Noto+Sans+Malayalam:wght@400;600;800&amp;display=swap">
+<style>
+body{margin:0}
+.foot a{color:inherit!important;text-decoration:none}.foot a:hover{text-decoration:underline}
+.theme-a .foot{background:var(--foot);color:var(--ink)}.theme-a .foot .fm{color:var(--body)}
+.theme-b .foot{background:var(--foot);color:#fff}.theme-b .foot .fm{color:rgba(255,255,255,.8)}
+.theme-b .foot .rule{border-color:rgba(255,255,255,.2)}
+.theme-a .foot .rule{border-color:var(--line)}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" data-screen-label="Home" class="site {{ themeClass }}">
+
+<header data-sec="header" style="position:sticky;top:0;z-index:40;background:var(--ground)">
+  <div class="topbar">
+    <div class="wrap" style="padding-top:8px;padding-bottom:8px;display:flex;flex-wrap:wrap;gap:4px 24px;justify-content:flex-end">
+      <a href="#">+91 00000 00000</a>
+      <a href="#">office@bsthss.example</a>
+      <a href="#" style="font-weight:600">Sign in</a>
+    </div>
+  </div>
+  <div class="nav" style="padding:0 max(clamp(20px,5cqw,64px),calc((100% - 1280px) / 2 + clamp(20px,5cqw,64px)));min-height:76px;gap:28px">
+    <a href="#" style="display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none;color:var(--ink)">
+      <img src="assets/logo-bst-red.svg" alt="BST Higher Secondary School crest (placeholder logo)" width="44" height="44" style="flex:none">
+      <span style="display:flex;flex-direction:column;min-width:0;line-height:1.15">
+        <span style="font-size:18px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BST Higher Secondary</span>
+        <span class="muted" style="font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase">Kottayam, Kerala</span>
+      </span>
+    </a>
+    <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="School" style="display:flex;align-items:stretch;gap:28px;align-self:stretch;margin-left:auto">
+        <sc-for list="{{ nav }}" as="g" hint-placeholder-count="6">
+          <div style="position:relative;display:flex;align-items:stretch" onMouseEnter="{{ g.enter }}" onMouseLeave="{{ closeMenu }}" onFocus="{{ g.enter }}">
+            <a href="#" class="nav-link" aria-current="{{ g.current }}">{{ g.label }}</a>
+            <sc-if value="{{ g.open }}" hint-placeholder-val="{{ false }}">
+              <div class="menu">
+                <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3"><a href="#">{{ it }}</a></sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ notPhone }}" hint-placeholder-val="{{ true }}">
+      <a href="#" class="btn btn-primary" style="white-space:nowrap;margin-left:{{ btnMargin }}">Admissions <span aria-hidden="true">→</span></a>
+    </sc-if>
+    <sc-if value="{{ isCompact }}" hint-placeholder-val="{{ false }}">
+      <button type="button" class="btn btn-outline" aria-expanded="{{ mobileOpen }}" onClick="{{ toggleMobile }}">{{ menuLabel }}</button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+    <nav aria-label="School (mobile)" style="background:var(--ground);border-bottom:1px solid var(--line);padding:8px clamp(20px,5cqw,64px) 28px;max-height:calc(100vh - 112px);overflow-y:auto;box-shadow:var(--shadow-lift)">
+      <sc-for list="{{ nav }}" as="g" hint-placeholder-count="6">
+        <div style="border-bottom:1px solid var(--line);padding:14px 0">
+          <a href="#" style="display:block;font-size:20px;font-weight:600;color:var(--ink);text-decoration:none;min-height:32px">{{ g.label }}</a>
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2"><a href="#" style="font-size:16px;color:var(--body);text-decoration:none;padding:8px 0 2px;min-height:44px;display:flex;align-items:center">{{ it }}</a></sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <a href="#" class="btn btn-primary btn-block" style="margin-top:20px">Admissions <span aria-hidden="true">→</span></a>
+      <a href="#" class="btn btn-outline btn-block" style="margin-top:12px;justify-content:center">Sign in</a>
+    </nav>
+  </sc-if>
+</header>
+
+<section data-sec="notice" aria-label="Announcements" style="background:var(--gold-50);border-bottom:1px solid rgba(138,90,0,.2)">
+  <sc-if value="{{ showNotice }}" hint-placeholder-val="{{ true }}">
+    <div class="wrap" style="padding-top:10px;padding-bottom:10px;display:flex;align-items:baseline;gap:14px;font-size:14px;line-height:22px">
+      <span class="tag t-solid" style="flex:none">Notice</span>
+      <span style="min-width:0;color:var(--ink)">Plus Two model examination timetable is published under Downloads. <a href="#" style="white-space:nowrap;font-weight:600">Open the circular →</a></span>
+    </div>
+  </sc-if>
+</section>
+
+<section data-sec="hero">
+  <sc-if value="{{ isA }}" hint-placeholder-val="{{ true }}">
+    <div class="wrap" style="padding-top:clamp(40px,6cqw,88px);padding-bottom:clamp(40px,5cqw,72px);display:flex;flex-wrap:wrap;align-items:center;gap:40px clamp(32px,5cqw,72px)">
+      <div style="flex:1 1 420px;min-width:0">
+        <sc-if value="{{ showMalayalam }}" hint-placeholder-val="{{ true }}">
+          <p style="margin:0 0 20px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px">
+            <span lang="ml" class="ml" style="font-size:clamp(20px,2cqw,26px);font-weight:600;color:var(--green)">അറിവാണ് വെളിച്ചം</span>
+            <span class="tag t-green">Knowledge is light</span>
+          </p>
+        </sc-if>
+        <h1 class="h1">Plus One and Plus Two in <span style="color:var(--blue)">Science</span>, <span class="hl">Commerce</span> and <span style="color:var(--plum)">Humanities</span>.</h1>
+        <p class="lead" style="margin-top:24px;max-width:540px">BST Higher Secondary School teaches the Kerala state higher secondary syllabus for classes 11 and 12, with 480 seats across eight batches.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:32px">
+          <a href="#" class="btn btn-primary btn-lg">Apply for Plus One <span aria-hidden="true">→</span></a>
+          <a href="#" class="btn btn-outline btn-lg">Explore the streams</a>
+        </div>
+      </div>
+      <div style="flex:1 1 380px;min-width:0;position:relative">
+        <div class="ph ph-green" role="img" aria-label="hero-campus.jpg: Kerala-style school building with tiled roof, coconut palms behind, students in uniform crossing the courtyard" style="aspect-ratio:5/4;min-height:260px;border-radius:8px">
+          <span class="ph-label">hero-campus.jpg · 5:4 · school building, coconut palms, students in uniform</span>
+        </div>
+        <div style="position:absolute;left:-12px;top:24px;background:var(--gold);color:var(--ink);border-radius:8px;padding:12px 18px;box-shadow:var(--shadow-lift)"><b style="font-size:28px;line-height:1;display:block">98.6%</b><span style="font-size:13px;line-height:18px;font-weight:500">Plus Two pass rate, 2026</span></div>
+        <div style="position:absolute;right:-8px;bottom:56px;background:#fff;border-left:4px solid var(--red);border-radius:8px;padding:12px 18px;box-shadow:var(--shadow-lift)"><b style="font-size:20px;line-height:1.1;display:block">Since 1978</b><span class="muted" style="font-size:13px;line-height:18px">Kottayam, Kerala</span></div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ isB }}" hint-placeholder-val="{{ false }}">
+    <div class="band" style="--ph1:#14805A;--ph2:#082A38;min-height:clamp(520px,50cqw,700px);display:flex;align-items:center">
+      <div role="img" aria-label="hero-campus-wide.jpg: Kerala-style tiled-roof school building among coconut palms, backwater beyond, students in uniform in the courtyard" style="position:absolute;inset:0;z-index:-3"></div>
+      <span class="ph-label">hero-campus-wide.jpg · 16:9 · overlay 70%</span>
+      <div class="wrap" style="width:100%;padding-top:clamp(56px,7cqw,104px);padding-bottom:clamp(56px,7cqw,104px)">
+        <sc-if value="{{ showMalayalam }}" hint-placeholder-val="{{ true }}">
+          <p lang="ml" class="ml" style="margin:0 0 12px;font-size:clamp(34px,4.6cqw,64px);font-weight:800;line-height:1.35;color:var(--gold-300)">അറിവാണ് വെളിച്ചം</p>
+        </sc-if>
+        <h1 class="h1" style="max-width:16ch;color:#fff">Plus One and Plus Two in Science, Commerce and Humanities.</h1>
+        <p class="lead" style="margin-top:24px;max-width:560px;color:rgba(255,255,255,.92)">BST Higher Secondary School teaches the Kerala state higher secondary syllabus for classes 11 and 12, with 480 seats across eight batches.</p>
+        <div class="on-dark" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:32px">
+          <a href="#" class="btn btn-primary btn-lg">Apply for Plus One <span aria-hidden="true">→</span></a>
+          <a href="#" class="btn btn-line-light btn-lg">Explore the streams</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</section>
+
+<section data-sec="quicklinks" aria-label="Quick links" style="padding-top:{{ quickTop }}">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+      <sc-for list="{{ quick }}" as="q" hint-placeholder-count="6">
+        <a href="#" class="tile {{ q.c }} rv"><span class="ico" aria-hidden="true">→</span><b>{{ q.label }}</b><small>{{ q.note }}</small></a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="about" class="sec">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:40px clamp(32px,6cqw,88px);align-items:flex-start">
+    <div style="flex:1 1 260px;max-width:400px" class="rv">
+      <div class="ph ph-plum" role="img" aria-label="principal-portrait.jpg: portrait of the principal at her desk, bookshelf behind" style="aspect-ratio:4/5;border-radius:8px"><span class="ph-label">principal-portrait.jpg · 4:5</span></div>
+      <p class="h5" style="margin:16px 0 0">Dr. Mary Kurian</p>
+      <p class="muted" style="margin:0;font-size:14px;line-height:22px">Principal · M.Sc., M.Ed., Ph.D.</p>
+    </div>
+    <div style="flex:2 1 420px;min-width:0" class="rv">
+      <p class="kicker">From the principal's desk</p>
+      <h2 class="h2" style="margin-bottom:24px;max-width:20ch">A school where every student is known by name.</h2>
+      <p style="font:500 clamp(19px,1.8cqw,22px)/1.5 var(--font);margin:0 0 20px;max-width:56ch">Plus One and Plus Two are short years. We use them to build steady study habits, and we stay in touch with every family while we do it.</p>
+      <p class="body" style="margin:0 0 24px;max-width:58ch">Since 1978 the school has prepared students from Kottayam and the surrounding panchayats for the state higher secondary examinations. Class teachers meet parents each term, the labs stay open after hours before practical exams, and the library keeps past question papers for every subject.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px"><span class="tag t-red">Est. 1978</span><span class="tag t-green">Kerala state syllabus</span><span class="tag t-blue">480 seats</span><span class="tag t-gold">Eight batches</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <a href="#" class="btn btn-outline">Read the full message <span aria-hidden="true">→</span></a>
+        <a href="#" class="btn btn-text">Our story <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-sec="streams" class="sec alt">
+  <div class="wrap">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:40px">
+      <div><p class="kicker">Academics</p><h2 class="h2">Three streams, six subject combinations</h2></div>
+      <a href="#" class="btn btn-text">All departments <span aria-hidden="true">→</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
+      <sc-for list="{{ streams }}" as="s" hint-placeholder-count="3">
+        <article class="card stripe {{ s.c }} rv">
+          <div class="ph {{ s.ph }}" role="img" aria-label="{{ s.alt }}" style="aspect-ratio:4/3"><span class="ph-label">{{ s.file }} · 4:3</span></div>
+          <div style="padding:24px;display:flex;flex-direction:column;flex:1">
+            <span class="tag" style="align-self:flex-start;background:var(--c50);color:var(--ct)">{{ s.kicker }}</span>
+            <h3 class="h3" style="margin:12px 0 10px">{{ s.name }}</h3>
+            <p class="body" style="margin:0 0 20px">{{ s.summary }}</p>
+            <ul style="list-style:none;margin:0 0 24px;padding:0">
+              <sc-for list="{{ s.combos }}" as="c" hint-placeholder-count="2">
+                <li style="display:flex;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:15px;line-height:22px"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:var(--c);margin-top:6px"></span><span>{{ c }}</span></li>
+              </sc-for>
+            </ul>
+            <a href="#" class="btn btn-block" style="margin-top:auto;background:var(--c50);color:var(--ct)!important">Subjects and faculty <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="steps" class="sec">
+  <div class="wrap">
+    <p class="kicker">Plus One admissions</p>
+    <h2 class="h2" style="margin-bottom:40px">How to join in three steps</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+        <div class="panel {{ st.c }} rv" style="padding:32px 28px 36px">
+          <p class="step-n">{{ st.n }}</p>
+          <h3 class="h4" style="margin-bottom:10px">{{ st.title }}</h3>
+          <p class="body" style="margin:0;max-width:38ch">{{ st.copy }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:32px"><a href="#" class="btn btn-primary">View all requirements <span aria-hidden="true">→</span></a></div>
+  </div>
+</section>
+
+<section data-sec="stats" aria-label="The school in numbers" style="background:var(--band);color:#fff">
+  <div ref="{{ statsRef }}" class="wrap" style="padding-top:clamp(44px,5.5cqw,80px);padding-bottom:clamp(44px,5.5cqw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:36px 24px">
+    <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+      <div class="{{ s.c }}" style="border-top:4px solid var(--c);padding-top:18px">
+        <p class="stat-n" style="color:var(--cl)">{{ s.display }}</p>
+        <p style="margin:0;font:500 13px/18px var(--font);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85)">{{ s.label }}</p>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section data-sec="campus" class="sec">
+  <div class="wrap" style="margin-bottom:32px"><p class="kicker">Campus life</p></div>
+  <div class="band" style="--ph1:#E8710A;--ph2:#0B4F3A;min-height:clamp(380px,44cqw,580px);display:flex;align-items:flex-end">
+    <div role="img" aria-label="campus-onam-band.jpg: students laying an Onam pookkalam in the school courtyard, coconut palms and backwater beyond" style="position:absolute;inset:0;z-index:-3"></div>
+    <span class="ph-label">campus-onam-band.jpg · 21:9 · overlay 70%</span>
+    <div class="wrap on-dark" style="width:100%;padding-top:clamp(40px,6cqw,88px);padding-bottom:clamp(40px,6cqw,88px)">
+      <h2 class="h1" style="font-size:clamp(34px,4.6cqw,64px);max-width:16ch;margin-bottom:28px">Onam, sports day and the afternoons in between.</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#" class="btn btn-gold">Clubs and activities <span aria-hidden="true">→</span></a>
+        <a href="#" class="btn btn-line-light">Facilities <span aria-hidden="true">→</span></a>
+        <a href="#" class="btn btn-line-light">Photo gallery <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:24px">
+    <sc-for list="{{ campus }}" as="c" hint-placeholder-count="4">
+      <a href="#" class="card stripe {{ c.c }} rv" style="text-decoration:none;color:var(--ink)">
+        <div class="ph {{ c.ph }}" role="img" aria-label="{{ c.alt }}" style="aspect-ratio:4/3"><span class="ph-label">{{ c.file }} · 4:3</span></div>
+        <div style="padding:16px 18px 20px"><p class="h5" style="margin:0 0 2px">{{ c.title }} <span aria-hidden="true" style="color:var(--c)">→</span></p><p class="muted" style="margin:0;font-size:14px;line-height:22px">{{ c.note }}</p></div>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section data-sec="fees" class="sec alt">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:40px clamp(32px,5cqw,72px)">
+    <div style="flex:1 1 280px;max-width:400px">
+      <p class="kicker">Fees 2026–27</p>
+      <h2 class="h2" style="margin-bottom:20px">Fees and scholarships</h2>
+      <p class="body" style="margin:0 0 28px">Fees are collected once a year and can be paid online from the admissions page. The figures here are sample amounts for the mockup.</p>
+      <a href="#" class="btn btn-primary">Pay a fee online <span aria-hidden="true">→</span></a>
+    </div>
+    <div style="flex:2 1 460px;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px">
+      <sc-for list="{{ fees }}" as="f" hint-placeholder-count="2">
+        <div class="card stripe {{ f.c }} rv" style="padding:24px 24px 20px">
+          <span class="tag" style="align-self:flex-start;background:var(--c50);color:var(--ct);margin-bottom:10px">{{ f.tag }}</span>
+          <h3 class="h4" style="margin-bottom:8px">{{ f.title }}</h3>
+          <table class="table">
+            <thead><tr><th scope="col">Item</th><th scope="col" class="num">Amount</th></tr></thead>
+            <tbody><sc-for list="{{ f.rows }}" as="r" hint-placeholder-count="4"><tr><td>{{ r.item }}</td><td class="num">{{ r.amount }}</td></tr></sc-for></tbody>
+            <tfoot><tr><td>Total</td><td class="num ct" style="font-size:20px">{{ f.total }}</td></tr></tfoot>
+          </table>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="scholarships">
+  <div class="band" style="--ph1:#8E2C6B;--ph2:#0B666E">
+    <div role="img" aria-label="scholarship-library-band.jpg: students reading at long tables in the school library" style="position:absolute;inset:0;z-index:-3"></div>
+    <span class="ph-label">scholarship-library-band.jpg · 3:1 · overlay 70%</span>
+    <div class="wrap on-dark" style="padding-top:clamp(64px,8cqw,112px);padding-bottom:clamp(64px,8cqw,112px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px 48px">
+      <div style="flex:1 1 380px;max-width:680px">
+        <h2 class="h1" style="font-size:clamp(34px,4.6cqw,64px);margin-bottom:20px">Scholarships</h2>
+        <p style="margin:0;font-size:18px;line-height:30px;color:rgba(255,255,255,.94)">Merit and means-based support is available each year. The office also helps students apply for state and central scholarships before the deadlines.</p>
+      </div>
+      <a href="#" class="btn btn-gold btn-lg">Ask the office <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section data-sec="achievements" class="sec">
+  <div class="wrap">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:40px">
+      <div><p class="kicker">Results, March 2026</p><h2 class="h2">Our star performers</h2></div>
+      <a href="#" class="btn btn-text">All achievements <span aria-hidden="true">→</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(46%,200px),1fr));gap:24px">
+      <sc-for list="{{ toppers }}" as="p" hint-placeholder-count="4">
+        <article class="card stripe {{ p.c }} rv">
+          <div class="ph {{ p.ph }}" role="img" aria-label="{{ p.alt }}" style="aspect-ratio:3/4"><span class="tag t-gold" style="position:absolute;top:12px;left:12px;background:var(--gold);color:var(--ink)">Full A+</span><span class="ph-label">{{ p.file }} · 3:4</span></div>
+          <div style="padding:14px 16px 18px"><p class="h5" style="margin:0 0 2px">{{ p.name }}</p><p class="ct" style="margin:0;font-size:14px;line-height:22px;font-weight:500">{{ p.subtitle }}</p></div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="news" class="sec alt">
+  <div class="wrap">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:40px">
+      <div><p class="kicker">From the newsroom</p><h2 class="h2">Latest news</h2></div>
+      <a href="#" class="btn btn-text">All news <span aria-hidden="true">→</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
+      <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+        <a href="#" class="card {{ n.c }} rv" style="text-decoration:none;color:var(--ink)">
+          <div class="ph {{ n.ph }}" role="img" aria-label="{{ n.alt }}" style="aspect-ratio:16/10"><span class="ph-label">{{ n.file }} · 16:10</span></div>
+          <div style="padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1">
+            <div style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--c50);color:var(--ct)">{{ n.cat }}</span><span class="muted" style="font-size:13px">{{ n.date }}</span></div>
+            <span style="font:600 21px/1.3 var(--font)">{{ n.title }}</span>
+            <span class="body" style="font-size:15px;line-height:24px">{{ n.excerpt }}</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="events" class="sec">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:32px clamp(32px,5cqw,72px)">
+    <div style="flex:1 1 260px;max-width:360px">
+      <p class="kicker">What's happening</p>
+      <h2 class="h2" style="margin-bottom:24px">Upcoming events</h2>
+      <a href="#" class="btn btn-outline">Full calendar <span aria-hidden="true">→</span></a>
+    </div>
+    <div style="flex:2 1 460px;min-width:0;display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ events }}" as="e" hint-placeholder-count="4">
+        <a href="#" class="row {{ e.c }} rv">
+          <span class="date" aria-hidden="true"><b>{{ e.day }}</b><span>{{ e.month }}</span></span>
+          <span style="min-width:0"><span style="display:block;font:600 19px/26px var(--font)">{{ e.title }}</span><span class="muted" style="display:block;font-size:14px;line-height:22px">{{ e.meta }}</span></span>
+          <span aria-hidden="true" style="font-size:20px;color:var(--c);padding-right:4px">→</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="faculty" class="sec alt">
+  <div class="wrap">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:40px">
+      <div><p class="kicker">Faculty</p><h2 class="h2">Teachers and mentors</h2></div>
+      <a href="#" class="btn btn-text">Staff directory <span aria-hidden="true">→</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(46%,200px),1fr));gap:24px">
+      <sc-for list="{{ faculty }}" as="p" hint-placeholder-count="4">
+        <article class="card stripe {{ p.c }} rv">
+          <div class="ph {{ p.ph }}" role="img" aria-label="{{ p.alt }}" style="aspect-ratio:1/1"><span class="ph-label">{{ p.file }} · 1:1</span></div>
+          <div style="padding:16px 16px 20px"><h3 class="h5" style="margin:0 0 2px">{{ p.name }}</h3><p class="ct" style="margin:0;font-size:14px;line-height:22px;font-weight:600">{{ p.role }}</p><p class="muted" style="margin:0;font-size:14px;line-height:22px">{{ p.detail }}</p></div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="testimonials" class="sec">
+  <div class="wrap">
+    <p class="kicker">Parents and alumni</p>
+    <h2 class="h2" style="margin-bottom:40px">What families say</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
+      <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="3">
+        <figure class="quote {{ q.c }} rv">
+          <blockquote style="margin:0;font:500 19px/1.55 var(--font)">{{ q.text }}</blockquote>
+          <figcaption style="margin:auto 0 0;font-size:14px;line-height:22px;color:var(--muted)"><b class="ct" style="display:block;font-size:16px">{{ q.name }}</b>{{ q.role }}</figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-sec="cta" style="background:var(--cta);color:var(--cta-text)">
+  <div class="wrap" style="padding-top:clamp(56px,7cqw,96px);padding-bottom:clamp(56px,7cqw,96px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px 48px">
+    <h2 class="h1" style="font-size:clamp(34px,4.6cqw,64px);max-width:17ch">Plus One admissions for 2027–28 open in May.</h2>
+    <div class="on-dark" style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="#" class="btn btn-lg" style="background:var(--cta-btn);color:var(--cta-btn-text)!important">Start an admission <span aria-hidden="true">→</span></a>
+      <a href="#" class="btn btn-lg btn-line-light">Contact the office</a>
+    </div>
+  </div>
+</section>
+
+<footer data-sec="footer" class="foot">
+  <div class="wrap" style="padding-top:clamp(48px,6cqw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:40px 32px">
+    <div style="min-width:0">
+      <a href="#" style="display:flex;align-items:center;gap:12px">
+        <img src="{{ footLogo }}" alt="BST Higher Secondary School crest (placeholder logo)" width="44" height="44">
+        <span style="font-weight:700;font-size:18px;line-height:1.15">BST Higher Secondary</span>
+      </a>
+      <p class="fm" style="margin:18px 0 0;font-size:14px;line-height:22px">A higher secondary school in Kottayam teaching Plus One and Plus Two under the Kerala state syllabus.</p>
+      <address class="fm" style="margin:16px 0 0;font-style:normal;font-size:14px;line-height:22px">School Road, Kottayam<br>Kerala 686 001, India<br><a href="#">+91 00000 00000</a><br><a href="#">office@bsthss.example</a></address>
+      <div style="display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:16px;font-size:14px;font-weight:600"><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">YouTube</a></div>
+    </div>
+    <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+      <nav aria-label="{{ col.title }}">
+        <p style="margin:0 0 14px;font:600 13px/16px var(--font);letter-spacing:.1em;text-transform:uppercase">{{ col.title }}</p>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="5"><a href="#" class="fm" style="font-size:15px;line-height:22px;padding:6px 0">{{ l }}</a></sc-for>
+        </div>
+      </nav>
+    </sc-for>
+    <form class="field" onSubmit="{{ noSubmit }}" style="min-width:0">
+      <p style="margin:0 0 6px;font:600 13px/16px var(--font);letter-spacing:.1em;text-transform:uppercase">Newsletter</p>
+      <label for="nl-email" class="fm" style="font-weight:400;color:inherit;font-size:14px;line-height:22px;margin-bottom:6px">Term dates and circulars by email, once a month.</label>
+      <input id="nl-email" class="input" type="email" placeholder="parent@example.com">
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:8px">Subscribe <span aria-hidden="true">→</span></button>
+    </form>
+  </div>
+  <div class="wrap">
+    <div class="rule fm" style="margin-top:clamp(40px,5cqw,64px);border-top:1px solid;padding:20px 0 28px;display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between;font-size:13px;line-height:20px">
+      <span>© 2026 BST Higher Secondary School. All rights reserved.</span>
+      <span style="display:flex;gap:18px"><a href="#">Privacy</a><a href="#">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"direction":{"editor":"enum","options":["a","b"],"default":"a","tsType":"string","section":"Direction"},"showMalayalam":{"editor":"boolean","default":true,"tsType":"boolean","section":"Content"},"showNotice":{"editor":"boolean","default":true,"tsType":"boolean","section":"Content"}}'>
+class Component extends DCLogic {
+  state = { w: 1440, open: null, mobileOpen: false, t: 1 };
+  rootRef = React.createRef();
+  statsRef = React.createRef();
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (el && window.ResizeObserver) {
+      const read = () => { const w = el.offsetWidth; if (w && w !== this.state.w) this.setState({ w }); };
+      this.ro = new ResizeObserver(read);
+      this.ro.observe(el);
+      read();
+    }
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const s = this.statsRef.current;
+    if (s && !reduce && window.IntersectionObserver) {
+      this.io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { this.io.disconnect(); this.count(); }
+      }, { threshold: 0.4 });
+      this.io.observe(s);
+    }
+  }
+  componentWillUnmount() {
+    if (this.ro) this.ro.disconnect();
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
+  }
+  count() {
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - start) / 1400);
+      this.setState({ t: 1 - Math.pow(1 - p, 3) });
+      if (p < 1) this.raf = requestAnimationFrame(step);
+    };
+    this.setState({ t: 0 });
+    this.raf = requestAnimationFrame(step);
+  }
+  renderVals() {
+    const { w, open, mobileOpen, t } = this.state;
+    const isB = (this.props.direction ?? 'a') === 'b';
+    const isWide = w >= 1080;
+    const nav = [
+      { label: 'Home', items: [], current: 'page' },
+      { label: 'About', items: ['Our story', "Principal's message", 'Academics'] },
+      { label: 'Faculty', items: ['Staff directory', 'Departments'] },
+      { label: 'Campus life', items: ['Facilities', 'Clubs & activities', 'Photo gallery'] },
+      { label: 'Updates', items: ['News', 'Events', 'Achievements', 'Downloads'] },
+      { label: 'Contact', items: [] },
+    ].map((g) => ({
+      ...g,
+      open: isWide && open === g.label && g.items.length > 0,
+      enter: () => this.setState({ open: g.label }),
+    }));
+    const stats = [
+      { value: 1240, label: 'Students on roll', d: 0, c: 'c-gold', suffix: '' },
+      { value: 62, label: 'Teachers', d: 0, c: 'c-teal', suffix: '' },
+      { value: 48, label: 'Years since 1978', d: 0, c: 'c-orange', suffix: '' },
+      { value: 98.6, label: 'Plus Two pass rate, March 2026', d: 1, c: 'c-green', suffix: '%' },
+    ].map((s) => ({
+      label: s.label, c: s.c,
+      display: (s.value * t).toLocaleString('en-IN', { minimumFractionDigits: s.d, maximumFractionDigits: s.d }) + s.suffix,
+    }));
+    return {
+      rootRef: this.rootRef,
+      statsRef: this.statsRef,
+      themeClass: isB ? 'theme-b' : 'theme-a',
+      isA: !isB,
+      isB,
+      footLogo: isB ? 'assets/logo-bst-white.svg' : 'assets/logo-bst-red.svg',
+      quickTop: isB ? 'clamp(40px,5cqw,64px)' : '0px',
+      btnMargin: isWide ? '0' : 'auto',
+      isWide,
+      isCompact: !isWide,
+      notPhone: w >= 640,
+      mobileOpen: mobileOpen && !isWide,
+      menuLabel: mobileOpen ? 'Close' : 'Menu',
+      toggleMobile: () => this.setState((s) => ({ mobileOpen: !s.mobileOpen })),
+      closeMenu: () => this.setState({ open: null }),
+      noSubmit: (e) => e.preventDefault(),
+      showMalayalam: this.props.showMalayalam ?? true,
+      showNotice: this.props.showNotice ?? true,
+      nav,
+      stats,
+      quick: [
+        { label: 'Admissions', note: 'Apply and pay fees', c: 'c-red' },
+        { label: 'Academics', note: 'Streams and subjects', c: 'c-blue' },
+        { label: 'Calendar', note: 'What is coming up', c: 'c-green' },
+        { label: 'Downloads', note: 'Circulars and forms', c: 'c-gold' },
+        { label: 'Gallery', note: 'Moments on campus', c: 'c-plum' },
+        { label: 'Contact', note: 'Reach the office', c: 'c-teal' },
+      ],
+      streams: [
+        { c: 'c-blue', ph: 'ph-blue', kicker: 'Stream 01', name: 'Science', file: 'stream-science-lab.jpg', alt: 'stream-science-lab.jpg: students in uniform working at a chemistry lab bench', summary: 'For students aiming at engineering, medicine and the pure sciences. Four well-equipped labs and a 40-seat computer lab.', combos: ['Physics, Chemistry, Mathematics, Biology', 'Physics, Chemistry, Mathematics, Computer Science'] },
+        { c: 'c-gold', ph: 'ph-gold', kicker: 'Stream 02', name: 'Commerce', file: 'stream-commerce-class.jpg', alt: 'stream-commerce-class.jpg: commerce classroom with a teacher at the board', summary: 'Accountancy, business and economics, with a route into B.Com, CA foundation and management courses.', combos: ['Business Studies, Accountancy, Economics, Mathematics', 'Business Studies, Accountancy, Economics, Computer Applications'] },
+        { c: 'c-plum', ph: 'ph-plum', kicker: 'Stream 03', name: 'Humanities', file: 'stream-humanities-library.jpg', alt: 'stream-humanities-library.jpg: students reading in the school library', summary: 'History, society and government, for students heading to law, civil services, journalism and teaching.', combos: ['History, Economics, Political Science, Sociology', 'History, Economics, Political Science, Geography'] },
+      ],
+      steps: [
+        { n: '01', c: 'c-red', title: 'Apply', copy: 'Apply for merit seats through the state single-window portal, or collect the management and community quota form from the school office.' },
+        { n: '02', c: 'c-teal', title: 'We connect', copy: 'The office phones you within three working days to confirm documents, your stream choice and an interview date.' },
+        { n: '03', c: 'c-gold', title: 'Get ready', copy: 'Pay the admission fee online, collect the uniform order slip and textbook list, and join the bridge classes in June.' },
+      ],
+      campus: [
+        { c: 'c-green', ph: 'ph-green', file: 'campus-sports-day.jpg', alt: 'campus-sports-day.jpg: relay race on the school playground during sports day', title: 'Sports day', note: 'Four houses, one playground' },
+        { c: 'c-teal', ph: 'ph-teal', file: 'campus-computer-lab.jpg', alt: 'campus-computer-lab.jpg: students at desktop computers in the computer lab', title: 'Computer lab', note: '40 seats, open after class' },
+        { c: 'c-orange', ph: 'ph-orange', file: 'campus-kerala-piravi.jpg', alt: 'campus-kerala-piravi.jpg: students in traditional dress at the Kerala Piravi assembly', title: 'Kerala Piravi', note: 'Assembly on 1 November' },
+        { c: 'c-red', ph: 'ph-red', file: 'campus-independence-day.jpg', alt: 'campus-independence-day.jpg: flag hoisting and NCC parade on Independence Day', title: 'Independence Day', note: 'Flag hoisting and parade' },
+      ],
+      fees: [
+        { c: 'c-blue', tag: 'Class 11', title: 'Plus One', total: '₹26,400', rows: [
+          { item: 'Admission fee', amount: '₹1,000' }, { item: 'Tuition (annual)', amount: '₹18,000' }, { item: 'Lab and library', amount: '₹3,500' }, { item: 'PTA fund', amount: '₹1,500' }, { item: 'Uniform and ID card', amount: '₹2,400' } ] },
+        { c: 'c-green', tag: 'Class 12', title: 'Plus Two', total: '₹23,600', rows: [
+          { item: 'Tuition (annual)', amount: '₹18,000' }, { item: 'Lab and library', amount: '₹3,500' }, { item: 'PTA fund', amount: '₹1,500' }, { item: 'Board examination fee', amount: '₹600' } ] },
+      ],
+      toppers: [
+        { c: 'c-blue', ph: 'ph-blue', name: 'Anjali Menon', subtitle: 'Science', file: 'topper-anjali-menon.jpg', alt: 'topper-anjali-menon.jpg: portrait of a Plus Two topper in school uniform' },
+        { c: 'c-blue', ph: 'ph-blue', name: 'Rahul Krishnan', subtitle: 'Science', file: 'topper-rahul-krishnan.jpg', alt: 'topper-rahul-krishnan.jpg: portrait of a Plus Two topper in school uniform' },
+        { c: 'c-gold', ph: 'ph-gold', name: 'Fathima Nasrin', subtitle: 'Commerce', file: 'topper-fathima-nasrin.jpg', alt: 'topper-fathima-nasrin.jpg: portrait of a Plus Two topper in school uniform' },
+        { c: 'c-plum', ph: 'ph-plum', name: 'Alan Thomas', subtitle: 'Humanities', file: 'topper-alan-thomas.jpg', alt: 'topper-alan-thomas.jpg: portrait of a Plus Two topper in school uniform' },
+      ],
+      news: [
+        { c: 'c-plum', ph: 'ph-plum', cat: 'Culture', date: '2 November 2026', title: 'Kerala Piravi marked with a morning assembly in Malayalam', excerpt: 'Students read from Vallathol and Sugathakumari, and the Humanities batch staged a short play on the formation of the state.', file: 'news-kerala-piravi.jpg', alt: 'news-kerala-piravi.jpg: students on stage at the Kerala Piravi assembly' },
+        { c: 'c-blue', ph: 'ph-blue', cat: 'Science', date: '10 October 2026', title: 'Science students place first at the district science fair', excerpt: 'A Plus One team won the working-model category with a low-cost water quality tester for household wells.', file: 'news-science-fair.jpg', alt: 'news-science-fair.jpg: three students presenting a working model at a science fair stall' },
+        { c: 'c-orange', ph: 'ph-orange', cat: 'Onam', date: '27 August 2026', title: 'Onam on campus: pookkalam contest and a sadya for 1,200', excerpt: 'Every batch laid a pookkalam in the courtyard before lunch was served on banana leaves in the auditorium.', file: 'news-onam-pookkalam.jpg', alt: 'news-onam-pookkalam.jpg: a large flower pookkalam in the school courtyard' },
+      ],
+      events: [
+        { c: 'c-green', day: '05', month: 'Dec', title: 'Annual sports day', meta: 'School playground · 8:30 am' },
+        { c: 'c-red', day: '18', month: 'Dec', title: 'Christmas celebration and term closing', meta: 'Auditorium · 10:00 am' },
+        { c: 'c-orange', day: '26', month: 'Jan', title: 'Republic Day flag hoisting', meta: 'Front courtyard · 8:00 am' },
+        { c: 'c-plum', day: '12', month: 'Feb', title: 'Plus One open day for parents', meta: 'Labs and classrooms · 9:30 am' },
+      ],
+      faculty: [
+        { c: 'c-blue', ph: 'ph-blue', name: 'Rajeev Nair', role: 'HSST Physics', detail: 'M.Sc., B.Ed. · 18 years', file: 'faculty-rajeev-nair.jpg', alt: 'faculty-rajeev-nair.jpg: portrait of a physics teacher' },
+        { c: 'c-teal', ph: 'ph-teal', name: 'Deepa Thomas', role: 'HSST Mathematics', detail: 'M.Sc., M.Ed. · 14 years', file: 'faculty-deepa-thomas.jpg', alt: 'faculty-deepa-thomas.jpg: portrait of a mathematics teacher' },
+        { c: 'c-gold', ph: 'ph-gold', name: 'Abdul Rasheed', role: 'HSST Commerce', detail: 'M.Com., B.Ed. · 11 years', file: 'faculty-abdul-rasheed.jpg', alt: 'faculty-abdul-rasheed.jpg: portrait of a commerce teacher' },
+        { c: 'c-plum', ph: 'ph-plum', name: 'Lakshmi Pillai', role: 'HSST Malayalam', detail: 'M.A., B.Ed. · 21 years', file: 'faculty-lakshmi-pillai.jpg', alt: 'faculty-lakshmi-pillai.jpg: portrait of a Malayalam teacher' },
+      ],
+      quotes: [
+        { c: 'c-red', text: '“The class teacher called us when our daughter’s marks dipped in Plus One, and followed up every month after that.”', name: 'Sreekumar P.', role: 'Parent, Plus Two Science' },
+        { c: 'c-green', text: '“I came for the Commerce batch and left with friends from every stream. The NSS camps taught me as much as the classroom.”', name: 'Nimmy Jose', role: 'Alumna, 2021 batch' },
+        { c: 'c-blue', text: '“Lab hours are generous. My son had done every practical twice before the board examination.”', name: 'Shahana K.', role: 'Parent, Plus Two Science' },
+      ],
+      footerCols: [
+        { title: 'The school', links: ['Our story', "Principal's message", 'Academics', 'Staff directory', 'Departments'] },
+        { title: 'Campus life', links: ['Facilities', 'Clubs & activities', 'Photo gallery', 'Events', 'Achievements'] },
+        { title: 'For parents', links: ['Admissions & fees', 'News', 'Downloads', 'Contact the office'] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

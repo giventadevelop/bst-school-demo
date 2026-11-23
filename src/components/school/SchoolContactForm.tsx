@@ -5,8 +5,7 @@ import { buildContactFormPayload } from '@/lib/contactForm';
 
 type Status = 'idle' | 'sending' | 'sent' | 'failed';
 
-const FIELD =
-  'mt-1.5 w-full rounded-xl border border-sch-border-input bg-sch-surface px-4 py-3 text-base text-sch-text placeholder:text-sch-muted/70';
+const FIELD = 'input mt-1.5';
 
 export default function SchoolContactForm() {
   const [status, setStatus] = useState<Status>('idle');
@@ -54,7 +53,7 @@ export default function SchoolContactForm() {
 
   if (status === 'sent') {
     return (
-      <div role="status" className="mt-6 rounded-xl border border-sch-success/40 bg-sch-success/10 p-5">
+      <div role="status" className="panel c-green mt-6">
         <p className="font-semibold text-sch-success">Thank you. Your message has been sent.</p>
         <p className="mt-1 text-sm text-sch-muted">The school office will reply to the email address you gave.</p>
         <button type="button" onClick={() => setStatus('idle')} className="mt-4 text-sm font-semibold text-sch-accent underline underline-offset-4">
@@ -95,7 +94,7 @@ export default function SchoolContactForm() {
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-sch-accent px-8 text-sm font-semibold text-sch-on-accent transition-colors hover:bg-sch-accent-strong disabled:opacity-60"
+          className="btn btn-primary"
         >
           {status === 'sending' ? 'Sending…' : 'Send message'}
         </button>

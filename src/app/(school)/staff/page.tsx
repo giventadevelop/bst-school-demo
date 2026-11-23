@@ -45,7 +45,7 @@ export default async function SchoolStaffPage() {
               <a
                 key={category}
                 href={`#${anchor(category)}`}
-                className="rounded-full border border-sch-border bg-sch-surface px-4 py-2 text-sm font-semibold text-sch-accent hover:border-sch-accent"
+                className="btn btn-outline"
               >
                 {humanize(category)}
               </a>

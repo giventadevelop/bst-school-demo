@@ -48,9 +48,12 @@ export async function fetchPublishedPublicProfileForPagesServer(): Promise<Publi
  */
 export async function fetchTenantOrganizationForProfilePagesServer(): Promise<TenantOrganizationDTO | null> {
   try {
+    // This list endpoint does not apply tenantId.equals, so an unsorted page can change
+    // which organization is first after an update. Keep id order so the school name stays put.
     const params = new URLSearchParams({
       'tenantId.equals': getTenantId(),
       size: '1',
+      sort: 'id,asc',
     });
     const res = await fetchWithJwtRetry(`${getApiBase()}/api/tenant-organizations?${params}`, {
       cache: 'no-store',

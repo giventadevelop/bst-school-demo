@@ -3,9 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, LogOut, User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { adminSubmenuItems } from '@/components/header/adminSubmenuItems';
 import { useHeaderAuth } from '@/components/header/useHeaderAuth';
 
 const DESKTOP_DROPDOWN_PANEL =
@@ -134,84 +133,6 @@ function MoscUserAvatarDropdown({
   );
 }
 
-function AdminDesktopDropdown({ pathname }: { pathname: string | null }) {
-  return (
-    <div className="group relative shrink-0">
-      <Link
-        href="/admin"
-        className={`inline-flex items-center gap-1 whitespace-nowrap px-3 py-1.5 text-sm font-semibold tracking-wide antialiased transition-colors duration-200 no-underline visited:no-underline ${
-          pathname?.startsWith('/admin')
-            ? 'text-burgundy-dark'
-            : 'text-burgundy/90 visited:text-burgundy/90 hover:text-burgundy'
-        }`}
-      >
-        <span>Admin</span>
-        <ChevronDown size={14} className="opacity-80" aria-hidden />
-      </Link>
-      <div
-        className={`${DESKTOP_DROPDOWN_PANEL} invisible w-64 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100`}
-        role="menu"
-        aria-label="Admin panel"
-      >
-        <ul className="py-2" role="none">
-          {adminSubmenuItems.map((subItem) => {
-            const hasDropdown = subItem.dropdown && Array.isArray(subItem.dropdown);
-            if (hasDropdown && subItem.dropdown) {
-              const isMembershipActive = subItem.dropdown.some((sub) =>
-                pathname?.startsWith(sub.href)
-              );
-              return (
-                <li key={subItem.name} className="group/membership relative" role="none">
-                  <div
-                    className={`${DESKTOP_SUBMENU_LINK} flex cursor-pointer items-center justify-between ${
-                      isMembershipActive ? DESKTOP_SUBMENU_ACTIVE : DESKTOP_SUBMENU_IDLE
-                    }`}
-                  >
-                    <span>{subItem.name}</span>
-                    <ChevronDown size={12} aria-hidden />
-                  </div>
-                  <div
-                    className={`${DESKTOP_DROPDOWN_PANEL} invisible absolute left-full top-0 ml-1 w-48 opacity-0 group-hover/membership:visible group-hover/membership:opacity-100`}
-                    role="menu"
-                  >
-                    <ul className="py-2" role="none">
-                      {subItem.dropdown.map((subSubItem) => {
-                        const active = pathname?.startsWith(subSubItem.href);
-                        return (
-                          <li key={subSubItem.name} role="none">
-                            <Link
-                              href={subSubItem.href}
-                              className={`${DESKTOP_SUBMENU_LINK} ${active ? DESKTOP_SUBMENU_ACTIVE : DESKTOP_SUBMENU_IDLE}`}
-                              role="menuitem"
-                            >
-                              {subSubItem.name}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                </li>
-              );
-            }
-            const active = pathname?.startsWith(subItem.href);
-            return (
-              <li key={subItem.name} role="none">
-                <Link
-                  href={subItem.href}
-                  className={`${DESKTOP_SUBMENU_LINK} ${active ? DESKTOP_SUBMENU_ACTIVE : DESKTOP_SUBMENU_IDLE}`}
-                  role="menuitem"
-                >
-                  {subItem.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
-  );
-}
 
 type MoscRedesignHeaderAuthProps = {
   layout: 'desktop' | 'mobile';
@@ -222,13 +143,9 @@ export default function MoscRedesignHeaderAuth({
   layout,
   onCloseMobileMenu,
 }: MoscRedesignHeaderAuthProps) {
-  const pathname = usePathname();
-  const { userId, isLoaded, user, isAdmin, isSigningOut, handleSignOut } = useHeaderAuth({
+  const { userId, isLoaded, user, isSigningOut, handleSignOut } = useHeaderAuth({
     logPrefix: '[MoscRedesignHeaderAuth]',
   });
-  const [openMobileAdminDropdowns, setOpenMobileAdminDropdowns] = useState<Record<string, boolean>>(
-    {}
-  );
 
   if (!isLoaded) return null;
 
@@ -254,7 +171,6 @@ export default function MoscRedesignHeaderAuth({
 
     return (
       <div className="flex shrink-0 flex-nowrap items-center gap-2 sm:gap-3">
-        {isAdmin && <AdminDesktopDropdown pathname={pathname} />}
         <MoscUserAvatarDropdown user={user} onSignOut={handleSignOut} isSigningOut={isSigningOut} />
       </div>
     );
@@ -337,82 +253,6 @@ export default function MoscRedesignHeaderAuth({
         <span>{isSigningOut ? 'Signing Out...' : 'Sign Out'}</span>
       </button>
 
-      {isAdmin && (
-        <div className="mt-4 border-t border-burgundy/15 pt-4">
-          <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-wider text-burgundy/70">
-            Admin Panel
-          </p>
-          <div className="space-y-0.5">
-            {adminSubmenuItems.map((subItem) => {
-              const hasDropdown = subItem.dropdown && Array.isArray(subItem.dropdown);
-              const dropdownKey = `admin-${subItem.name}`;
-              const isDropdownOpen = openMobileAdminDropdowns[dropdownKey] || false;
-
-              if (hasDropdown && subItem.dropdown) {
-                return (
-                  <div key={subItem.name}>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setOpenMobileAdminDropdowns((prev) => ({
-                          ...prev,
-                          [dropdownKey]: !prev[dropdownKey],
-                        }))
-                      }
-                      className="flex w-full items-center justify-between rounded-md px-2.5 py-2 text-sm font-semibold text-burgundy-dark transition-colors hover:bg-burgundy/8"
-                      aria-expanded={isDropdownOpen}
-                    >
-                      <span>{subItem.name}</span>
-                      <ChevronDown
-                        size={14}
-                        className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
-                        aria-hidden
-                      />
-                    </button>
-                    {isDropdownOpen && (
-                      <ul className="mb-1 ml-4 mt-1 space-y-0.5 border-l-2 border-burgundy/25 pl-3">
-                        {subItem.dropdown.map((subSubItem) => {
-                          const active = pathname?.startsWith(subSubItem.href);
-                          return (
-                            <li key={subSubItem.name}>
-                              <Link
-                                href={subSubItem.href}
-                                className={`block rounded-md py-2 px-2 text-xs font-semibold no-underline transition-colors ${
-                                  active
-                                    ? 'bg-parchment-light text-burgundy-dark border-l-[3px] border-warmGold-light'
-                                    : 'text-burgundy/85 hover:bg-burgundy/8 hover:text-burgundy'
-                                }`}
-                                onClick={onCloseMobileMenu}
-                              >
-                                {subSubItem.name}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </div>
-                );
-              }
-
-              return (
-                <Link
-                  key={subItem.name}
-                  href={subItem.href}
-                  className={`block rounded-md px-2.5 py-2 text-sm font-semibold no-underline transition-colors ${
-                    pathname?.startsWith(subItem.href)
-                      ? 'bg-parchment-light text-burgundy-dark border-l-[3px] border-warmGold-light'
-                      : 'text-burgundy-dark hover:bg-burgundy/8'
-                  }`}
-                  onClick={onCloseMobileMenu}
-                >
-                  {subItem.name}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

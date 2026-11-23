@@ -13,7 +13,7 @@ export default async function SchoolShell({ children }: { children: ReactNode })
     <div className={`${schoolThemeClass} flex min-h-screen flex-col`}>
       <a
         href="#school-main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-sch-accent focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-sch-on-accent"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:btn focus:btn-primary"
       >
         Skip to content
       </a>

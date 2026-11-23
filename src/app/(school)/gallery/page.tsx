@@ -36,7 +36,7 @@ export default async function SchoolGalleryPage() {
                       ) : (
                         <div aria-hidden className="sch-weave h-full w-full bg-sch-accent" />
                       )}
-                      <span className="absolute bottom-3 right-3 rounded-full bg-sch-ink px-3 py-1 text-xs font-semibold text-sch-on-ink">
+                      <span className="tag t-solid absolute bottom-3 right-3">
                         {totalMediaCount} {totalMediaCount === 1 ? 'photo' : 'photos'}
                       </span>
                     </div>

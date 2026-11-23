@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';
 import { PollDetailsPage } from './PollDetailsPage';
-import { fetchEventPollServer, fetchEventPollOptionsServer } from '@/app/admin/polls/ApiServerActions';
+import { fetchEventPollServer, fetchEventPollOptionsServer } from '@/lib/polls/pollServer';
 import { fetchUserProfileServer } from '@/app/profile/ApiServerActions';
 import type { EventPollDTO, EventPollOptionDTO } from '@/types';
 import PollsPageBackground from '../PollsPageBackground';

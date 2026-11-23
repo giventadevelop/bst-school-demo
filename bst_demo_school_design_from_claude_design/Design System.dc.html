@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BST Higher Secondary · Design System</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="school-ds.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&family=Noto+Sans+Malayalam:wght@400;600;800&display=swap">
+<style>
+body{margin:0}
+.ds-sec{padding:56px 0;border-bottom:1px solid var(--line)}
+.ds-h{font:600 clamp(26px,3cqw,32px)/1.2 var(--font);margin:0 0 8px}
+.ds-sub{margin:0 0 28px;max-width:70ch;color:var(--body)}
+.sw{display:flex;flex-direction:column;gap:6px}
+.sw i{display:block;height:72px;border-radius:8px;border:1px solid var(--line)}
+.sw b{font:600 14px/18px var(--font)}
+.sw span{font:400 12px/16px ui-monospace,Menlo,monospace;color:var(--muted)}
+.grid{display:grid;gap:20px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.lab{font:600 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:28px 0 12px}
+.spec{display:grid;grid-template-columns:minmax(110px,170px) minmax(0,1fr);gap:18px 24px;align-items:baseline}
+.spec>span:nth-child(odd){font:500 13px/18px var(--font);color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:8px;font:500 13px/18px var(--font)}
+.chip i{width:14px;height:14px;border-radius:50%;display:inline-block}
+</style>
+</helmet>
+<div class="site theme-a" style="background:#fff">
+<div class="wrap" style="padding-bottom:96px">
+
+<header style="padding:clamp(40px,6cqw,80px) 0 48px;border-bottom:1px solid var(--line)">
+  <p class="kicker">BST Higher Secondary · design system</p>
+  <h1 class="h1" style="max-width:15ch;margin-bottom:24px">Crisp, bright and <span class="hl">Kerala-coloured</span>.</h1>
+  <p class="lead" style="max-width:68ch">Roboto, brand red #B1040E for every action, 4px buttons, 8px cards and a seven-colour palette that gives each stream, event and result its own colour. Nothing here depends on the earlier Modernist system. Pages: <a href="School Redesign.dc.html">Home, directions A and B</a>. Everything is defined in <code>school-ds.css</code>, which maps one-to-one onto the Tailwind theme for handoff.</p>
+</header>
+
+<section data-screen-label="Color" class="ds-sec">
+  <h2 class="ds-h">Color</h2>
+  <p class="ds-sub">Red is the only action colour. Every other hue has a job: it marks a stream, a campus area, an event type or a result, and always comes as a strong tone plus a soft 50 tint with a dark text tone that passes AA.</p>
+  <p class="lab" style="margin-top:0">Brand and neutrals</p>
+  <div class="grid g4">
+    <div class="sw"><i style="background:var(--red)"></i><b>Brand red</b><span>--red #B1040E · 7.2:1 on white</span></div>
+    <div class="sw"><i style="background:var(--red-600)"></i><b>Red hover</b><span>--red-600 #8F030B</span></div>
+    <div class="sw"><i style="background:var(--red-700)"></i><b>Red pressed</b><span>--red-700 #750209</span></div>
+    <div class="sw"><i style="background:var(--red-50)"></i><b>Red tint</b><span>--red-50 #FBEAEB</span></div>
+    <div class="sw"><i style="background:var(--ink)"></i><b>Ink</b><span>--ink #1E1E1E · headings, dark bands</span></div>
+    <div class="sw"><i style="background:var(--body)"></i><b>Body text</b><span>ink at 76% · 7.5:1</span></div>
+    <div class="sw"><i style="background:var(--mist)"></i><b>Mist</b><span>--mist #F6F6F6 · light sections</span></div>
+    <div class="sw"><i style="background:#fff"></i><b>White</b><span>#FFFFFF</span></div>
+  </div>
+  <p class="lab">Kerala palette · strong tone, tint, text tone</p>
+  <div class="grid g3">
+    <div class="c-blue panel"><p class="chip"><i style="background:var(--c)"></i>Backwater blue · Science</p><div style="display:flex;gap:8px;margin-top:10px"><i style="flex:1;height:44px;border-radius:6px;background:var(--blue)"></i><i style="flex:1;height:44px;border-radius:6px;background:var(--blue-300)"></i><i style="flex:1;height:44px;border-radius:6px;background:#fff;border:1px solid var(--line)"></i></div><p class="ct" style="margin:10px 0 0;font:600 14px/20px var(--font)">#0F5E9C · 6.8:1 · tint #E5F0F9</p></div>
+    <div class="c-gold panel"><p class="chip"><i style="background:var(--c)"></i>Turmeric gold · Commerce</p><div style="display:flex;gap:8px;margin-top:10px"><i style="flex:1;height:44px;border-radius:6px;background:var(--gold)"></i><i style="flex:1;height:44px;border-radius:6px;background:var(--gold-300)"></i><i style="flex:1;height:44px;border-radius:6px;background:#fff;border:1px solid var(--line)"></i></div><p class="ct" style="margin:10px 0 0;font:600 14px/20px var(--font)">fill #F2B01E + ink text 8.7:1 · text #8A5A00 5.9:1 · tint #FDF3D8</p></div>
+    <div class="c-plum panel"><p class="chip"><i style="background:var(--c)"></i>Plum · Humanities</p><div style="display:flex;gap:8px;margin-top:10px"><i style="flex:1;height:44px;border-radius:6px;background:var(--plum)"></i><i style="flex:1;height:44px;border-radius:6px;background:var(--plum-300)"></i><i style="flex:1;height:44px;border-radius:6px;background:#fff;border:1px solid var(--line)"></i></div><p class="ct" style="margin:10px 0 0;font:600 14px/20px var(--font)">#8E2C6B · 7.7:1 · tint #F5E6EF</p></div>
+    <div class="c-green panel"><p class="chip"><i style="background:var(--c)"></i>Kerala green · campus, results, Direction B lead</p><div style="display:flex;gap:8px;margin-top:10px"><i style="flex:1;height:44px;border-radius:6px;background:var(--green)"></i><i style="flex:1;height:44px;border-radius:6px;background:var(--green-900)"></i><i style="flex:1;height:44px;border-radius:6px;background:var(--green-300)"></i></div><p class="ct" style="margin:10px 0 0;font:600 14px/20px var(--font)">#0B6B4B · 6.5:1 · deep #083D2C · tint #E6F3EC</p></div>
+    <div class="c-teal panel"><p class="chip"><i style="background:var(--c)"></i>Lagoon teal · labs, computing, steps</p><div style="display:flex;gap:8px;margin-top:10px"><i style="flex:1;height:44px;border-radius:6px;background:var(--teal)"></i><i style="flex:1;height:44px;border-radius:6px;background:var(--teal-300)"></i><i style="flex:1;height:44px;border-radius:6px;background:#fff;border:1px solid var(--line)"></i></div><p class="ct" style="margin:10px 0 0;font:600 14px/20px var(--font)">#0E7C86 · 4.9:1 · tint #E1F3F4</p></div>
+    <div class="c-orange panel"><p class="chip"><i style="background:var(--c)"></i>Marigold · Onam, Republic Day</p><div style="display:flex;gap:8px;margin-top:10px"><i style="flex:1;height:44px;border-radius:6px;background:var(--marigold)"></i><i style="flex:1;height:44px;border-radius:6px;background:var(--marigold-300)"></i><i style="flex:1;height:44px;border-radius:6px;background:#fff;border:1px solid var(--line)"></i></div><p class="ct" style="margin:10px 0 0;font:600 14px/20px var(--font)">fill #E8710A + ink text 5.4:1 · text #9A4A00 6.2:1 · tint #FDEBD9</p></div>
+  </div>
+  <p class="lab">The two directions</p>
+  <div class="grid g3">
+    <div style="border-radius:8px;overflow:hidden;border:1px solid var(--line)"><div style="display:flex;height:56px"><i style="flex:1;background:#fff"></i><i style="flex:1;background:#F6F6F6"></i><i style="flex:1;background:#1E1E1E"></i><i style="flex:1;background:var(--red)"></i></div><p style="margin:0;padding:12px 14px;font-size:14px;line-height:22px"><b>A · corporate.</b> White and mist grounds, ink stats band, red CTA. Colour arrives through the streams and accents.</p></div>
+    <div style="border-radius:8px;overflow:hidden;border:1px solid var(--line)"><div style="display:flex;height:56px"><i style="flex:1;background:#FFFBF2"></i><i style="flex:1;background:#F4EEDF"></i><i style="flex:1;background:#083D2C"></i><i style="flex:1;background:#0B6B4B"></i><i style="flex:1;background:#F2B01E"></i></div><p style="margin:0;padding:12px 14px;font-size:14px;line-height:22px"><b>B · warm Kerala.</b> Cream grounds, deep green bands and footer, gold highlights. Red stays on every action.</p></div>
+    <div class="panel c-gold"><p style="margin:0;font-size:14px;line-height:22px"><b>Body text note.</b> The brief's 60% ink measures about 4.4:1 on white and less on mist, which fails AA. Body text uses 76% (7.5:1); small captions use 68% (5.3:1).</p></div>
+  </div>
+</section>
+
+<section data-screen-label="Type" class="ds-sec">
+  <h2 class="ds-h">Type</h2>
+  <p class="ds-sub">Roboto for everything, with Noto Sans Malayalam as the fallback so a Malayalam line never drops to a system font. Sizes are desktop; they scale down with the container.</p>
+  <div class="spec">
+    <span>H1 · 800<br>80 → 42</span><span class="h1">Plus One, Plus Two</span>
+    <span>H2 · 600<br>44 → 30</span><span class="h2">Three streams, six combinations</span>
+    <span>H3 · 600<br>36 → 26</span><span class="h3">Science</span>
+    <span>H4 · 600 · 24</span><span class="h4">Apply</span>
+    <span>H5 · 600 · 18</span><span class="h5">Dr. Mary Kurian</span>
+    <span>Lead · 400 · 20</span><span class="lead">We stay in touch with every family.</span>
+    <span>Body · 400 · 16/26</span><span class="body">Class teachers meet parents each term, and the labs stay open after hours before practical exams.</span>
+    <span>Small · 14/22</span><span class="muted" style="font-size:14px;line-height:22px">School playground · 8:30 am</span>
+    <span>Kicker · 600 · 13</span><span class="kicker" style="margin:0">From the principal's desk</span>
+    <span>Malayalam<br>Noto Sans Malayalam</span><span lang="ml" class="ml" style="font-weight:800;font-size:clamp(30px,4cqw,48px);color:var(--green)">അറിവാണ് വെളിച്ചം</span>
+  </div>
+  <p class="muted" style="margin:24px 0 0;font-size:14px;line-height:22px;max-width:72ch">Font stack for handoff: Roboto, "Noto Sans Malayalam", system-ui, sans-serif. Malayalam needs line-height 1.4 or more so vowel signs do not clip. Highlight marker (<span class="hl">like this</span>) is used once per page, on one word of the hero.</p>
+</section>
+
+<section data-screen-label="Layout" class="ds-sec">
+  <h2 class="ds-h">Layout and shape</h2>
+  <div class="grid g3" style="margin-top:24px">
+    <div class="panel c-blue"><p class="h5 ct" style="margin:0 0 6px">Content width</p><p style="margin:0;font-size:14px;line-height:22px">1280px max, gutters 20px on mobile up to 64px on desktop.</p></div>
+    <div class="panel c-green"><p class="h5 ct" style="margin:0 0 6px">Spacing</p><p style="margin:0;font-size:14px;line-height:22px">8px grid: 4, 8, 12, 16, 24, 32, 40. Sections 56px to 104px top and bottom.</p></div>
+    <div class="panel c-gold"><p class="h5 ct" style="margin:0 0 6px">Radius</p><p style="margin:0;font-size:14px;line-height:22px">Buttons and fields 4px, cards and panels 8px, avatars and step numbers round.</p></div>
+    <div class="panel c-plum"><p class="h5 ct" style="margin:0 0 6px">Depth</p><p style="margin:0;font-size:14px;line-height:22px">Hairline border plus a very soft shadow on cards. Hover lifts 3px and deepens the shadow.</p></div>
+    <div class="panel c-teal"><p class="h5 ct" style="margin:0 0 6px">Alternating grounds</p><p style="margin:0;font-size:14px;line-height:22px">White and mist sections alternate; a dark band and a full-width image band break the rhythm.</p></div>
+    <div class="panel c-orange"><p class="h5 ct" style="margin:0 0 6px">Breakpoints</p><p style="margin:0;font-size:14px;line-height:22px">Mobile under 640px, tablet 640–1079px, desktop 1080px up. Layouts respond to the container width.</p></div>
+  </div>
+</section>
+
+<section data-screen-label="Buttons" class="ds-sec">
+  <h2 class="ds-h">Buttons and tags</h2>
+  <p class="ds-sub">4px radius, 600 weight, 44px minimum height. Red fill is the primary action everywhere; outline is secondary; text buttons carry quiet links.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px">
+    <button type="button" class="btn btn-primary btn-lg">Apply for Plus One <span aria-hidden="true">→</span></button>
+    <button type="button" class="btn btn-outline btn-lg">Explore the streams</button>
+    <button type="button" class="btn btn-text">All departments <span aria-hidden="true">→</span></button>
+    <button type="button" class="btn btn-primary btn-lg" disabled>Sending…</button>
+  </div>
+  <p class="lab" style="margin-top:20px">States · default, hover, pressed, focus, disabled</p>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px">
+    <span class="btn btn-primary">Default</span>
+    <span class="btn btn-primary" style="background:var(--red-600)">Hover</span>
+    <span class="btn btn-primary" style="background:var(--red-700)">Pressed</span>
+    <span class="btn btn-primary" style="outline:3px solid var(--focus);outline-offset:2px">Focus</span>
+    <span class="btn btn-primary is-disabled">Disabled</span>
+    <span class="btn btn-outline">Outline</span>
+    <span class="btn btn-outline" style="background:var(--red-50)">Outline hover</span>
+  </div>
+  <p class="lab">On colour and on dark</p>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:20px">
+    <button type="button" class="btn btn-green">Green · Direction B</button>
+    <button type="button" class="btn btn-gold">Gold · on dark</button>
+    <div class="on-dark" style="background:var(--band);padding:12px;display:flex;gap:12px;border-radius:8px"><button type="button" class="btn btn-line-light">Facilities <span aria-hidden="true">→</span></button><button type="button" class="btn btn-white">Ask the office</button></div>
+  </div>
+  <div style="max-width:320px;margin-bottom:24px"><button type="button" class="btn btn-block" style="background:var(--blue-50);color:var(--blue-600)!important">Subjects and faculty <span aria-hidden="true">→</span></button></div>
+  <p class="lab">Tags</p>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <span class="tag t-solid">Notice</span><span class="tag t-red">Admissions</span><span class="tag t-blue">Science</span><span class="tag t-gold">Commerce</span><span class="tag t-plum">Humanities</span><span class="tag t-green">Results</span><span class="tag t-teal">Labs</span><span class="tag t-orange">Onam</span>
+  </div>
+</section>
+
+<section data-screen-label="Cards" class="ds-sec">
+  <h2 class="ds-h">Cards and rows</h2>
+  <p class="ds-sub">Set <code>c-blue</code>, <code>c-gold</code> and the rest on a card and it recolours its stripe, tag, bullets and button.</p>
+  <div class="grid g3" style="align-items:start">
+    <article class="card stripe c-blue">
+      <div class="ph ph-blue" style="aspect-ratio:4/3"><span class="ph-label">stream-science-lab.jpg · 4:3</span></div>
+      <div style="padding:24px"><span class="tag" style="background:var(--c50);color:var(--ct)">Stream 01</span><h3 class="h3" style="margin:12px 0 8px;font-size:28px">Stream card</h3><p class="body" style="margin:0 0 16px">Image 4:3, stream tag, title, summary, bulleted combinations and a tinted block button.</p><button type="button" class="btn btn-block" style="background:var(--c50);color:var(--ct)!important">Subjects and faculty <span aria-hidden="true">→</span></button></div>
+    </article>
+    <article class="card c-orange">
+      <div class="ph ph-orange" style="aspect-ratio:16/10"><span class="ph-label">news-onam-pookkalam.jpg · 16:10</span></div>
+      <div style="padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;align-items:center;gap:10px"><span class="tag" style="background:var(--c50);color:var(--ct)">Onam</span><span class="muted" style="font-size:13px">27 August 2026</span></div><span style="font:600 21px/1.3 var(--font)">News card</span><span class="body" style="font-size:15px;line-height:24px">Image 16:10, category tag, date, title, excerpt.</span></div>
+    </article>
+    <article class="card stripe c-plum">
+      <div class="ph ph-plum" style="aspect-ratio:1/1"><span class="ph-label">faculty-lakshmi-pillai.jpg · 1:1</span></div>
+      <div style="padding:16px 16px 20px"><h3 class="h5" style="margin:0 0 2px">Person card</h3><p class="ct" style="margin:0;font-size:14px;line-height:22px;font-weight:600">HSST Malayalam</p><p class="muted" style="margin:0;font-size:14px;line-height:22px">M.A., B.Ed. · 21 years</p></div>
+    </article>
+  </div>
+  <div class="grid g3" style="margin-top:20px;align-items:start">
+    <a href="#" class="row c-green"><span class="date" aria-hidden="true"><b>05</b><span>Dec</span></span><span><span style="display:block;font:600 19px/26px var(--font)">Event row</span><span class="muted" style="display:block;font-size:14px;line-height:22px">Date block, title, place</span></span><span aria-hidden="true" style="color:var(--c)">→</span></a>
+    <a href="#" class="tile c-teal"><span class="ico" aria-hidden="true">→</span><b>Quick link tile</b><small>Tint ground, colour icon</small></a>
+    <figure class="quote c-green" style="padding-top:36px"><blockquote style="margin:0;font:500 17px/1.55 var(--font)">“Testimonial on a tinted card with a colour edge.”</blockquote><figcaption class="muted" style="font-size:14px"><b class="ct" style="display:block;font-size:16px">Parent name</b>Parent, Plus Two Science</figcaption></figure>
+  </div>
+</section>
+
+<section data-screen-label="Navigation" class="ds-sec">
+  <h2 class="ds-h">Navigation</h2>
+  <div style="border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:24px">
+    <div class="topbar"><div style="padding:8px 20px;display:flex;flex-wrap:wrap;gap:4px 24px;justify-content:flex-end"><a href="#">+91 00000 00000</a><a href="#">office@bsthss.example</a><a href="#" style="font-weight:600">Sign in</a></div></div>
+    <div class="nav" style="padding:0 20px;min-height:76px;gap:28px;white-space:nowrap;overflow:hidden">
+      <span style="display:flex;align-items:center;gap:12px;flex:none"><img src="assets/logo-bst-red.svg" alt="Placeholder crest" width="44" height="44"><span style="font-weight:700;font-size:18px">BST Higher Secondary</span></span>
+      <span style="display:flex;align-self:stretch;gap:28px;margin-left:auto"><a href="#" class="nav-link" aria-current="page">Home</a><a href="#" class="nav-link">About</a><a href="#" class="nav-link">Campus life</a><a href="#" class="nav-link">Updates</a></span>
+      <a href="#" class="btn btn-primary" style="flex:none">Admissions <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:32px;margin-top:24px;align-items:flex-start">
+    <div class="menu" style="position:static;min-width:230px;border-radius:8px"><a href="#">Facilities</a><a href="#" style="background:var(--red-50);color:var(--red)!important">Clubs &amp; activities</a><a href="#">Photo gallery</a></div>
+    <p class="body" style="flex:1 1 300px;margin:0;font-size:14px;line-height:22px;max-width:62ch">Sticky header with a utility bar. The demo is abridged; the live header carries all six groups from SchoolNav.tsx. Dropdowns open on hover and keyboard focus. The current page has a red underline. Below 1080px the menu becomes a "Menu" button that opens a full-width list, with Admissions and Sign in as block buttons.</p>
+  </div>
+</section>
+
+<section data-screen-label="Forms" class="ds-sec">
+  <h2 class="ds-h">Forms</h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px 24px;max-width:880px;margin-top:24px">
+    <div class="field"><label for="ds-name">Full name</label><input id="ds-name" class="input" type="text" placeholder="Anjali Menon"></div>
+    <div class="field"><label for="ds-email">Email</label><input id="ds-email" class="input" type="email" placeholder="parent@example.com"></div>
+    <div class="field"><label for="ds-phone">Phone (optional)</label><input id="ds-phone" class="input" type="tel" placeholder="+91 00000 00000"></div>
+    <div class="field"><label for="ds-err">Subject</label><input id="ds-err" class="input" type="text" aria-invalid="true" aria-describedby="ds-err-m"><p id="ds-err-m" class="err">Enter a subject for your enquiry.</p></div>
+    <div class="field" style="grid-column:1 / -1"><label for="ds-msg">Message</label><textarea id="ds-msg" class="input" rows="4"></textarea></div>
+    <div class="field"><span style="font:500 14px/20px var(--font)">Stream</span><div class="seg" style="align-self:flex-start"><label><input type="radio" name="ds-stream" checked>Science</label><label><input type="radio" name="ds-stream">Commerce</label><label><input type="radio" name="ds-stream">Humanities</label></div></div>
+    <div class="field"><span style="font:500 14px/20px var(--font)">Class</span><div style="display:flex;gap:20px"><label class="radio"><input type="radio" name="ds-class" checked>Plus One</label><label class="radio"><input type="radio" name="ds-class">Plus Two</label></div></div>
+    <div style="grid-column:1 / -1"><button type="button" class="btn btn-primary btn-lg">Send message <span aria-hidden="true">→</span></button></div>
+  </div>
+  <p class="muted" style="margin:20px 0 0;font-size:14px;line-height:22px">Labels sit above fields. Focus is a blue ring plus border so it reads on white, tints and red. Errors use 2px red borders with a message, never colour alone.</p>
+</section>
+
+<section data-screen-label="Table" class="ds-sec">
+  <h2 class="ds-h">Fee table</h2>
+  <div class="card stripe c-blue" style="max-width:460px;padding:24px;margin-top:24px">
+    <span class="tag" style="align-self:flex-start;background:var(--c50);color:var(--ct);margin-bottom:10px">Class 11</span>
+    <table class="table"><thead><tr><th scope="col">Item</th><th scope="col" class="num">Amount</th></tr></thead><tbody><tr><td>Tuition (annual)</td><td class="num">₹18,000</td></tr><tr><td>Lab and library</td><td class="num">₹3,500</td></tr></tbody><tfoot><tr><td>Total</td><td class="num ct" style="font-size:20px">₹21,500</td></tr></tfoot></table>
+  </div>
+  <p class="muted" style="margin:16px 0 0;font-size:14px;line-height:22px">Amounts in INR, formatted en-IN (₹1,24,000), right-aligned with tabular figures.</p>
+</section>
+
+<section data-screen-label="Section patterns" class="ds-sec">
+  <h2 class="ds-h">Section patterns</h2>
+  <div style="display:grid;gap:24px;margin-top:24px">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px"><div><p class="kicker">Kicker with tri-colour tick</p><p class="h2">Section heading with an action</p></div><button type="button" class="btn btn-text">See all <span aria-hidden="true">→</span></button></div>
+    <div class="grid g3">
+      <div class="panel c-red"><p class="step-n">01</p><p class="h4" style="margin-bottom:6px">Step panel</p><p class="body" style="margin:0">Colour circle, title, copy on a tint.</p></div>
+      <div class="panel c-teal"><p class="step-n">02</p><p class="h4" style="margin-bottom:6px">Next step</p><p class="body" style="margin:0">Each step takes its own colour.</p></div>
+      <div class="panel c-gold"><p class="step-n">03</p><p class="h4" style="margin-bottom:6px">Last step</p><p class="body" style="margin:0">Ink numerals on gold.</p></div>
+    </div>
+    <div style="background:var(--band);color:#fff;border-radius:8px;padding:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:24px">
+      <div class="c-gold" style="border-top:4px solid var(--c);padding-top:14px"><p class="stat-n" style="color:var(--cl)">1,240</p><p style="margin:0;font:500 13px/18px var(--font);letter-spacing:.08em;text-transform:uppercase">Students</p></div>
+      <div class="c-teal" style="border-top:4px solid var(--c);padding-top:14px"><p class="stat-n" style="color:var(--cl)">62</p><p style="margin:0;font:500 13px/18px var(--font);letter-spacing:.08em;text-transform:uppercase">Teachers</p></div>
+      <div class="c-orange" style="border-top:4px solid var(--c);padding-top:14px"><p class="stat-n" style="color:var(--cl)">48</p><p style="margin:0;font:500 13px/18px var(--font);letter-spacing:.08em;text-transform:uppercase">Years</p></div>
+      <div class="c-green" style="border-top:4px solid var(--c);padding-top:14px"><p class="stat-n" style="color:var(--cl)">98.6%</p><p style="margin:0;font:500 13px/18px var(--font);letter-spacing:.08em;text-transform:uppercase">Pass rate</p></div>
+    </div>
+    <div class="band" style="--ph1:#14805A;--ph2:#082A38;border-radius:8px;padding:clamp(40px,6cqw,72px) clamp(20px,4cqw,40px)"><p class="kicker light">Image band</p><p class="h2" style="max-width:20ch;color:#fff;margin-bottom:20px">Full-width photo, dark overlay, white text.</p><span class="btn btn-gold">Action on dark</span></div>
+    <div style="background:var(--red);color:#fff;border-radius:8px;padding:clamp(36px,5cqw,56px) clamp(20px,4cqw,40px);display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between"><p class="h2" style="max-width:20ch;color:#fff">CTA band. A field of red or green, once per page.</p><span class="btn btn-white btn-lg" style="color:var(--red)!important">Start an admission →</span></div>
+  </div>
+</section>
+
+<section data-screen-label="Imagery" class="ds-sec">
+  <h2 class="ds-h">Imagery and logo</h2>
+  <p class="ds-sub">Placeholders are tinted, lightly illustrated (hills, sun, coconut palms) and always labelled with the filename and ratio. Alt text says what real photo belongs there. Replace the block with a next/image and keep the filename.</p>
+  <div class="grid g3" style="align-items:start">
+    <div class="ph ph-green" role="img" aria-label="stream-science-lab.jpg: students in uniform working at a chemistry lab bench" style="aspect-ratio:4/3;border-radius:8px"><span class="ph-label">green · 4:3</span></div>
+    <div class="ph ph-orange" role="img" aria-label="campus-kerala-piravi.jpg: students in traditional dress at the Kerala Piravi assembly" style="aspect-ratio:4/3;border-radius:8px"><span class="ph-label">orange · 4:3</span></div>
+    <div class="ph ph-plum" role="img" aria-label="stream-humanities-library.jpg: students reading in the school library" style="aspect-ratio:4/3;border-radius:8px"><span class="ph-label">plum · 4:3</span></div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:24px">
+    <div style="flex:1 1 280px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px;display:flex;align-items:center;gap:12px"><img src="assets/logo-bst-red.svg" alt="Placeholder crest, red" width="56" height="56"><span style="font-weight:700;font-size:18px;line-height:1.15">BST Higher Secondary</span></div>
+    <div style="flex:1 1 280px;background:var(--green-900);color:#fff;border-radius:8px;padding:24px;display:flex;align-items:center;gap:12px"><img src="assets/logo-bst-white.svg" alt="Placeholder crest, white" width="56" height="56"><span style="font-weight:700;font-size:18px;line-height:1.15">BST Higher Secondary</span></div>
+    <div style="flex:1 1 280px;background:var(--ink);color:#fff;border-radius:8px;padding:24px;display:flex;align-items:center;gap:12px"><img src="assets/logo-bst-white.svg" alt="Placeholder crest, white" width="56" height="56"><span style="font-weight:700;font-size:18px;line-height:1.15">BST Higher Secondary</span></div>
+  </div>
+  <p class="muted" style="margin:12px 0 0;font-size:14px;line-height:22px">Placeholder crest: a gabled school front on a square. Red on light grounds, white on dark.</p>
+</section>
+
+<section data-screen-label="Motion and access" style="padding:56px 0 0">
+  <h2 class="ds-h">Motion and accessibility</h2>
+  <div class="grid g3" style="margin-top:24px;font-size:15px;line-height:24px">
+    <div><p class="h5" style="margin:0 0 8px">Motion</p><p class="body" style="margin:0">Scroll reveal: an 18px rise and fade, CSS only, never fully transparent. Hover: color, border and a 3px lift, 180ms. Stats count up once over 1.4s. With prefers-reduced-motion, reveals, lifts and the count-up are off.</p></div>
+    <div><p class="h5" style="margin:0 0 8px">Accessibility</p><p class="body" style="margin:0">Text 4.5:1 or better; every palette colour used for small text has a dark text tone. Colour never carries meaning alone: stream, category and status also appear as words. Focus is a 3px blue outline, white on dark bands. Hit targets are 44px or taller.</p></div>
+    <div><p class="h5" style="margin:0 0 8px">Semantics</p><p class="body" style="margin:0">One h1, sections with headings, real buttons and links, labelled inputs, alt text on every image slot, lang="ml" on Malayalam text.</p></div>
+  </div>
+</section>
+
+</div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Mail, MapPin, Phone } from 'lucide-react';
 import type { SchoolIdentity } from '@/lib/school/schoolIdentity';
 
 /** Footer link columns. All paths are root-level. */
@@ -37,66 +36,51 @@ const COLUMNS = [
 
 export default function SchoolFooter({ school }: { school: SchoolIdentity }) {
   return (
-    <footer className="sch-on-dark bg-sch-ink text-sch-on-ink">
-      <div className="sch-kasavu" aria-hidden />
-      <div className="sch-weave">
-        <div className="mx-auto grid max-w-[1200px] gap-10 px-5 py-14 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div>
-            <p className="font-sch-display text-2xl font-semibold">{school.name}</p>
-            {school.description && (
-              <p className="mt-3 line-clamp-4 max-w-sm text-sm text-sch-on-ink-muted">{school.description}</p>
+    <footer className="foot">
+      <div className="wrap grid gap-10 pt-16" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 190px), 1fr))' }}>
+        <div className="min-w-0">
+          <Link href="/" className="flex items-center gap-3">
+            <img src="/school/logo-bst-red.svg" alt="" width={44} height={44} />
+            <span className="text-lg font-bold leading-tight">{school.name}</span>
+          </Link>
+          {school.description && <p className="fm mt-4 max-w-sm text-sm leading-6">{school.description}</p>}
+          <address className="fm mt-4 text-sm not-italic leading-6">
+            {school.addressLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+            {school.phone && (
+              <a href={`tel:${school.phone.replace(/\s+/g, '')}`} className="block">
+                {school.phone}
+              </a>
             )}
-            <ul className="mt-6 space-y-3 text-sm text-sch-on-ink-muted">
-              {school.addressLines.length > 0 && (
-                <li className="flex gap-3">
-                  <MapPin aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-sch-gold-bright" />
-                  <address className="not-italic">
-                    {school.addressLines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </address>
-                </li>
-              )}
-              {school.phone && (
-                <li className="flex gap-3">
-                  <Phone aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-sch-gold-bright" />
-                  <a href={`tel:${school.phone.replace(/\s+/g, '')}`} className="hover:text-sch-gold-bright">
-                    {school.phone}
-                  </a>
-                </li>
-              )}
-              {school.email && (
-                <li className="flex gap-3">
-                  <Mail aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-sch-gold-bright" />
-                  <a href={`mailto:${school.email}`} className="break-all hover:text-sch-gold-bright">
-                    {school.email}
-                  </a>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          {COLUMNS.map((column) => (
-            <nav key={column.title} aria-label={column.title}>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sch-gold-bright">{column.title}</p>
-              <ul className="mt-4 space-y-2.5 text-sm">
-                {column.links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-sch-on-ink-muted hover:text-sch-on-ink hover:underline">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+            {school.email && (
+              <a href={`mailto:${school.email}`} className="block break-all">
+                {school.email}
+              </a>
+            )}
+          </address>
         </div>
-        <div className="border-t border-sch-on-ink/15">
-          <p className="mx-auto max-w-[1200px] px-5 py-5 text-xs text-sch-on-ink-muted sm:px-8">
+
+        {COLUMNS.map((column) => (
+          <nav key={column.title} aria-label={column.title}>
+            <p className="mb-3.5 text-[13px] font-semibold uppercase tracking-[0.1em]">{column.title}</p>
+            <div className="flex flex-col">
+              {column.links.map((link) => (
+                <Link key={link.href} href={link.href} className="fm py-1.5 text-[15px] leading-snug">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        ))}
+      </div>
+      <div className="wrap">
+        <div className="rule fm mt-12 flex flex-wrap justify-between gap-x-6 gap-y-1.5 border-t py-5 text-[13px] leading-5">
+          <span>
             © {new Date().getFullYear()} {school.name}. All rights reserved.
-          </p>
+          </span>
         </div>
       </div>
     </footer>

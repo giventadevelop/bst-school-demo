@@ -72,8 +72,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        "sch-display": ["var(--font-sch-display)", "Iowan Old Style", "Palatino Linotype", "Georgia", "serif"],
-        "sch-sans": ["var(--font-sch-sans)", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        "sch-display": ["var(--font-roboto)", "Roboto", "system-ui", "sans-serif"],
+        "sch-sans": ["var(--font-roboto)", "Roboto", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

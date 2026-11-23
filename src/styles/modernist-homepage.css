@@ -30,8 +30,8 @@ body.modernist-home {
   --mh-neutral-800: #444141;
   --mh-neutral-900: #2d2b2b;
   --mh-divider: color-mix(in srgb, #201e1d 40%, transparent);
-  --mh-font: 'Archivo', system-ui, sans-serif;
-  --mh-font-heading: 'Archivo', system-ui, sans-serif;
+  --mh-font: var(--font-roboto), Roboto, system-ui, sans-serif;
+  --mh-font-heading: var(--font-roboto), Roboto, system-ui, sans-serif;
   --mh-font-heading-weight: 800;
   --mh-radius-sm: 0px;
   --mh-radius-md: 0px;
@@ -82,8 +82,8 @@ body.modernist-home.organic-home {
   --mh-neutral-800: #474238;
   --mh-neutral-900: #2e2b25;
   --mh-divider: color-mix(in srgb, #201e1d 16%, transparent);
-  --mh-font: 'Figtree', system-ui, sans-serif;
-  --mh-font-heading: 'Caprasimo', system-ui, sans-serif;
+  --mh-font: var(--font-roboto), Roboto, system-ui, sans-serif;
+  --mh-font-heading: var(--font-roboto), Roboto, system-ui, sans-serif;
   --mh-font-heading-weight: 400;
   --mh-radius-sm: 8px;
   --mh-radius-md: 16px;
@@ -97,25 +97,25 @@ body.modernist-home.organic-home {
   text-wrap: pretty;
 
   /* Remap shadcn / Tailwind semantic colors to the organic homepage palette */
-  --background: 36 45% 90%;
-  --foreground: 20 5% 12%;
-  --card: 36 40% 85%;
-  --card-foreground: 20 5% 12%;
-  --popover: 36 45% 92%;
-  --popover-foreground: 20 5% 12%;
-  --primary: 148 100% 14%;
-  --primary-foreground: 40 40% 97%;
-  --secondary: 36 30% 88%;
-  --secondary-foreground: 20 5% 18%;
-  --muted: 36 28% 88%;
-  --muted-foreground: 30 8% 35%;
-  --accent: 24 55% 50%;
-  --accent-foreground: 40 40% 97%;
-  --destructive: 0 55% 42%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 30 14% 72%;
-  --input: 36 40% 96%;
-  --ring: 148 100% 18%;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 12%;
+  --primary: 357 96% 35%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 96.5%;
+  --secondary-foreground: 0 0% 12%;
+  --muted: 0 0% 96.5%;
+  --muted-foreground: 0 0% 36%;
+  --accent: 0 59% 96%;
+  --accent-foreground: 357 96% 23%;
+  --destructive: 357 97% 23%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 88%;
+  --input: 0 0% 88%;
+  --ring: 206 82% 34%;
 }
 
 /* Back-compat: homepage still adds home-page-background alongside modernist-home */

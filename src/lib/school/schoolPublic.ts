@@ -99,7 +99,7 @@ export async function fetchSchoolResource<T>(path: string, query: Record<string,
 
 export async function fetchSchoolHome() {
   const today = new Date().toISOString().slice(0, 10);
-  const [flashes, principalPages, facilities, highlights, events] = await Promise.all([
+  const [flashes, principalPages, facilities, highlights, events, departments, staff] = await Promise.all([
     fetchSchoolResource<NewsFlashRecord>('news-flashes', { sort: 'id,desc', 'isActive.equals': 'true' }),
     fetchSchoolResource<SchoolPageRecord>('school-pages', {
       'slug.equals': 'principals-message',
@@ -118,6 +118,14 @@ export async function fetchSchoolHome() {
       sort: 'startDate,asc',
       'startDate.greaterThanOrEqual': today,
     }),
+    fetchSchoolResource<SchoolNamedRecord>('school-departments', {
+      sort: 'sortOrder,asc',
+      'isActive.equals': 'true',
+    }),
+    fetchSchoolResource<SchoolStaffRecord>('school-staff-members', {
+      sort: 'priorityOrder,asc',
+      'isActive.equals': 'true',
+    }),
   ]);
   return {
     flashes,
@@ -125,5 +133,7 @@ export async function fetchSchoolHome() {
     facilities: facilities.slice(0, 8),
     highlights: highlights.slice(0, 8),
     events: events.slice(0, 6),
+    departments: departments.slice(0, 3),
+    staff: staff.slice(0, 4),
   };
 }

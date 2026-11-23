@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { BookOpen, CalendarDays, Download, GraduationCap, Images, MessageSquare, Megaphone } from 'lucide-react';
 import { fetchSchoolHome } from '@/lib/school/schoolPublic';
 import { getSchoolIdentity } from '@/lib/school/schoolIdentity';
 import { fetchPublishedProfileWritingsServer } from '@/lib/profileSiteServer';
@@ -8,9 +7,8 @@ import {
   Container,
   DateBadge,
   EmptyState,
-  FeatureCard,
   SectionHeading,
-  TextLink,
+  colourAt,
   formatDate,
 } from '@/components/school/ui';
 
@@ -18,38 +16,24 @@ function flashText(item: { headline?: string; title?: string }) {
   return item.headline || item.title || '';
 }
 
-/** Shortcuts under the hero. All paths are root-level. */
+function staffName(person: { firstName?: string; lastName?: string }) {
+  return [person.firstName, person.lastName].filter(Boolean).join(' ') || 'Staff member';
+}
+
 const QUICK_LINKS = [
-  { href: '/admissions', label: 'Admissions', note: 'Apply and pay fees', icon: GraduationCap },
-  { href: '/academics', label: 'Academics', note: 'Streams and subjects', icon: BookOpen },
-  { href: '/events', label: 'Calendar', note: 'What is coming up', icon: CalendarDays },
-  { href: '/downloads', label: 'Downloads', note: 'Circulars and forms', icon: Download },
-  { href: '/gallery', label: 'Gallery', note: 'Moments on campus', icon: Images },
-  { href: '/contact', label: 'Contact', note: 'Reach the office', icon: MessageSquare },
+  { href: '/admissions', label: 'Admissions', note: 'Apply and pay fees', colour: 'c-red' },
+  { href: '/academics', label: 'Academics', note: 'Streams and subjects', colour: 'c-blue' },
+  { href: '/events', label: 'Calendar', note: 'What is coming up', colour: 'c-gold' },
+  { href: '/downloads', label: 'Downloads', note: 'Circulars and forms', colour: 'c-plum' },
+  { href: '/gallery', label: 'Gallery', note: 'Moments on campus', colour: 'c-teal' },
+  { href: '/contact', label: 'Contact', note: 'Reach the office', colour: 'c-orange' },
 ];
 
-/** Decorative arch for the hero: sun over hills and backwater, drawn in CSS so no stock imagery is needed. */
-function HeroArch({ imageUrl }: { imageUrl?: string }) {
-  return (
-    <div className="relative mx-auto w-full max-w-[380px]">
-      <div aria-hidden className="absolute -inset-3 rounded-[999px_999px_28px_28px] border border-sch-gold-bright/50" />
-      <div className="sch-arch relative aspect-[3/4] border-4 border-sch-gold-bright bg-sch-accent">
-        {imageUrl ? (
-          <img src={imageUrl} alt="" className="h-full w-full object-cover" />
-        ) : (
-          <div aria-hidden className="relative h-full w-full overflow-hidden bg-gradient-to-b from-sch-gold-bright/90 via-sch-gold-bright/40 to-sch-accent">
-            <div className="absolute left-1/2 top-[22%] h-28 w-28 -translate-x-1/2 rounded-full bg-sch-bg/90" />
-            <div className="absolute -left-1/4 bottom-[30%] h-1/2 w-[90%] rounded-[50%] bg-sch-accent" />
-            <div className="absolute -right-1/4 bottom-[22%] h-1/2 w-[95%] rounded-[50%] bg-sch-accent-strong" />
-            <div className="sch-weave absolute inset-x-0 bottom-0 h-[30%] bg-sch-ink" />
-            <div className="absolute inset-x-8 bottom-[18%] h-px bg-sch-gold-bright/60" />
-            <div className="absolute inset-x-16 bottom-[12%] h-px bg-sch-gold-bright/40" />
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+const STEPS = [
+  { n: '1', title: 'Choose a stream', copy: 'Read the departments and subject combinations, then start an application.', colour: 'c-blue' },
+  { n: '2', title: 'Send your documents', copy: 'The office lists what to attach. Upload them from the admissions page.', colour: 'c-gold' },
+  { n: '3', title: 'Confirm your place', copy: 'Pay the fee online once the school confirms the seat.', colour: 'c-green' },
+];
 
 export default async function SchoolHome() {
   const [data, school, writings] = await Promise.all([
@@ -60,193 +44,250 @@ export default async function SchoolHome() {
   const ticker = data.flashes.map(flashText).filter(Boolean);
   const news = writings.filter((writing) => writing.writingType !== 'EXTERNAL_LINK').slice(0, 3);
   const heroImage = data.facilities.find((facility) => facility.imageUrl)?.imageUrl;
+  const principalImage = data.principal?.imageUrl;
 
   return (
     <>
       {ticker.length > 0 && (
-        <div className="overflow-hidden border-b border-sch-border bg-sch-surface-alt" role="region" aria-label="Announcements">
-          <Container className="flex items-center gap-4 py-2.5">
-            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-sch-laterite px-3 py-1 text-xs font-semibold uppercase tracking-wide text-sch-on-accent">
-              <Megaphone aria-hidden className="h-3.5 w-3.5" />
-              Notice
+        <section aria-label="Announcements" style={{ background: 'var(--gold-50)', borderBottom: '1px solid rgba(138,90,0,.2)' }}>
+          <Container className="flex items-baseline gap-3.5 py-2.5 text-sm leading-6">
+            <span className="tag t-solid shrink-0">Notice</span>
+            <span className="min-w-0">
+              {ticker[0]}
+              {data.flashes[0]?.linkUrl && (
+                <>
+                  {' '}
+                  <Link href={data.flashes[0].linkUrl} className="whitespace-nowrap font-semibold">
+                    Open →
+                  </Link>
+                </>
+              )}
             </span>
-            <div className="min-w-0 flex-1 overflow-hidden">
-              <ul className="sch-ticker text-sm font-medium text-sch-text">
-                {[...ticker, ...ticker].map((text, index) => (
-                  <li key={index} aria-hidden={index >= ticker.length} className="whitespace-nowrap">
-                    {text}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </Container>
-        </div>
+        </section>
       )}
 
-      <section className="sch-on-dark sch-weave bg-sch-ink text-sch-on-ink">
-        <Container className="grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.25fr_1fr] lg:py-24">
-          <div>
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-sch-gold-bright">Welcome to</p>
-            <h1 className="font-sch-display text-5xl font-semibold leading-[1.03] sm:text-6xl">{school.name}</h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-sch-on-ink-muted">
-              {school.description ||
-                'A place where curiosity is welcomed, character is shaped, and every child is known by name.'}
+      <section>
+        <Container className="flex flex-wrap items-center gap-10 py-12 sm:py-20">
+          <div className="min-w-0 flex-[1_1_420px]">
+            <h1 className="h1">{school.name}</h1>
+            <p className="lead mt-6 max-w-xl">
+              {school.description || 'Admissions, academics, campus life, news and events from the school.'}
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href="/admissions" variant="gold">
-                Start an admission
-              </ButtonLink>
-              <ButtonLink href="/about" variant="outline-dark">
-                Discover our story
-              </ButtonLink>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="/admissions">Apply</ButtonLink>
+              <Link href="/academics" className="btn btn-outline btn-lg">
+                Explore the streams
+              </Link>
             </div>
           </div>
-          <HeroArch imageUrl={heroImage} />
-        </Container>
-        <div className="sch-kasavu" aria-hidden />
-      </section>
-
-      <section aria-label="Quick links" className="border-b border-sch-border bg-sch-surface">
-        <Container>
-          <ul className="grid grid-cols-2 divide-sch-border sm:grid-cols-3 lg:grid-cols-6 lg:divide-x">
-            {QUICK_LINKS.map(({ href, label, note, icon: Icon }) => (
-              <li key={href}>
-                <Link href={href} className="group flex h-full flex-col items-start gap-2 px-4 py-6 hover:bg-sch-surface-alt/60">
-                  <Icon aria-hidden className="h-6 w-6 text-sch-laterite transition-transform group-hover:-translate-y-0.5" />
-                  <span className="font-semibold text-sch-text">{label}</span>
-                  <span className="text-xs text-sch-muted">{note}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-
-      <section className="py-16 sm:py-24">
-        <Container className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-sch-laterite">From the principal&apos;s desk</p>
-            <h2 className="font-sch-display text-3xl font-semibold leading-tight sm:text-4xl">
-              {data.principal?.title || "Principal's message"}
-            </h2>
-            {data.principal?.imageUrl && (
-              <div className="sch-arch mt-8 w-40 border-4 border-sch-surface shadow-[var(--sch-shadow-card)]">
-                <img src={data.principal.imageUrl} alt="" className="aspect-[3/4] w-full object-cover" />
-              </div>
+          <div className="relative min-w-0 flex-[1_1_380px]">
+            {heroImage ? (
+              <img src={heroImage} alt="" className="aspect-[5/4] min-h-[260px] w-full rounded-lg object-cover" />
+            ) : (
+              <div className="ph ph-green aspect-[5/4] min-h-[260px] rounded-lg" role="img" aria-label="Campus" />
             )}
           </div>
-          {data.principal ? (
-            <div className="border-l-2 border-sch-gold-bright pl-6 sm:pl-10">
-              {data.principal.summary && (
-                <p className="font-sch-display text-2xl leading-snug text-sch-accent">{data.principal.summary}</p>
-              )}
-              {data.principal.body && (
-                <p className="mt-5 line-clamp-[8] whitespace-pre-wrap text-sch-muted">{data.principal.body}</p>
-              )}
-              <div className="mt-6">
-                <TextLink href="/about/principals-message" label="Read the full message" />
-              </div>
-            </div>
-          ) : (
-            <EmptyState
-              title="A message from the principal will appear here."
-              hint="Publish the school page with the slug principals-message to show it."
-            />
-          )}
         </Container>
       </section>
 
-      <section className="border-y border-sch-border bg-sch-surface-alt/60 py-16 sm:py-24">
+      <section aria-label="Quick links" className="pb-6">
         <Container>
-          <SectionHeading eyebrow="Our campus" title="Spaces built for learning" action={{ href: '/facilities', label: 'All facilities' }} />
-          {data.facilities.length > 0 ? (
-            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {data.facilities.map((facility) => (
-                <li key={facility.id}>
-                  <FeatureCard
-                    href={`/facilities/${facility.slug}`}
-                    title={facility.name || 'Facility'}
-                    summary={facility.summary}
-                    imageUrl={facility.imageUrl}
-                  />
+          <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
+            {QUICK_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className={`tile ${link.colour}`}>
+                <span className="ico" aria-hidden="true">
+                  →
+                </span>
+                <b>{link.label}</b>
+                <small>{link.note}</small>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="sec">
+        <Container className="flex flex-wrap items-start gap-10">
+          <div className="max-w-[400px] flex-[1_1_260px]">
+            {principalImage ? (
+              <img src={principalImage} alt="" className="aspect-[4/5] w-full rounded-lg object-cover" />
+            ) : (
+              <div className="ph ph-plum aspect-[4/5] rounded-lg" role="img" aria-label="Principal" />
+            )}
+            <p className="h5 mt-4">{data.principal?.title || "Principal's message"}</p>
+          </div>
+          <div className="min-w-0 flex-[2_1_420px]">
+            <p className="kicker">From the principal&apos;s desk</p>
+            {data.principal ? (
+              <>
+                {data.principal.summary && <p className="mb-5 max-w-[56ch] text-[22px] font-medium leading-snug">{data.principal.summary}</p>}
+                {data.principal.body && <p className="body mb-6 line-clamp-[8] max-w-[58ch] whitespace-pre-wrap">{data.principal.body}</p>}
+                <ButtonLink href="/about/principals-message" variant="outline">
+                  Read the full message
+                </ButtonLink>
+              </>
+            ) : (
+              <EmptyState
+                title="A message from the principal will appear here."
+                hint="Publish the school page with the slug principals-message to show it."
+              />
+            )}
+          </div>
+        </Container>
+      </section>
+
+      <section className="sec alt">
+        <Container>
+          <SectionHeading eyebrow="Academics" title="Streams and departments" action={{ href: '/academics', label: 'All departments' }} />
+          {data.departments.length > 0 ? (
+            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))' }}>
+              {data.departments.map((department, index) => (
+                <li key={department.id}>
+                  <article className={`card stripe ${colourAt(index)}`}>
+                    {department.imageUrl ? (
+                      <img src={department.imageUrl} alt="" className="aspect-[4/3] w-full object-cover" />
+                    ) : (
+                      <div className={`ph ph-${['blue', 'gold', 'plum'][index % 3]} aspect-[4/3]`} />
+                    )}
+                    <div className="flex flex-1 flex-col p-6">
+                      <h3 className="h3 mb-2">{department.name}</h3>
+                      {department.summary && <p className="body mb-5">{department.summary}</p>}
+                      <Link href={`/departments/${department.slug}`} className="btn btn-block mt-auto" style={{ background: 'var(--c50)', color: 'var(--ct)' }}>
+                        Subjects and faculty <span aria-hidden="true">→</span>
+                      </Link>
+                    </div>
+                  </article>
                 </li>
               ))}
             </ul>
           ) : (
-            <EmptyState title="Facilities will be listed here soon." />
+            <EmptyState title="Departments will be listed here soon." action={{ href: '/academics', label: 'Academics' }} />
           )}
         </Container>
       </section>
 
-      <section className="py-16 sm:py-24">
-        <Container className="grid gap-14 lg:grid-cols-2">
-          <div>
-            <SectionHeading eyebrow="What's happening" title="Upcoming events" action={{ href: '/events', label: 'Full calendar' }} />
-            {data.events.length > 0 ? (
-              <ul className="space-y-3">
-                {data.events.map((event) => (
-                  <li key={event.id}>
-                    <Link href={`/events/${event.id}`} className="sch-card flex items-center gap-4 p-4">
-                      <DateBadge value={event.startDate} />
-                      <div className="min-w-0">
-                        <p className="font-semibold leading-snug">{event.title}</p>
-                        {event.startDate && <p className="text-sm text-sch-muted">{formatDate(event.startDate)}</p>}
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <EmptyState title="No upcoming events." hint="New dates are added here as soon as they are announced." />
-            )}
+      <section className="sec">
+        <Container>
+          <p className="kicker">Admissions</p>
+          <h2 className="h2 mb-10">How to join in three steps</h2>
+          <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))' }}>
+            {STEPS.map((step) => (
+              <div key={step.n} className={`panel ${step.colour}`}>
+                <p className="step-n">{step.n}</p>
+                <h3 className="h4 mb-2">{step.title}</h3>
+                <p className="body max-w-[38ch]">{step.copy}</p>
+              </div>
+            ))}
           </div>
-          <div>
-            <SectionHeading eyebrow="From the newsroom" title="Latest news" action={{ href: '/news', label: 'All news' }} />
-            {news.length > 0 ? (
-              <ul className="divide-y divide-sch-border border-y border-sch-border">
-                {news.map((writing) => (
-                  <li key={writing.id ?? writing.slug} className="py-5">
-                    {writing.publishedAt && (
-                      <p className="text-xs font-semibold uppercase tracking-widest text-sch-laterite">
-                        {formatDate(writing.publishedAt)}
-                      </p>
-                    )}
-                    <Link
-                      href={writing.slug ? `/news/${encodeURIComponent(writing.slug)}` : '/news'}
-                      className="mt-1 block font-sch-display text-xl font-semibold leading-snug hover:text-sch-accent"
-                    >
-                      {writing.title}
-                    </Link>
-                    {writing.excerpt && <p className="mt-1.5 line-clamp-2 text-sm text-sch-muted">{writing.excerpt}</p>}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <EmptyState title="No news published yet." />
-            )}
+          <div className="mt-8">
+            <ButtonLink href="/admissions">View admissions</ButtonLink>
+          </div>
+        </Container>
+      </section>
+
+      <section aria-label="The school in numbers" style={{ background: 'var(--band)', color: '#fff' }}>
+        <Container className="grid gap-9 py-14" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
+          {[
+            { n: String(data.departments.length || data.facilities.length), label: 'Published areas', colour: 'c-blue' },
+            { n: String(data.staff.length), label: 'Staff shown', colour: 'c-gold' },
+            { n: String(data.highlights.length), label: 'Highlights', colour: 'c-plum' },
+            { n: String(data.events.length), label: 'Upcoming events', colour: 'c-green' },
+          ].map((stat) => (
+            <div key={stat.label} className={`${stat.colour} border-t-4 pt-4`} style={{ borderColor: 'var(--c)' }}>
+              <p className="stat-n" style={{ color: 'var(--cl, #fff)' }}>
+                {stat.n}
+              </p>
+              <p className="m-0 text-[13px] font-medium uppercase tracking-[0.08em] text-white/85">{stat.label}</p>
+            </div>
+          ))}
+        </Container>
+      </section>
+
+      <section className="sec">
+        <Container className="mb-8">
+          <p className="kicker">Campus life</p>
+        </Container>
+        <div className="band flex min-h-[380px] items-end" style={{ ['--ph1' as string]: '#E8710A', ['--ph2' as string]: '#0B4F3A' }}>
+          <Container className="on-dark w-full py-14">
+            <h2 className="h1 mb-7 max-w-[16ch] text-[clamp(34px,4.6cqw,64px)]">Life on campus</h2>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/activities" className="btn btn-gold">
+                Clubs and activities <span aria-hidden="true">→</span>
+              </Link>
+              <Link href="/facilities" className="btn btn-line-light">
+                Facilities
+              </Link>
+              <Link href="/gallery" className="btn btn-line-light">
+                Photo gallery
+              </Link>
+            </div>
+          </Container>
+        </div>
+        {data.facilities.length > 0 && (
+          <Container className="grid gap-6 pt-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))' }}>
+            {data.facilities.slice(0, 4).map((facility, index) => (
+              <Link
+                key={facility.id}
+                href={`/facilities/${facility.slug}`}
+                className={`card stripe ${colourAt(index)}`}
+                style={{ textDecoration: 'none', color: 'var(--ink)' }}
+              >
+                {facility.imageUrl ? (
+                  <img src={facility.imageUrl} alt="" className="aspect-[4/3] w-full object-cover" />
+                ) : (
+                  <div className="ph ph-teal aspect-[4/3]" />
+                )}
+                <div className="px-4 py-4">
+                  <p className="h5">
+                    {facility.name} <span style={{ color: 'var(--c)' }}>→</span>
+                  </p>
+                  {facility.summary && <p className="muted text-sm">{facility.summary}</p>}
+                </div>
+              </Link>
+            ))}
+          </Container>
+        )}
+      </section>
+
+      <section className="sec alt">
+        <Container className="flex flex-wrap gap-10">
+          <div className="max-w-[400px] flex-[1_1_280px]">
+            <p className="kicker">Fees</p>
+            <h2 className="h2 mb-5">Fees and admissions</h2>
+            <p className="body mb-7">Fee invoices published by the office can be paid from the admissions page.</p>
+            <ButtonLink href="/admissions">Pay a fee online</ButtonLink>
+          </div>
+          <div className="panel c-gold min-w-0 flex-[2_1_460px]">
+            <p className="h4">Scholarships and questions</p>
+            <p className="body mt-3">Ask the office about fee support, documents, and deadlines.</p>
+            <div className="mt-6">
+              <ButtonLink href="/contact" variant="outline">
+                Ask the office
+              </ButtonLink>
+            </div>
           </div>
         </Container>
       </section>
 
       {data.highlights.length > 0 && (
-        <section className="sch-on-dark sch-weave bg-sch-accent-strong py-16 text-sch-on-ink sm:py-24">
+        <section className="sec">
           <Container>
-            <SectionHeading eyebrow="Merit highlights" title="Our star performers" action={{ href: '/achievements', label: 'All achievements' }} onDark />
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
-              {data.highlights.map((item) => (
-                <li key={item.id} className="text-center">
-                  <div className="sch-arch mx-auto h-40 w-32 border-2 border-sch-gold-bright bg-sch-ink">
+            <SectionHeading eyebrow="Results" title="Our star performers" action={{ href: '/achievements', label: 'All achievements' }} />
+            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(46%, 200px), 1fr))' }}>
+              {data.highlights.slice(0, 4).map((item, index) => (
+                <li key={item.id}>
+                  <article className={`card stripe ${colourAt(index)}`}>
                     {item.imageUrl ? (
-                      <img src={item.imageUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
+                      <img src={item.imageUrl} alt="" className="aspect-[3/4] w-full object-cover" />
                     ) : (
-                      <div aria-hidden className="flex h-full w-full items-center justify-center font-sch-display text-4xl text-sch-gold-bright">
-                        {item.personName?.charAt(0) || '★'}
-                      </div>
+                      <div className="ph ph-green aspect-[3/4]" />
                     )}
-                  </div>
-                  <p className="mt-4 font-sch-display text-lg font-semibold">{item.personName}</p>
-                  {item.subtitle && <p className="text-sm text-sch-on-ink-muted">{item.subtitle}</p>}
-                  {item.academicYear && <p className="mt-0.5 text-xs text-sch-gold-bright">{item.academicYear}</p>}
+                    <div className="px-4 py-4">
+                      <p className="h5">{item.personName}</p>
+                      {item.subtitle && <p className="ct text-sm font-medium">{item.subtitle}</p>}
+                    </div>
+                  </article>
                 </li>
               ))}
             </ul>
@@ -254,21 +295,103 @@ export default async function SchoolHome() {
         </section>
       )}
 
-      <section className="py-16 sm:py-20">
+      <section className="sec alt">
         <Container>
-          <div className="flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-sch-border bg-sch-surface p-8 shadow-[var(--sch-shadow-card)] sm:p-12">
-            <div className="max-w-xl">
-              <h2 className="font-sch-display text-3xl font-semibold leading-tight">Come and see the school for yourself.</h2>
-              <p className="mt-3 text-sch-muted">
-                Ask a question, arrange a visit, or begin an application. The office is glad to help.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <ButtonLink href="/admissions">Admissions</ButtonLink>
-              <ButtonLink href="/contact" variant="outline">
-                Contact us
-              </ButtonLink>
-            </div>
+          <SectionHeading eyebrow="From the newsroom" title="Latest news" action={{ href: '/news', label: 'All news' }} />
+          {news.length > 0 ? (
+            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))' }}>
+              {news.map((writing, index) => (
+                <li key={writing.id ?? writing.slug}>
+                  <Link
+                    href={writing.slug ? `/news/${encodeURIComponent(writing.slug)}` : '/news'}
+                    className={`card ${colourAt(index)}`}
+                    style={{ textDecoration: 'none', color: 'var(--ink)' }}
+                  >
+                    <div className="flex flex-1 flex-col gap-2.5 p-5">
+                      {writing.publishedAt && <span className="muted text-[13px]">{formatDate(writing.publishedAt)}</span>}
+                      <span className="text-[21px] font-semibold leading-snug">{writing.title}</span>
+                      {writing.excerpt && <span className="body text-[15px] leading-6">{writing.excerpt}</span>}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <EmptyState title="No news published yet." />
+          )}
+        </Container>
+      </section>
+
+      <section className="sec">
+        <Container className="flex flex-wrap gap-8">
+          <div className="max-w-[360px] flex-[1_1_260px]">
+            <SectionHeading eyebrow="What's happening" title="Upcoming events" />
+            <ButtonLink href="/events" variant="outline">
+              Full calendar
+            </ButtonLink>
+          </div>
+          <div className="flex min-w-0 flex-[2_1_460px] flex-col gap-3">
+            {data.events.length > 0 ? (
+              data.events.map((event, index) => {
+                const date = event.startDate ? new Date(event.startDate.includes('T') ? event.startDate : `${event.startDate}T12:00:00`) : null;
+                return (
+                  <Link key={event.id} href={`/events/${event.id}`} className={`row ${colourAt(index)}`}>
+                    <DateBadge value={event.startDate} colour={colourAt(index)} />
+                    <span className="min-w-0">
+                      <span className="block text-[19px] font-semibold leading-7">{event.title}</span>
+                      <span className="muted block text-sm">
+                        {date && !Number.isNaN(date.getTime()) ? formatDate(event.startDate) : event.description || ''}
+                      </span>
+                    </span>
+                    <span aria-hidden="true" style={{ color: 'var(--c)', fontSize: 20 }}>
+                      →
+                    </span>
+                  </Link>
+                );
+              })
+            ) : (
+              <EmptyState title="No upcoming events." hint="New dates are added here as soon as they are announced." />
+            )}
+          </div>
+        </Container>
+      </section>
+
+      {data.staff.length > 0 && (
+        <section className="sec alt">
+          <Container>
+            <SectionHeading eyebrow="Faculty" title="Teachers and mentors" action={{ href: '/staff', label: 'Staff directory' }} />
+            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(46%, 200px), 1fr))' }}>
+              {data.staff.map((person, index) => (
+                <li key={person.id}>
+                  <article className={`card stripe ${colourAt(index)}`}>
+                    {person.profileImageUrl ? (
+                      <img src={person.profileImageUrl} alt="" className="aspect-square w-full object-cover" />
+                    ) : (
+                      <div className="ph ph-blue aspect-square" />
+                    )}
+                    <div className="px-4 py-4">
+                      <h3 className="h5">{staffName(person)}</h3>
+                      {person.designation && <p className="ct text-sm font-semibold">{person.designation}</p>}
+                      {person.subjectName && <p className="muted text-sm">{person.subjectName}</p>}
+                    </div>
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      )}
+
+      <section style={{ background: 'var(--cta)', color: 'var(--cta-text)' }}>
+        <Container className="flex flex-wrap items-center justify-between gap-8 py-16">
+          <h2 className="h1 max-w-[17ch] text-[clamp(34px,4.6cqw,64px)]">Start an admission, or ask the office a question.</h2>
+          <div className="on-dark flex flex-wrap gap-3">
+            <Link href="/admissions" className="btn btn-lg btn-white">
+              Start an admission <span aria-hidden="true">→</span>
+            </Link>
+            <Link href="/contact" className="btn btn-lg btn-line-light">
+              Contact the office
+            </Link>
           </div>
         </Container>
       </section>

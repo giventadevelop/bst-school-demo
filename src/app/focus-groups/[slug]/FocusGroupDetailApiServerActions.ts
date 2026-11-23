@@ -3,11 +3,11 @@
 import { fetchWithJwtRetry } from '@/lib/proxyHandler';
 import { getAppUrl, getApiBaseUrl, getTenantId } from '@/lib/env';
 import type { EventDetailsDTO, EventFocusGroupDTO, EventMediaDTO, FocusGroupMemberDTO } from '@/types';
-import { fetchAssociatedEvents } from '@/app/admin/focus-groups/[id]/edit/ApiServerActions';
+import { fetchAssociatedEvents } from '@/app/focus-groups/server/focusGroupEventsServer';
 import {
   fetchEventFocusGroupsByFocusGroupIdServer,
   fetchMediaByEventAndAssociationServer,
-} from '@/app/admin/focus-groups/[id]/media/ApiServerActions';
+} from '@/app/focus-groups/server/focusGroupMediaServer';
 
 export type FocusGroupMemberPublic = {
   membershipId: number;
