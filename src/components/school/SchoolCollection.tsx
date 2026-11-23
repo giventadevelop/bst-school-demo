@@ -1,0 +1,147 @@
+import type { ReactNode } from 'react';
+import { fetchSchoolResource, type SchoolNamedRecord, type SchoolPageRecord } from '@/lib/school/schoolPublic';
+import { Article, Container, EmptyState, FeatureCard, NotFoundBlock, PageBanner, type Crumb } from '@/components/school/ui';
+
+type Collection = {
+  /** Backend resource, e.g. `school-facilities`. */
+  resource: 'school-departments' | 'school-facilities' | 'school-activities';
+  /** Route segment, e.g. `facilities`. */
+  segment: string;
+  /** Plural label for the list page and breadcrumb. */
+  label: string;
+  /** Singular noun for the not-found message. */
+  noun: string;
+};
+
+export const DEPARTMENTS: Collection = { resource: 'school-departments', segment: 'departments', label: 'Departments', noun: 'department' };
+export const FACILITIES: Collection = { resource: 'school-facilities', segment: 'facilities', label: 'Facilities', noun: 'facility' };
+export const ACTIVITIES: Collection = { resource: 'school-activities', segment: 'activities', label: 'Clubs & activities', noun: 'activity' };
+
+function humanize(value?: string) {
+  if (!value) return undefined;
+  const text = value.replace(/[_-]+/g, ' ').toLowerCase();
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+/** List page for departments, facilities or activities, served at `/<segment>`. */
+export async function CollectionList({
+  collection,
+  eyebrow,
+  intro,
+  groupByKind = false,
+}: {
+  collection: Collection;
+  eyebrow: string;
+  intro: string;
+  groupByKind?: boolean;
+}) {
+  const rows = await fetchSchoolResource<SchoolNamedRecord>(collection.resource, {
+    sort: 'sortOrder,asc',
+    'isActive.equals': 'true',
+  });
+
+  const groups = new Map<string, SchoolNamedRecord[]>();
+  for (const row of rows) {
+    const key = groupByKind ? humanize(row.activityKind) || 'Other' : '';
+    groups.set(key, [...(groups.get(key) || []), row]);
+  }
+
+  return (
+    <>
+      <PageBanner eyebrow={eyebrow} title={collection.label} intro={intro} crumbs={[{ label: collection.label }]} />
+      <Container className="py-12 sm:py-16">
+        {rows.length === 0 && (
+          <EmptyState title={`No ${collection.label.toLowerCase()} published yet.`} hint="Please check back soon." />
+        )}
+        {Array.from(groups.entries()).map(([kind, items]) => (
+          <section key={kind || 'all'} className="mb-12 last:mb-0">
+            {kind && groups.size > 1 && (
+              <h2 className="mb-6 flex items-center gap-4 font-sch-display text-2xl font-semibold">
+                {kind}
+                <span aria-hidden className="h-px flex-1 bg-sch-border" />
+              </h2>
+            )}
+            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {items.map((row) => (
+                <li key={row.id}>
+                  <FeatureCard
+                    href={`/${collection.segment}/${row.slug}`}
+                    title={row.name || collection.noun}
+                    summary={row.summary}
+                    imageUrl={row.imageUrl}
+                    tag={groupByKind ? undefined : humanize(row.activityKind)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </Container>
+    </>
+  );
+}
+
+/** Detail page for one department, facility or activity, served at `/<segment>/<slug>`. `children` renders below the article. */
+export async function CollectionDetail({
+  collection,
+  slug,
+  children,
+}: {
+  collection: Collection;
+  slug: string;
+  children?: (row: SchoolNamedRecord) => ReactNode;
+}) {
+  const rows = await fetchSchoolResource<SchoolNamedRecord>(collection.resource, {
+    'slug.equals': slug,
+    size: '1',
+  });
+  const row = rows[0];
+  const listHref = `/${collection.segment}`;
+  if (!row) {
+    return <NotFoundBlock what={collection.noun} backHref={listHref} backLabel={`All ${collection.label.toLowerCase()}`} />;
+  }
+  return (
+    <>
+      <PageBanner
+        eyebrow={humanize(row.activityKind) || collection.label}
+        title={row.name || collection.noun}
+        crumbs={[{ label: collection.label, href: listHref }, { label: row.name || collection.noun }]}
+      />
+      <Article summary={row.summary} body={row.body} imageUrl={row.imageUrl} />
+      {children?.(row)}
+    </>
+  );
+}
+
+/** A content page stored in `school-pages`, looked up by slug. */
+export async function ContentPage({
+  slug,
+  eyebrow,
+  fallbackTitle,
+  crumbs,
+  children,
+}: {
+  slug: string;
+  eyebrow?: string;
+  fallbackTitle?: string;
+  crumbs?: Crumb[];
+  children?: ReactNode;
+}) {
+  const rows = await fetchSchoolResource<SchoolPageRecord>('school-pages', {
+    'slug.equals': slug,
+    'isActive.equals': 'true',
+    size: '1',
+  });
+  const row = rows[0];
+  if (!row && !fallbackTitle) {
+    return <NotFoundBlock what="page" backHref="/" backLabel="Back to the school home page" />;
+  }
+  const title = row?.title || fallbackTitle || 'Page';
+  return (
+    <>
+      <PageBanner eyebrow={eyebrow} title={title} crumbs={crumbs ?? [{ label: title }]} />
+      <Article summary={row?.summary} body={row?.body} imageUrl={row?.imageUrl} />
+      {children}
+    </>
+  );
+}

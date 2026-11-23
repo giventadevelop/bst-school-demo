@@ -1,0 +1,50 @@
+feature,area,priority,original,clone,notes
+School shell with header and footer scoped to /school,shell,must,yes,yes,S24 src/app/school/layout.tsx
+Three-level navigation with dropdowns,shell,must,yes,yes,S24 flattened to two levels on purpose; departments reached via Faculty
+Mobile navigation drawer,shell,must,yes,yes,S24 verified at 375px
+Top bar with phone and email,shell,should,yes,yes,S24 from tenant-organizations
+Floating contact shortcuts,shell,could,yes,no,no social or WhatsApp fields on the tenant organization record
+Breadcrumbs on inner pages,shell,should,yes,yes,
+Not-found page inside /school,shell,should,yes,yes,S25
+Home hero,home,must,yes,yes,S01
+Announcement bar,home,should,yes,yes,S01 news-flashes; not seen with data (tenant has none)
+Quick-link strip (fee / admission / bus / portal / routes / newsletter),home,must,yes,yes,S01 links to this project's own admissions fees downloads
+History intro with vision mission aims,home,must,yes,partial,S02 about page renders school-pages slug about; no separate vision/mission fields exist
+Principal's message teaser,home,should,yes,yes,S01 school-pages slug principals-message
+Quote band,home,could,yes,no,no data source
+Facilities carousel,home,should,yes,yes,S01 built as a grid
+Latest news on home,home,must,yes,yes,S01 profile-writings
+Upcoming events on home,home,must,yes,yes,S01 event-details
+Star performers,home,could,yes,yes,S01 school-highlights
+About page,about,must,yes,yes,S02
+Principal's message page,about,should,yes,yes,S03
+Facilities index,facilities,should,no,yes,S04 improvement over source
+Facility detail pages (8),facilities,must,yes,yes,S05 single lead image; no image strip field
+Activities index with filter,activities,should,no,yes,S06 grouped by activityKind
+Activity and club detail pages,activities,must,yes,yes,S07
+Academics: streams and languages,academics,must,yes,partial,S08 school-pages slug academics plus departments; no structured stream data
+Faculty hub,faculty,should,no,yes,S09 staff directory with category anchors
+Administration team,faculty,must,yes,yes,S10 staffCategory group on /school/staff
+Department staff pages (16),faculty,must,yes,yes,S11 staff matched to department by subjectName
+Support staff page,faculty,should,yes,yes,S12 staffCategory group on /school/staff
+News list,news,must,yes,yes,S13
+News article with image gallery,news,must,yes,partial,S14 article with lead image; profile-writings has no image list
+Achievements list,achievements,should,yes,yes,S15 school-highlights grouped by year
+Achievement detail,achievements,should,yes,no,S16 school-highlights has no body field
+Events list,events,should,no,yes,S17 improvement over source
+Event detail,events,should,yes,partial,S18 links to the existing /events/[id] page (outside the school shell)
+Photo gallery album list,media,must,yes,yes,S19 gallery-albums; not seen with data (tenant has none)
+Photo album with lightbox,media,must,yes,yes,S20 not exercised with real photos
+Lightbox keyboard navigation,media,should,yes,yes,S20 arrows and Esc; not exercised with real photos
+Video gallery,media,should,yes,no,S21 no existing video list endpoint was confirmed
+Downloads list,updates,should,yes,yes,S22 profile-media-assets
+Contact details and map,contact,must,yes,partial,S23 details yes; no map (no coordinates on the organization record)
+Contact enquiry form,contact,must,yes,yes,S23 posts to existing /api/proxy/contact-form-email; a real send was not tested
+Empty states on every list,quality,must,partial,yes,
+Responsive layout,quality,must,yes,yes,
+Keyboard and screen-reader access,quality,must,partial,yes,skip link focus rings labelled controls; no screen-reader pass done
+School data from existing project APIs only,integration,must,n/a,yes,no new endpoints
+No change to existing non-school routes,integration,must,n/a,yes,two shared files edited additively; see replica/api-map.md
+Source logos photos and copy,assets,skip,yes,skip,owned by the source school
+Real staff and student names,assets,skip,yes,skip,personal data
+Third-party fee and parent portal,integrations,skip,yes,skip,hosted elsewhere; this project's own fee checkout is used instead

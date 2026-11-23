@@ -1,0 +1,5865 @@
+/* Modernist homepage + events ? scoped to body.modernist-home so other routes stay unchanged */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Caprasimo&family=Figtree:wght@400;600;700&display=swap');
+
+body.modernist-home {
+  /* KCNJ logo greens — section titles / brand headings */
+  --mh-brand-green: #004820;
+  --mh-brand-green-mid: #085018;
+  --mh-brand-green-bright: #206000;
+  --mh-bg: #f3f2f2;
+  --mh-surface: #eae9e9;
+  --mh-text: #201e1d;
+  --mh-accent: #ec3013;
+  --mh-accent-200: #ffe0d9;
+  --mh-accent-400: #ff9783;
+  --mh-accent-500: #ff563c;
+  --mh-accent-600: #dd2b0f;
+  --mh-accent-700: #ae1800;
+  --mh-accent-100: #fff2ef;
+  --mh-accent-800: #7c1405;
+  --mh-accent-2: #e15b47;
+  --mh-accent-2-100: #fff2ef;
+  --mh-accent-2-200: #ffe0da;
+  --mh-accent-2-700: #9e3526;
+  --mh-accent-2-800: #71261b;
+  --mh-neutral-100: #f8f4f4;
+  --mh-neutral-200: #eae7e7;
+  --mh-neutral-300: #d7d3d3;
+  --mh-neutral-500: #9b9797;
+  --mh-neutral-700: #605d5d;
+  --mh-neutral-800: #444141;
+  --mh-neutral-900: #2d2b2b;
+  --mh-divider: color-mix(in srgb, #201e1d 40%, transparent);
+  --mh-font: 'Archivo', system-ui, sans-serif;
+  --mh-font-heading: 'Archivo', system-ui, sans-serif;
+  --mh-font-heading-weight: 800;
+  --mh-radius-sm: 0px;
+  --mh-radius-md: 0px;
+  --mh-radius-lg: 0px;
+  --mh-radius-xl: 0px;
+  --mh-radius-pill: 0px;
+  --mh-shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --mh-shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --mh-shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+  /* Kill default mint glass so header stays transparent */
+  --homepage-section-bg-glass: transparent;
+
+  background: var(--mh-bg) !important;
+  color: var(--mh-text);
+  font-family: var(--mh-font);
+}
+
+/* Organic homepage only ? tokens from Malayalees.US Homepage (Organic) */
+body.modernist-home.organic-home {
+  /* Logo-derived greens (KCNJ “KCNJ” wordmark + leaf greens) */
+  --mh-brand-green: #004820;
+  --mh-brand-green-mid: #085018;
+  --mh-brand-green-bright: #206000;
+  --mh-bg: #f5ead8;
+  --mh-surface: #ebddc5;
+  /* Exact canvas colour of the header ribbon JPGs — must match the artwork */
+  --mh-ribbon-canvas: #f2e7d5;
+  --mh-text: #201e1d;
+  --mh-accent: #c67139;
+  --mh-accent-200: #ffe1d0;
+  --mh-accent-400: #f6a06b;
+  --mh-accent-500: #d67f48;
+  --mh-accent-600: #b2622d;
+  --mh-accent-700: #8c491a;
+  --mh-accent-100: #fff2eb;
+  --mh-accent-800: #643312;
+  /* Secondary accent aligned to logo forest green (was muted olive) */
+  --mh-accent-2: #085018;
+  --mh-accent-2-100: #e8f5ec;
+  --mh-accent-2-200: #c5e6d0;
+  --mh-accent-2-700: #004820;
+  --mh-accent-2-800: #003318;
+  --mh-neutral-100: #f9f4ed;
+  --mh-neutral-200: #eee7db;
+  --mh-neutral-300: #dcd3c4;
+  --mh-neutral-500: #a19786;
+  --mh-neutral-700: #645c50;
+  --mh-neutral-800: #474238;
+  --mh-neutral-900: #2e2b25;
+  --mh-divider: color-mix(in srgb, #201e1d 16%, transparent);
+  --mh-font: 'Figtree', system-ui, sans-serif;
+  --mh-font-heading: 'Caprasimo', system-ui, sans-serif;
+  --mh-font-heading-weight: 400;
+  --mh-radius-sm: 8px;
+  --mh-radius-md: 16px;
+  --mh-radius-lg: 28px;
+  --mh-radius-xl: calc(28px * 1.15);
+  --mh-radius-pill: 999px;
+  --mh-shadow-sm: 0 1px 2px color-mix(in srgb, #2e2b25 14%, transparent);
+  --mh-shadow-md: 0 3px 10px color-mix(in srgb, #2e2b25 16%, transparent);
+  --mh-shadow-lg: 0 12px 32px color-mix(in srgb, #2e2b25 22%, transparent);
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+
+  /* Remap shadcn / Tailwind semantic colors to the organic homepage palette */
+  --background: 36 45% 90%;
+  --foreground: 20 5% 12%;
+  --card: 36 40% 85%;
+  --card-foreground: 20 5% 12%;
+  --popover: 36 45% 92%;
+  --popover-foreground: 20 5% 12%;
+  --primary: 148 100% 14%;
+  --primary-foreground: 40 40% 97%;
+  --secondary: 36 30% 88%;
+  --secondary-foreground: 20 5% 18%;
+  --muted: 36 28% 88%;
+  --muted-foreground: 30 8% 35%;
+  --accent: 24 55% 50%;
+  --accent-foreground: 40 40% 97%;
+  --destructive: 0 55% 42%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 30 14% 72%;
+  --input: 36 40% 96%;
+  --ring: 148 100% 18%;
+}
+
+/* Back-compat: homepage still adds home-page-background alongside modernist-home */
+body.home-page-background.modernist-home {
+  background: var(--mh-bg) !important;
+  color: var(--mh-text);
+  font-family: var(--mh-font);
+}
+
+body.modernist-home .modernist-home {
+  background: var(--mh-bg);
+  color: var(--mh-text);
+  font-family: var(--mh-font);
+  font-size: 15px;
+  line-height: 1.55;
+  width: 100%;
+  min-height: 100vh;
+}
+
+body.modernist-home .modernist-home *,
+body.modernist-home .modernist-home *::before,
+body.modernist-home .modernist-home *::after {
+  box-sizing: border-box;
+}
+
+body.modernist-home .mh-grayscale {
+  filter: grayscale(1) contrast(1.08);
+}
+
+/* Organic homepage: keep images full-color and crisp (no washed/faded look) */
+body.modernist-home.organic-home .mh-grayscale,
+body.modernist-home.organic-home .mh-washed {
+  filter: none;
+}
+
+body.modernist-home .mh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--mh-text);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 10px 16px;
+  border-radius: 0;
+}
+
+body.modernist-home.organic-home .mh-btn {
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: var(--mh-radius-pill);
+}
+
+body.modernist-home .mh-btn-primary {
+  background: var(--mh-accent);
+  color: var(--mh-bg);
+  border-color: var(--mh-accent);
+}
+
+body.modernist-home .mh-btn-primary:hover {
+  background: var(--mh-accent-600);
+}
+
+body.modernist-home .mh-btn-secondary {
+  border-color: var(--mh-divider);
+}
+
+body.modernist-home .mh-btn-secondary:hover {
+  background: color-mix(in srgb, var(--mh-text) 7%, transparent);
+}
+
+body.modernist-home .mh-btn-ghost {
+  color: var(--mh-accent);
+  border: 1px solid currentColor;
+  background: transparent;
+}
+
+body.modernist-home .mh-btn-ghost:hover {
+  background: color-mix(in srgb, var(--mh-accent) 10%, transparent);
+}
+
+body.modernist-home .mh-btn-on-dark {
+  color: var(--mh-bg);
+  border: 1px solid var(--mh-bg);
+  background: transparent;
+}
+
+body.modernist-home .mh-btn-on-dark:hover {
+  background: color-mix(in srgb, var(--mh-bg) 12%, transparent);
+}
+
+/* Event-card action buttons ? solid bright fills (same weight as mh-btn-primary) */
+body.modernist-home .mh-btn-details {
+  background: #15803d;
+  border-color: #15803d;
+  color: #fff;
+}
+
+body.modernist-home .mh-btn-details:hover {
+  background: #166534;
+  border-color: #166534;
+}
+
+body.modernist-home .mh-btn-calendar {
+  background: #ea580c;
+  border-color: #ea580c;
+  color: #fff;
+}
+
+body.modernist-home .mh-btn-calendar:hover {
+  background: #c2410c;
+  border-color: #c2410c;
+}
+
+body.modernist-home .mh-btn-readmore {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+}
+
+body.modernist-home .mh-btn-readmore:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+body.modernist-home .mh-btn-register {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+body.modernist-home .mh-btn-register:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+body.modernist-home .mh-btn-tickets {
+  background: #db2777;
+  border-color: #db2777;
+  color: #fff;
+}
+
+body.modernist-home .mh-btn-tickets:hover {
+  background: #be185d;
+  border-color: #be185d;
+}
+
+body.modernist-home .mh-btn-donate {
+  background: #0d9488;
+  border-color: #0d9488;
+  color: #fff;
+}
+
+body.modernist-home .mh-btn-donate:hover {
+  background: #0f766e;
+  border-color: #0f766e;
+}
+
+/* Organic homepage action buttons */
+body.modernist-home.organic-home .mh-btn-details {
+  background: var(--mh-accent-2);
+  border-color: var(--mh-accent-2);
+  color: var(--mh-bg);
+}
+body.modernist-home.organic-home .mh-btn-details:hover {
+  background: var(--mh-accent-2-700);
+  border-color: var(--mh-accent-2-700);
+}
+body.modernist-home.organic-home .mh-btn-calendar {
+  background: var(--mh-accent-500);
+  border-color: var(--mh-accent-500);
+  color: var(--mh-bg);
+}
+body.modernist-home.organic-home .mh-btn-calendar:hover {
+  background: var(--mh-accent-600);
+  border-color: var(--mh-accent-600);
+}
+body.modernist-home.organic-home .mh-btn-readmore {
+  background: var(--mh-accent-2-800);
+  border-color: var(--mh-accent-2-800);
+  color: var(--mh-bg);
+}
+body.modernist-home.organic-home .mh-btn-readmore:hover {
+  background: var(--mh-neutral-900);
+  border-color: var(--mh-neutral-900);
+}
+body.modernist-home.organic-home .mh-btn-register {
+  background: var(--mh-accent-700);
+  border-color: var(--mh-accent-700);
+  color: var(--mh-bg);
+}
+body.modernist-home.organic-home .mh-btn-register:hover {
+  background: var(--mh-accent-800);
+  border-color: var(--mh-accent-800);
+}
+body.modernist-home.organic-home .mh-btn-tickets {
+  background: var(--mh-accent);
+  border-color: var(--mh-accent);
+  color: var(--mh-bg);
+}
+body.modernist-home.organic-home .mh-btn-tickets:hover {
+  background: var(--mh-accent-600);
+  border-color: var(--mh-accent-600);
+}
+body.modernist-home.organic-home .mh-btn-donate {
+  background: var(--mh-accent-2-700);
+  border-color: var(--mh-accent-2-700);
+  color: var(--mh-bg);
+}
+body.modernist-home.organic-home .mh-btn-donate:hover {
+  background: var(--mh-accent-2-800);
+  border-color: var(--mh-accent-2-800);
+}
+body.modernist-home .mh-btn-results {
+  background: #b45309;
+  border-color: #b45309;
+  color: #fff;
+}
+body.modernist-home .mh-btn-results:hover,
+body.modernist-home .mh-btn-results.is-open {
+  background: #92400e;
+  border-color: #92400e;
+}
+body.modernist-home.organic-home .mh-btn-results {
+  background: #8a5a1a;
+  border-color: #8a5a1a;
+  color: var(--mh-bg);
+}
+body.modernist-home.organic-home .mh-btn-results:hover,
+body.modernist-home.organic-home .mh-btn-results.is-open {
+  background: #643312;
+  border-color: #643312;
+}
+
+body.modernist-home .mh-btn svg {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Events card action icons ? larger + inherit solid button color */
+body.modernist-home .mh-events-page .mh-event-card-actions .mh-btn svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  color: #fff;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+}
+
+body.modernist-home .mh-tag-accent {
+  background: var(--mh-accent-100);
+  color: var(--mh-accent-800);
+}
+
+body.modernist-home .mh-tag-outline {
+  border: 1px solid var(--mh-accent);
+  color: var(--mh-accent);
+}
+
+body.modernist-home .mh-tag-neutral {
+  background: var(--mh-neutral-100);
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-eyebrow {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mh-accent-700);
+}
+
+body.modernist-home .mh-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--mh-accent);
+  flex-shrink: 0;
+}
+
+body.modernist-home .mh-link {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--mh-accent);
+}
+
+body.modernist-home .mh-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ?? 1b Poster hero ?? */
+/* Organic hero ? split logo panel + slideshow, soft orbs, mission bar */
+body.modernist-home .mh-poster-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(32px, 5vw, 64px) 0 clamp(40px, 6vw, 72px);
+  background: var(--mh-bg);
+}
+
+body.modernist-home .mh-poster-hero-orb {
+  position: absolute;
+  border-radius: var(--mh-radius-pill);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.modernist-home .mh-poster-hero-orb--accent {
+  top: -180px;
+  right: -160px;
+  width: 520px;
+  height: 520px;
+  background: var(--mh-accent-200);
+  opacity: 0.55;
+}
+
+body.modernist-home .mh-poster-hero-orb--olive {
+  bottom: -220px;
+  left: -180px;
+  width: 460px;
+  height: 460px;
+  background: var(--mh-accent-2-200);
+  opacity: 0.5;
+}
+
+body.modernist-home .mh-poster-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vw, 32px);
+}
+
+body.modernist-home .mh-poster-hero-panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2.5vw, 28px);
+  align-items: stretch;
+}
+
+body.modernist-home .mh-poster-hero-logo-panel {
+  position: relative;
+  flex: 1 1 260px;
+  min-height: clamp(280px, 38vw, 460px);
+  border-radius: var(--mh-radius-lg);
+  overflow: hidden;
+  background: var(--mh-surface);
+  box-shadow: var(--mh-shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 3vw, 36px);
+}
+
+body.modernist-home .mh-poster-hero-logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+body.modernist-home .mh-poster-hero-logo-img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  background: transparent !important;
+  transition: transform 0.8s ease-out;
+}
+
+body.modernist-home .mh-poster-hero-logo-panel:hover .mh-poster-hero-logo-img {
+  transform: scale(1.03);
+}
+
+body.modernist-home .mh-poster-hero-slide-panel {
+  flex: 2 1 420px;
+  min-width: 260px;
+  min-height: clamp(280px, 38vw, 460px);
+  position: relative;
+  border-radius: var(--mh-radius-lg);
+  overflow: hidden;
+  background: var(--mh-neutral-300);
+  box-shadow: var(--mh-shadow-lg);
+}
+
+body.modernist-home .mh-poster-hero-media {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  /* Dark fill so any micro-gap never flashes the light grey panel */
+  background: #1a0a2e;
+}
+
+/* Two stacked layers — outgoing stays visible while incoming fades in (no blank gap). */
+body.modernist-home .mh-poster-hero-crossfade-stack {
+  position: absolute;
+  inset: 0;
+}
+
+body.modernist-home .mh-poster-hero-crossfade-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Keep in sync with CROSSFADE_MS in ModernistPosterHero.tsx */
+  transition: opacity 1.1s cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+body.modernist-home .mh-poster-hero-crossfade-layer.is-visible {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/*
+ * Slides are admin-uploaded posters ranging from 16:9 to ~3.2:1, while this
+ * panel's own ratio is viewport-driven (it bleeds to the right edge), so `cover`
+ * cropped a different slice off every poster on every screen. The poster is
+ * `contain` so it is never cut on any side; the blurred backdrop below fills the
+ * panel so containing it does not leave bare bars.
+ *
+ * Layer opacity handles crossfade — images inside a layer stay fully opaque.
+ */
+body.modernist-home .mh-poster-hero-media img,
+body.modernist-home.organic-home .mh-poster-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  opacity: 1;
+  filter: none;
+}
+
+body.modernist-home .mh-poster-hero-media img.mh-poster-hero-img-backdrop {
+  object-fit: cover;
+  /* Scale must outrun the blur radius or the blur reveals the panel edges */
+  transform: scale(1.25);
+  filter: blur(30px) saturate(1.12);
+  z-index: 0;
+  opacity: 0.92;
+}
+
+body.modernist-home .mh-poster-hero-media img.mh-poster-hero-img-poster {
+  z-index: 1;
+  transform: scale(1);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/*
+ * Settle-into-frame, not Ken Burns zoom-in.
+ * Scale never exceeds 1, so object-fit:contain keeps every edge inside the panel.
+ */
+@keyframes mh-poster-hero-settle {
+  from {
+    transform: scale(0.96);
+    opacity: 0.88;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+body.modernist-home .mh-poster-hero-media img.mh-poster-hero-img-poster.is-zooming {
+  animation: mh-poster-hero-settle 8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.modernist-home .mh-poster-hero-crossfade-layer {
+    transition: opacity 0.2s ease;
+  }
+
+  body.modernist-home .mh-poster-hero-media img.mh-poster-hero-img-poster.is-zooming {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+body.modernist-home .mh-poster-hero-scrim,
+body.modernist-home .mh-poster-hero-logo-plate {
+  display: none;
+}
+
+body.modernist-home .mh-poster-hero-ticket-overlay {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 5;
+  filter: drop-shadow(0 4px 12px color-mix(in srgb, #2e2b25 35%, transparent));
+}
+
+body.modernist-home .mh-poster-hero-ticket-overlay img {
+  transition: transform 0.3s ease;
+}
+
+body.modernist-home .mh-poster-hero-ticket-overlay a:hover img {
+  transform: scale(1.06);
+}
+
+body.modernist-home .mh-poster-hero-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  pointer-events: none;
+}
+
+body.modernist-home .mh-poster-hero-control {
+  pointer-events: auto;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--mh-radius-pill);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mh-bg);
+  color: var(--mh-accent-700);
+  box-shadow: var(--mh-shadow-md);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+body.modernist-home .mh-poster-hero-control:hover {
+  transform: scale(1.08);
+  background: var(--mh-accent-200);
+}
+
+body.modernist-home .mh-poster-hero-controls .mh-poster-hero-control:nth-child(2) {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+body.modernist-home .mh-poster-hero-controls .mh-poster-hero-control:nth-child(2):hover {
+  transform: translateX(-50%) scale(1.08);
+}
+
+body.modernist-home .mh-poster-hero-mission {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(16px, 3vw, 32px);
+  padding: 14px clamp(16px, 2vw, 24px);
+  border-radius: var(--mh-radius-pill);
+  background: var(--mh-surface);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home .mh-poster-hero-mission-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--mh-text);
+  text-decoration: none;
+}
+
+body.modernist-home .mh-poster-hero-mission-label {
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+body.modernist-home .mh-poster-hero-browse {
+  align-self: flex-start;
+}
+
+/* Organic hero: equal-height split ? logo left, slider right (bleeds to viewport edge) */
+body.modernist-home.organic-home .mh-poster-hero {
+  /* Clear fixed header + breathing room so hero never sits under the bar */
+  padding: calc(var(--header-bar-height, 6.5rem) + 1.75rem) 0 clamp(32px, 4.5vw, 56px);
+  background: transparent;
+  overflow: visible;
+}
+
+@media (min-width: 640px) {
+  body.modernist-home.organic-home .mh-poster-hero {
+    padding-top: calc(var(--header-bar-height, 7rem) + 1.85rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  body.modernist-home.organic-home .mh-poster-hero {
+    padding-top: calc(var(--header-bar-height, 7.5rem) + 2rem);
+  }
+}
+
+body.modernist-home.organic-home .mh-poster-hero-inner {
+  max-width: none;
+  width: 100%;
+  padding-left: clamp(16px, 4vw, 56px);
+  padding-right: 0;
+  gap: clamp(18px, 2.4vw, 28px);
+}
+
+body.modernist-home.organic-home .mh-poster-hero-panels {
+  display: grid;
+  /* Narrower logo column — slideshow takes the rest and bleeds right */
+  grid-template-columns: minmax(200px, 26%) minmax(0, 1fr);
+  gap: clamp(16px, 2.2vw, 28px);
+  align-items: stretch;
+  /* Row height comes from the slide panel's own ratio, not a viewport fraction */
+  min-height: 0;
+}
+
+body.modernist-home.organic-home .mh-poster-hero-logo-panel {
+  flex: none;
+  min-height: 0;
+  height: 100%;
+  padding: clamp(16px, 2.4vw, 28px);
+  background: color-mix(in srgb, var(--mh-surface) 72%, var(--mh-bg));
+  border: 1px solid color-mix(in srgb, #2e2b25 8%, transparent);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home.organic-home .mh-poster-hero-logo-img {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 360px);
+  max-height: min(86%, 400px);
+  object-fit: contain;
+}
+
+body.modernist-home.organic-home .mh-poster-hero-slide-panel {
+  flex: none;
+  min-width: 0;
+  min-height: 0;
+  /*
+   * Take the height from the current slide's own ratio (set inline by
+   * ModernistPosterHero once the image loads). Panel ratio == poster ratio is
+   * what lets `contain` fill the panel with no crop and no side bars. The cap
+   * keeps the hero on screen on ultra-wide monitors; past it the blurred
+   * backdrop takes over again.
+   */
+  height: auto;
+  align-self: start;
+  aspect-ratio: var(--mh-hero-slide-ratio, 1.7778);
+  max-height: min(70vh, 640px);
+  /* Full-bleed to the right edge of the viewport */
+  border-radius: var(--mh-radius-lg) 0 0 var(--mh-radius-lg);
+  border: 1px solid color-mix(in srgb, #2e2b25 10%, transparent);
+  border-right: 0;
+  box-shadow: var(--mh-shadow-lg);
+}
+
+body.modernist-home.organic-home .mh-poster-hero-browse {
+  padding-right: clamp(16px, 4vw, 56px);
+}
+
+body.modernist-home.organic-home .mh-poster-hero-mission {
+  background: color-mix(in srgb, var(--mh-surface) 80%, var(--mh-bg));
+  border: 1px solid color-mix(in srgb, #2e2b25 8%, transparent);
+}
+
+body.modernist-home .mh-poster-hero-content {
+  display: contents;
+}
+
+body.modernist-home .mh-cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+
+/* Culture strip ? Claude Design assets (deepam / Spark / riverside) */
+body.modernist-home .mh-culture-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-bottom: 2px solid var(--mh-divider);
+  background: var(--mh-text);
+}
+
+body.modernist-home .mh-culture-strip-frame {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  border-right: 1px solid color-mix(in srgb, var(--mh-bg) 18%, transparent);
+}
+
+body.modernist-home .mh-culture-strip-frame:last-child {
+  border-right: none;
+}
+
+body.modernist-home .mh-culture-strip-frame img {
+  object-fit: cover;
+}
+
+/* Legacy hero slider mid-page ? removed from Modernist homepage */
+body.modernist-home .mh-legacy-hero-slider {
+  display: none;
+}
+
+body.modernist-home .mh-legacy-hero-slider .hero-container-split {
+  padding-top: 2.5rem !important;
+  padding-bottom: 2.5rem;
+}
+
+body.modernist-home .mh-cta-row .mh-btn {
+  padding: 16px 24px;
+  font-size: 15px;
+}
+
+/* ?? Red on-sale band ?? */
+body.modernist-home .mh-onsale-band {
+  background: var(--mh-accent);
+  color: var(--mh-bg);
+  padding: 32px 72px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+body.modernist-home .mh-onsale-band-copy {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+body.modernist-home .mh-onsale-band-kicker {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+body.modernist-home .mh-onsale-band h2 {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+body.modernist-home .mh-onsale-band-meta {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  opacity: 0.92;
+}
+
+body.modernist-home .mh-onsale-band .mh-btn,
+body.modernist-home .mh-onsale-band-cta {
+  margin-left: auto;
+  padding: 12px 20px;
+  font-size: 14px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ?? Shared section padding ?? */
+body.modernist-home .mh-section {
+  padding: 72px;
+}
+
+body.modernist-home .mh-section-tight-top {
+  padding-top: 42px;
+}
+
+body.modernist-home .mh-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+body.modernist-home .mh-section-head .mh-link {
+  margin-left: auto;
+}
+
+body.modernist-home .mh-h2 {
+  margin: 0 0 40px -0.02em;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--mh-brand-green);
+}
+
+/* ?? Homepage upcoming events (reuses mh-event-card from events page) ?? */
+body.modernist-home .mh-home-events-heading {
+  margin-bottom: 12px;
+}
+
+body.modernist-home .mh-home-events-lede {
+  margin: 0 0 40px;
+  max-width: 48ch;
+  font-size: 15.5px;
+  line-height: 28px;
+  color: var(--mh-neutral-800);
+}
+
+/* One event per row: full-width flyer on top, details below */
+body.modernist-home .mh-home-events-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+body.modernist-home .mh-home-events-grid > .mh-event-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+body.modernist-home .mh-home-events .mh-event-card-desc--clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+body.modernist-home .mh-home-events-more {
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ?? 1a Timetable ?? */
+body.modernist-home .mh-timetable {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-timetable-row {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr) 260px 132px 132px;
+  align-items: baseline;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 2px solid var(--mh-divider);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+body.modernist-home .mh-timetable-row:hover {
+  background: color-mix(in srgb, var(--mh-text) 4%, transparent);
+}
+
+body.modernist-home .mh-timetable-date {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 22px;
+  font-feature-settings: 'tnum' 1;
+}
+
+body.modernist-home .mh-timetable-title {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+body.modernist-home .mh-timetable-caption {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-timetable-meta {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--mh-neutral-800);
+  font-feature-settings: 'tnum' 1;
+}
+
+body.modernist-home .mh-timetable-tag {
+  display: flex;
+  justify-content: flex-end;
+}
+
+body.modernist-home .mh-empty {
+  padding: 32px 0;
+  color: var(--mh-neutral-700);
+  font-size: 15px;
+}
+
+/* ?? Featured split ?? */
+body.modernist-home .mh-featured-block {
+  border-top: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-featured-section-head {
+  padding: 56px 72px 28px;
+}
+
+body.modernist-home .mh-featured-section-title {
+  margin-bottom: 12px;
+}
+
+body.modernist-home .mh-featured-section-lede {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: stretch;
+  min-height: 640px;
+  border-top: 2px solid var(--mh-divider);
+  border-bottom: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-featured + .mh-featured {
+  border-top: 0;
+}
+
+body.modernist-home .mh-featured-media {
+  margin: 0;
+  border-right: 2px solid var(--mh-divider);
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mh-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+body.modernist-home .mh-featured-media-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 640px;
+}
+
+body.modernist-home .mh-featured-media img,
+body.modernist-home .mh-featured-media-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+}
+
+body.modernist-home .mh-featured-body {
+  padding: 64px 72px 64px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body.modernist-home .mh-featured-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+body.modernist-home .mh-featured-body h2 {
+  margin: 0 0 0 -0.02em;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+body.modernist-home .mh-featured-lede {
+  margin: 24px 0 0;
+  font-size: 16px;
+  line-height: 28px;
+  max-width: 38ch;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-featured-meta {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  border-top: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-featured-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-featured-meta-row:last-child {
+  border-bottom: 0;
+}
+
+body.modernist-home .mh-featured-meta-label {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-featured-meta-value {
+  font-size: 14px;
+  font-weight: 600;
+  font-feature-settings: 'tnum' 1;
+  text-align: right;
+}
+
+body.modernist-home .mh-featured-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+body.modernist-home .mh-featured-actions .mh-btn {
+  padding: 14px 22px;
+  font-size: 14px;
+}
+
+/* Past featured — badge on media (ticket CTAs omitted in JSX) */
+body.modernist-home .mh-featured-past-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: var(--mh-radius-pill);
+  background: var(--mh-neutral-800, #2d2a26);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Live Events — small LIVE badge on the media panel only */
+body.modernist-home .mh-live-block .mh-live-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
+  border-radius: var(--mh-radius-pill);
+  background: var(--mh-accent);
+  color: var(--mh-bg);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--mh-accent) 35%, transparent);
+  pointer-events: none;
+}
+
+body.modernist-home .mh-live-block .mh-live-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mh-bg);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--mh-bg) 70%, transparent);
+  animation: mh-live-pulse 1.6s ease-out infinite;
+}
+
+@keyframes mh-live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--mh-bg) 70%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--mh-bg) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--mh-bg) 0%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.modernist-home .mh-live-block .mh-live-badge-dot {
+    animation: none;
+  }
+}
+
+/* ?? What we do (interactive cards) ?? */
+body.modernist-home .mh-services {
+  padding-top: 84px;
+  padding-bottom: 84px;
+}
+
+body.modernist-home .mh-services-eyebrow {
+  margin-bottom: 14px;
+}
+
+body.modernist-home .mh-services-heading {
+  margin-bottom: 48px;
+}
+
+body.modernist-home .mh-services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+body.modernist-home .mh-service-card {
+  --mh-stagger: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+  padding: 32px 28px 36px;
+  background: var(--mh-bg);
+  border: 2px solid var(--mh-divider);
+  overflow: hidden;
+  cursor: default;
+  opacity: 0;
+  transform: translateY(36px) scale(0.985);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.35s ease;
+  transition-delay: calc(var(--mh-stagger) * 90ms);
+}
+
+body.modernist-home .mh-services--in .mh-service-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+body.modernist-home .mh-service-card-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 0;
+  background: var(--mh-accent);
+  transition: height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.modernist-home .mh-service-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.modernist-home .mh-services-num {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 28px;
+  letter-spacing: 0.04em;
+  font-feature-settings: 'tnum' 1;
+  color: var(--mh-accent-700);
+  transition: color 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.modernist-home .mh-services-title {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease;
+}
+
+body.modernist-home .mh-services-desc {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 28px;
+  max-width: 42ch;
+  color: var(--mh-neutral-800);
+  transition: color 0.25s ease;
+}
+
+body.modernist-home .mh-service-card-rule {
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin-top: auto;
+  background: var(--mh-divider);
+  transition:
+    width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.25s ease;
+}
+
+body.modernist-home .mh-service-card:hover,
+body.modernist-home .mh-service-card:focus-within {
+  border-color: var(--mh-text);
+  background: color-mix(in srgb, var(--mh-surface) 70%, var(--mh-bg));
+  box-shadow: 8px 10px 0 color-mix(in srgb, var(--mh-accent) 18%, transparent);
+  transform: translateY(-6px);
+}
+
+body.modernist-home .mh-service-card:hover .mh-service-card-accent,
+body.modernist-home .mh-service-card:focus-within .mh-service-card-accent {
+  height: 100%;
+}
+
+body.modernist-home .mh-service-card:hover .mh-services-num,
+body.modernist-home .mh-service-card:focus-within .mh-services-num {
+  color: var(--mh-accent);
+  transform: translateX(4px);
+}
+
+body.modernist-home .mh-service-card:hover .mh-services-title,
+body.modernist-home .mh-service-card:focus-within .mh-services-title {
+  transform: translateX(4px);
+}
+
+body.modernist-home .mh-service-card:hover .mh-service-card-rule,
+body.modernist-home .mh-service-card:focus-within .mh-service-card-rule {
+  width: 100%;
+  background: var(--mh-accent);
+}
+
+body.modernist-home .mh-service-card:hover .mh-dot,
+body.modernist-home .mh-service-card:focus-within .mh-dot {
+  transform: scale(1.25);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.modernist-home .mh-service-card {
+    opacity: 1;
+    transform: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  body.modernist-home .mh-service-card:hover,
+  body.modernist-home .mh-service-card:focus-within {
+    transform: none;
+    box-shadow: none;
+  }
+
+  body.modernist-home .mh-service-card:hover .mh-services-num,
+  body.modernist-home .mh-service-card:focus-within .mh-services-num,
+  body.modernist-home .mh-service-card:hover .mh-services-title,
+  body.modernist-home .mh-service-card:focus-within .mh-services-title {
+    transform: none;
+  }
+}
+
+/* ?? About ?? */
+body.modernist-home .mh-about {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 28px 96px;
+  align-items: start;
+  padding: 84px 72px;
+  border-top: 2px solid var(--mh-divider);
+  border-bottom: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-about h2 {
+  margin: 0 0 0 -0.02em;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+body.modernist-home .mh-about-copy p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 28px;
+  max-width: 56ch;
+}
+
+body.modernist-home .mh-about-copy p + p {
+  margin-top: 28px;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-about-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 42px;
+  padding-top: 28px;
+  border-top: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-about-legal-name {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+body.modernist-home .mh-about-legal-contact {
+  margin: 8px 0 0;
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-about-legal-contact a {
+  color: var(--mh-text);
+  text-decoration: none;
+}
+
+body.modernist-home .mh-about-legal-contact a[href^='mailto'] {
+  color: var(--mh-accent);
+  text-underline-offset: 3px;
+}
+
+/* ?? Team ?? */
+body.modernist-home #team-section {
+  text-align: center;
+}
+
+body.modernist-home #team-section .mh-eyebrow,
+body.modernist-home #team-section .mh-h2 {
+  text-align: center;
+}
+
+body.modernist-home #team-section > p {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center;
+}
+
+body.modernist-home .mh-team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 48px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+body.modernist-home .mh-team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 0 1 calc((100% - 80px) / 3);
+  width: 100%;
+  max-width: 340px;
+  border-top: 2px solid var(--mh-divider);
+  padding-top: 24px;
+}
+
+/* Profile portraits: clearly visible headshots, still smaller than event/featured media */
+body.modernist-home .mh-team-photo {
+  margin: 0 auto 18px;
+  width: 100%;
+  max-width: 295px;
+  aspect-ratio: 3 / 4;
+  background: var(--mh-surface);
+  overflow: hidden;
+}
+
+body.modernist-home .mh-team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+body.modernist-home .mh-team-name {
+  margin: 0 0 6px;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.modernist-home .mh-team-title {
+  display: block;
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--mh-neutral-700);
+  white-space: normal;
+}
+
+body.modernist-home .mh-team-bio {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--mh-neutral-700);
+}
+
+/* ?? Homepage sponsors (card layout matching upcoming events) ?? */
+body.modernist-home .mh-home-sponsors-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+body.modernist-home .mh-home-sponsors-grid > .mh-event-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+body.modernist-home .mh-home-sponsors-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
+
+body.modernist-home .mh-home-sponsors .mh-event-card-actions .mh-btn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+body.modernist-home .mh-home-sponsors .mh-sponsor-card-media {
+  background: var(--mh-surface);
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+  display: block;
+  overflow: hidden;
+  line-height: 0;
+}
+
+body.modernist-home .mh-home-sponsors .mh-sponsor-card-media img,
+body.modernist-home .mh-home-sponsors .mh-sponsor-card-media .mh-event-card-media-img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  max-width: 100% !important;
+  margin: 0;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block;
+}
+
+/* Legacy text-row sponsors (kept for other pages if referenced) */
+body.modernist-home .mh-sponsors-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-sponsor-row {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) 160px;
+  align-items: baseline;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 2px solid var(--mh-divider);
+}
+
+body.modernist-home .mh-sponsor-tier {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-sponsor-name {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+body.modernist-home .mh-sponsor-visit {
+  justify-self: end;
+}
+
+/* ?? Red close ?? */
+body.modernist-home .mh-close {
+  background: var(--mh-accent);
+  color: var(--mh-bg);
+  padding: 84px 72px;
+}
+
+body.modernist-home .mh-close-kicker {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--mh-bg) 82%, transparent);
+}
+
+body.modernist-home .mh-close h3 {
+  margin: 0 0 0 -0.058em;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 60px);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+body.modernist-home .mh-close-lede {
+  margin: 18px 0 0;
+  max-width: 36ch;
+  font-size: 16px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--mh-bg) 88%, transparent);
+}
+
+body.modernist-home .mh-close .mh-cta-row {
+  margin-top: 42px;
+}
+
+body.modernist-home .mh-close .mh-btn {
+  padding: 14px 22px;
+  font-size: 14px;
+}
+
+/* ?? Responsive ?? */
+@media (max-width: 1024px) {
+  body.modernist-home .mh-timetable-row {
+    grid-template-columns: 110px minmax(0, 1fr) 100px;
+    grid-template-areas:
+      'date title tag'
+      'date meta meta'
+      'date loc loc';
+  }
+
+  body.modernist-home .mh-timetable-row > :nth-child(1) {
+    grid-area: date;
+  }
+  body.modernist-home .mh-timetable-row > :nth-child(2) {
+    grid-area: title;
+  }
+  body.modernist-home .mh-timetable-row > :nth-child(3) {
+    grid-area: loc;
+  }
+  body.modernist-home .mh-timetable-row > :nth-child(4) {
+    grid-area: meta;
+  }
+  body.modernist-home .mh-timetable-row > :nth-child(5) {
+    grid-area: tag;
+  }
+
+  body.modernist-home .mh-featured {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  body.modernist-home .mh-featured-section-head {
+    padding: 42px 24px 20px;
+  }
+
+  /* Hug the banner on mobile ? no tall empty gray box around wide images */
+  body.modernist-home .mh-featured-media {
+    border-right: 0;
+    border-bottom: 2px solid var(--mh-divider);
+    min-height: 0;
+    height: auto;
+    display: block;
+    line-height: 0;
+    background: var(--mh-surface);
+  }
+
+  body.modernist-home .mh-featured-media-link {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+  }
+
+  body.modernist-home .mh-featured-media img,
+  body.modernist-home .mh-featured-media-link img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+  }
+
+  body.modernist-home .mh-featured-body {
+    padding: 48px 32px;
+  }
+
+  body.modernist-home .mh-services-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  body.modernist-home .mh-about {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 56px 32px;
+  }
+
+  body.modernist-home .mh-team-grid {
+    gap: 40px 32px;
+    max-width: 760px;
+  }
+
+  body.modernist-home .mh-team-photo {
+    max-width: 260px;
+  }
+
+  body.modernist-home .mh-team-card {
+    flex: 0 1 calc((100% - 32px) / 2);
+    max-width: 300px;
+  }
+
+  body.modernist-home .mh-sponsor-row {
+    grid-template-columns: 120px minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Organic hero stays content-driven on mobile (no fixed aspect crop box) */
+  body.modernist-home .mh-poster-hero {
+    min-height: 0;
+    height: auto;
+    aspect-ratio: auto;
+    max-height: none;
+    background: var(--mh-bg);
+    padding: 24px 0 32px;
+  }
+
+  body.modernist-home.organic-home .mh-poster-hero {
+    padding: calc(var(--header-bar-height, 6.5rem) + 1.25rem) 0 28px;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  body.modernist-home .mh-poster-hero-logo-panel,
+  body.modernist-home .mh-poster-hero-slide-panel {
+    min-height: 220px;
+    flex: 1 1 100%;
+  }
+
+  body.modernist-home.organic-home .mh-poster-hero-panels {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 14px;
+  }
+
+  body.modernist-home.organic-home .mh-poster-hero-inner {
+    padding-left: 16px;
+    padding-right: 0;
+  }
+
+  body.modernist-home.organic-home .mh-poster-hero-logo-panel {
+    width: min(100%, 280px);
+    margin-inline: auto;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    max-height: 260px;
+  }
+
+  body.modernist-home.organic-home .mh-poster-hero-slide-panel {
+    min-height: 0;
+    height: auto;
+    aspect-ratio: var(--mh-hero-slide-ratio, 1.7778);
+    max-height: 62vh;
+    /* Bleed slideshow to both side edges on mobile stack */
+    width: calc(100% + 16px);
+    margin-left: -16px;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  body.modernist-home.organic-home .mh-poster-hero-browse {
+    padding-right: 16px;
+  }
+
+  body.modernist-home .mh-poster-hero-media img,
+  body.modernist-home .mh-poster-hero-img {
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+
+  body.modernist-home .mh-poster-hero-media img.mh-poster-hero-img-backdrop {
+    object-fit: cover !important;
+  }
+
+  body.modernist-home .mh-poster-hero-scrim {
+    display: none;
+  }
+
+  body.modernist-home .mh-poster-hero-inner,
+  body.modernist-home .mh-onsale-band,
+  body.modernist-home .mh-section,
+  body.modernist-home .mh-close {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  body.modernist-home .mh-poster-hero-inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  body.modernist-home .mh-poster-hero-mission {
+    border-radius: var(--mh-radius-xl);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  body.modernist-home .mh-poster-hero-mission-label {
+    font-size: 18px;
+  }
+
+  body.modernist-home .mh-poster-hero-ticket-overlay {
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+
+  body.modernist-home .mh-poster-hero-ticket-overlay img {
+    width: 120px !important;
+    height: auto !important;
+  }
+
+  body.modernist-home .mh-poster-hero-controls {
+    padding: 0 0.4rem;
+  }
+
+  body.modernist-home .mh-poster-hero-control {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  body.modernist-home .mh-onsale-band {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    padding: 28px 20px 32px;
+  }
+
+  body.modernist-home .mh-onsale-band-copy {
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  body.modernist-home .mh-onsale-band-kicker {
+    margin-bottom: 10px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  body.modernist-home .mh-onsale-band h2 {
+    font-size: clamp(22px, 6.2vw, 28px);
+    line-height: 1.3;
+  }
+
+  body.modernist-home .mh-onsale-band-meta {
+    margin-top: 12px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  body.modernist-home .mh-onsale-band .mh-btn,
+  body.modernist-home .mh-onsale-band-cta {
+    margin-left: 0;
+    width: 100%;
+    max-width: 16rem;
+    justify-content: center;
+    padding: 14px 22px;
+    font-size: 15px;
+    font-weight: 700;
+    /* Solid CTA ? stronger than ghost outline on small screens */
+    background: var(--mh-bg);
+    color: var(--mh-accent);
+    border-color: var(--mh-bg);
+  }
+
+  body.modernist-home .mh-onsale-band .mh-btn:hover,
+  body.modernist-home .mh-onsale-band-cta:hover {
+    background: color-mix(in srgb, var(--mh-bg) 92%, #000);
+    color: var(--mh-accent);
+  }
+
+  /* Close CTA ? compact, centered, full-width tap targets */
+  body.modernist-home .mh-close {
+    padding: 40px 24px 48px;
+    text-align: center;
+  }
+
+  body.modernist-home .mh-close-kicker {
+    margin-bottom: 10px;
+  }
+
+  body.modernist-home .mh-close h3 {
+    margin: 0 auto;
+    font-size: clamp(26px, 7.2vw, 36px);
+    line-height: 1.15;
+    max-width: 16ch;
+  }
+
+  body.modernist-home .mh-close-lede {
+    margin: 12px auto 0;
+    max-width: 28ch;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  body.modernist-home .mh-close .mh-cta-row {
+    margin-top: 28px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    max-width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.modernist-home .mh-close .mh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 15px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    min-height: 48px;
+    box-sizing: border-box;
+  }
+
+  body.modernist-home .mh-close-cta-primary {
+    background: var(--mh-bg);
+    color: var(--mh-accent);
+    border-color: var(--mh-bg);
+  }
+
+  body.modernist-home .mh-close-cta-primary:hover {
+    background: color-mix(in srgb, var(--mh-bg) 92%, #000);
+    color: var(--mh-accent);
+  }
+
+  body.modernist-home .mh-close-cta-secondary {
+    background: transparent;
+    color: var(--mh-bg);
+    border-color: color-mix(in srgb, var(--mh-bg) 70%, transparent);
+  }
+
+  body.modernist-home .mh-close-cta-secondary:hover {
+    background: color-mix(in srgb, var(--mh-bg) 14%, transparent);
+  }
+
+  /* Tighten gap above close so sponsors ? CTA feels continuous */
+  body.modernist-home .mh-home-sponsors {
+    padding-bottom: 40px !important;
+  }
+
+  body.modernist-home .mh-timetable-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  body.modernist-home .mh-timetable-row > :nth-child(1),
+  body.modernist-home .mh-timetable-row > :nth-child(2),
+  body.modernist-home .mh-timetable-row > :nth-child(3),
+  body.modernist-home .mh-timetable-row > :nth-child(4),
+  body.modernist-home .mh-timetable-row > :nth-child(5) {
+    grid-area: auto;
+  }
+
+  body.modernist-home .mh-timetable-tag {
+    justify-content: flex-start;
+  }
+
+  body.modernist-home .mh-service-card {
+    padding: 28px 22px 32px;
+  }
+
+  body.modernist-home .mh-team-grid {
+    max-width: 300px;
+  }
+
+  body.modernist-home .mh-team-photo {
+    max-width: 250px;
+  }
+
+  body.modernist-home .mh-team-card {
+    flex: 0 1 100%;
+    max-width: 300px;
+  }
+
+  body.modernist-home .mh-sponsor-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  body.modernist-home .mh-sponsor-visit {
+    justify-self: start;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header ? homepage: transparent over hero; other pages: solid opaque bar     */
+/* -------------------------------------------------------------------------- */
+
+/* Non-home public pages: solid header so banner/ribbon never shows through */
+body.modernist-home .header-glass:not(.header-glass--home) {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--mh-bg, #f3f2f2) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-bottom: 1px solid var(--mh-neutral-300, #d7d3d3) !important;
+  box-shadow: 0 1px 0 rgba(32, 30, 29, 0.06) !important;
+}
+
+body.modernist-home .header-glass:not(.header-glass--home).header-glass--scrolled {
+  background: var(--mh-bg, #f3f2f2) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid var(--mh-neutral-300, #d7d3d3) !important;
+  box-shadow: 0 2px 12px rgba(32, 30, 29, 0.08) !important;
+}
+
+body.modernist-home .header-glass:not(.header-glass--home) .header-nav-link,
+body.modernist-home .header-glass:not(.header-glass--home) .header-search-btn,
+body.modernist-home .header-glass:not(.header-glass--home) .header-chevron,
+body.modernist-home .header-glass:not(.header-glass--home) .header-cta {
+  text-shadow: none !important;
+}
+
+body.modernist-home .header-glass.header-glass--home {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  /* Clear over dark hero at top ? homepage only */
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Scrolled: dark translucent frost ? readable nav + logo over any section */
+body.modernist-home .header-glass.header-glass--home.header-glass--scrolled {
+  background: rgba(20, 18, 16, 0.62) !important;
+  backdrop-filter: blur(18px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove dark purple / black Admin + avatar strip */
+body.modernist-home .header-auth-cluster,
+body.modernist-home .header-glass.header-glass--home.header-glass--scrolled .header-auth-cluster {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding-left: 0.5rem !important;
+}
+
+/* No dark pill behind nav links */
+body.modernist-home .header-main-nav {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Top of page: light labels over dark poster hero */
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link.active {
+  color: #ffd166 !important;
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link.active::after {
+  background: #ffd166 !important;
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-chevron {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-search-btn {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-search-btn:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-hamburger-line {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body.modernist-home .header-glass--home:not(.header-glass--scrolled) .header-cta {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* Scrolled: light labels over dark frosted glass (same as hero, for logo + nav) */
+body.modernist-home .header-glass--home.header-glass--scrolled .header-nav-link {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-nav-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-nav-link.active {
+  color: #ffd166 !important;
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-nav-link.active::after {
+  background: #ffd166 !important;
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-chevron {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-search-btn {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-search-btn:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-hamburger-line {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body.modernist-home .header-glass--home.header-glass--scrolled .header-cta {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.75) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+body.modernist-home .header-glass.header-glass--home.header-glass--scrolled::after {
+  content: none;
+}
+
+/* Organic homepage header: always solid (never transparent over hero) */
+body.modernist-home.organic-home .header-glass.header-glass--home,
+body.modernist-home.organic-home .header-glass.header-glass--home.header-glass--scrolled {
+  background: var(--mh-bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid color-mix(in srgb, #2e2b25 12%, transparent) !important;
+  box-shadow: 0 2px 14px color-mix(in srgb, #2e2b25 8%, transparent) !important;
+  transition:
+    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.modernist-home.organic-home .header-glass.header-glass--home.header-glass--scrolled {
+  box-shadow: 0 8px 24px color-mix(in srgb, #2e2b25 12%, transparent) !important;
+}
+
+body.modernist-home.organic-home .header-glass.header-glass--home .header-inner-grid {
+  height: 6.5rem;
+}
+
+@media (min-width: 640px) {
+  body.modernist-home.organic-home .header-glass.header-glass--home .header-inner-grid {
+    height: 7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  body.modernist-home.organic-home .header-glass.header-glass--home .header-inner-grid {
+    height: 7.5rem;
+  }
+}
+
+body.modernist-home.organic-home .header-glass.header-glass--home .header-logo-image-wrap {
+  width: 5.25rem !important;
+  min-width: 5.25rem !important;
+  height: 4.75rem !important;
+  max-height: 4.75rem !important;
+  padding: 0.125rem;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  body.modernist-home.organic-home .header-glass.header-glass--home .header-logo-image-wrap {
+    width: 5.75rem !important;
+    min-width: 5.75rem !important;
+    height: 5.25rem !important;
+    max-height: 5.25rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  body.modernist-home.organic-home .header-glass.header-glass--home .header-logo-image-wrap {
+    width: 6.25rem !important;
+    min-width: 6.25rem !important;
+    height: 5.5rem !important;
+    max-height: 5.5rem !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  body.modernist-home.organic-home .header-glass.header-glass--home .header-logo-image-wrap {
+    width: 6.75rem !important;
+    min-width: 6.75rem !important;
+    height: 5.75rem !important;
+    max-height: 5.75rem !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  body.modernist-home.organic-home .header-glass.header-glass--home .header-logo-image-wrap {
+    width: 6.75rem !important;
+    min-width: 6.75rem !important;
+    height: 5.75rem !important;
+    max-height: 5.75rem !important;
+  }
+}
+
+/* (scrolled solid styles merged above with always-solid organic header) */
+
+body.modernist-home.organic-home .header-glass--home .header-nav-link,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-nav-link,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link {
+  color: var(--mh-neutral-800) !important;
+  text-shadow: none !important;
+  font-family: var(--mh-font);
+  font-size: 0.95rem;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-nav-link:hover,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-nav-link:hover,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link:hover {
+  color: var(--mh-accent-700) !important;
+  background: color-mix(in srgb, var(--mh-accent-200) 55%, transparent) !important;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-nav-link.active,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-nav-link.active,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link.active {
+  color: var(--mh-accent-700) !important;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-nav-link.active::after,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-nav-link.active::after,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-nav-link.active::after {
+  background: var(--mh-accent) !important;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-chevron,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-chevron,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-chevron {
+  color: var(--mh-neutral-700) !important;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-search-btn,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-search-btn,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-search-btn {
+  color: var(--mh-neutral-800) !important;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-search-btn:hover,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-search-btn:hover,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-search-btn:hover {
+  color: var(--mh-accent-700) !important;
+  background: color-mix(in srgb, var(--mh-accent-200) 55%, transparent) !important;
+  border-color: color-mix(in srgb, var(--mh-accent) 35%, transparent) !important;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-hamburger-line,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-hamburger-line,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-hamburger-line {
+  background: var(--mh-neutral-800) !important;
+}
+
+body.modernist-home.organic-home .header-glass--home .header-cta,
+body.modernist-home.organic-home .header-glass--home.header-glass--scrolled .header-cta,
+body.modernist-home.organic-home .header-glass--home:not(.header-glass--scrolled) .header-cta {
+  color: var(--mh-accent-800) !important;
+  border-color: color-mix(in srgb, var(--mh-accent) 45%, transparent) !important;
+  text-shadow: none !important;
+}
+
+/* Hide legacy hero mission CTA + browse-events row on modernist homepage */
+body.modernist-home .mh-legacy-hero-slider .hero-left-cta-card,
+body.modernist-home .mh-legacy-hero-slider .hero-browse-container {
+  display: none !important;
+}
+
+/* ?? Light footer (homepage only) ?? */
+body.modernist-home footer.footer-edge-to-edge,
+body.modernist-home footer.footer-edge-to-edge .bg-gray-900,
+body.modernist-home footer.footer-edge-to-edge [class*='bg-gray-900'] {
+  background-color: var(--mh-bg, #f3f2f2) !important;
+  background: var(--mh-bg, #f3f2f2) !important;
+  color: var(--mh-neutral-700, #605d5d) !important;
+}
+
+body.modernist-home footer.footer-edge-to-edge {
+  border-top: 1px solid var(--mh-neutral-300, #d7d3d3);
+  color: var(--mh-neutral-700, #605d5d);
+}
+
+body.modernist-home footer.footer-edge-to-edge .border-gray-800,
+body.modernist-home footer.footer-edge-to-edge [class*='border-gray-800'] {
+  border-color: var(--mh-neutral-300, #d7d3d3) !important;
+}
+
+body.modernist-home footer.footer-edge-to-edge .text-white,
+body.modernist-home footer.footer-edge-to-edge h6,
+body.modernist-home footer.footer-edge-to-edge .font-semibold,
+body.modernist-home footer.footer-edge-to-edge [class*='text-white'] {
+  color: var(--mh-text, #201e1d) !important;
+}
+
+body.modernist-home footer.footer-edge-to-edge .text-gray-300,
+body.modernist-home footer.footer-edge-to-edge .text-gray-400,
+body.modernist-home footer.footer-edge-to-edge a {
+  color: var(--mh-neutral-700, #605d5d) !important;
+}
+
+body.modernist-home footer.footer-edge-to-edge a:hover {
+  color: var(--mh-accent, #ec3013) !important;
+}
+
+body.modernist-home footer.footer-edge-to-edge .bg-gray-800,
+body.modernist-home footer.footer-edge-to-edge [class*='bg-gray-800'] {
+  background-color: var(--mh-neutral-200, #eae7e7) !important;
+  color: var(--mh-text, #201e1d) !important;
+}
+
+body.modernist-home footer.footer-edge-to-edge .footer-contact-icon {
+  color: var(--mh-accent, #ec3013) !important;
+}
+
+body.modernist-home footer.footer-edge-to-edge .footer-heading {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+body.modernist-home footer.footer-edge-to-edge .footer-address .font-medium,
+body.modernist-home footer.footer-edge-to-edge .footer-address [class*='text-gray-300'] {
+  color: var(--mh-text, #201e1d) !important;
+}
+
+@media (max-width: 767px) {
+  body.modernist-home footer.footer-edge-to-edge.footer-main {
+    margin-top: 2.5rem !important;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-grid {
+    gap: 1.5rem;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-brand {
+    border-bottom: 1px solid var(--mh-neutral-300, #d7d3d3);
+    margin-bottom: 0.15rem;
+    padding-bottom: 1.15rem;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-brand-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Contact: same visual axis as brand (centered stack) */
+  body.modernist-home footer.footer-edge-to-edge .footer-contact {
+    text-align: center;
+    padding-bottom: 1.15rem;
+    border-bottom: 1px solid var(--mh-neutral-300, #d7d3d3);
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-contact .space-y-3\.5,
+  body.modernist-home footer.footer-edge-to-edge .footer-contact > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-contact .flex {
+    justify-content: center;
+    text-align: left;
+    max-width: 20rem;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-address {
+    text-align: left;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-nav-pair {
+    align-items: start;
+    column-gap: 1.25rem;
+    row-gap: 0;
+    text-align: left;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-heading {
+    margin-bottom: 0.75rem !important;
+    font-size: 0.9375rem !important;
+    min-height: 2.4em;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-link {
+    line-height: 1.4;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+
+  body.modernist-home footer.footer-edge-to-edge .footer-bottom p {
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ?? Events listing page (Modernist poster grid) ?? */
+body.modernist-home .mh-events-page {
+  background: var(--mh-bg);
+  color: var(--mh-text);
+  font-family: var(--mh-font);
+  width: 100%;
+  min-height: 100vh;
+}
+
+body.modernist-home .mh-events-hero {
+  --mh-header-clearance: 0.65rem;
+  /* Breathing room between the fixed header and the top of the band */
+  --mh-ribbon-header-gap: 0.75rem;
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: none;
+  margin-top: calc(var(--header-bar-height, 7.5rem) + var(--mh-ribbon-header-gap));
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  padding: 0;
+  /*
+   * Compact ribbon, artwork never cropped.
+   *
+   * The ribbon assets are flat #f2e7d5 canvases with the KCNJ motif anchored
+   * to the right edge. So instead of stretching the file across the band
+   * (which crops the palms/houseboat), the band paints that same cream as its
+   * own background and the image is sized by HEIGHT only, pinned right. The
+   * motif therefore always renders at full height with nothing clipped, and
+   * the blank cream to its left is indistinguishable from the band backdrop —
+   * the ribbon still reads as edge-to-edge at any width, including 6K.
+   */
+  aspect-ratio: auto;
+  /*
+   * min-height, not height: kicker + title + lede must stay fully visible.
+   * Do NOT overflow:hidden here — that clipped the uppercase kicker on every
+   * public ribbon page (line-height: 0 + flex-end sliced the first line).
+   * Image overflow is clipped on .mh-events-hero-media instead.
+   */
+  height: auto;
+  min-height: clamp(7.5rem, 10vw, 12rem);
+  /* Keep the band height when the ribbon is a direct flex child (e.g. /profile) */
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  background: var(--mh-ribbon-canvas, #f2e7d5);
+  color: var(--mh-text);
+  border-radius: 0;
+  line-height: normal;
+}
+
+@media (max-width: 767px) {
+  body.modernist-home .mh-events-hero {
+    --mh-header-clearance: 0.75rem;
+    /* The mobile logo sits low in the bar, so it needs a wider gap */
+    --mh-ribbon-header-gap: 1.25rem;
+    min-height: clamp(7rem, 24vw, 9.5rem);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  body.modernist-home .mh-events-hero {
+    min-height: clamp(7rem, 14vw, 11rem);
+  }
+}
+
+body.modernist-home .mh-events-hero-media {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* Same cream as the artwork canvas — hides where the image actually ends */
+  background: var(--mh-ribbon-canvas, #f2e7d5);
+}
+
+body.modernist-home .mh-events-hero-picture {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  display: block;
+  width: auto;
+  height: 100%;
+  margin: 0;
+  line-height: 0;
+}
+
+body.modernist-home .mh-events-hero-media img,
+body.modernist-home .mh-events-hero-ribbon-img {
+  /*
+   * Height-anchored: the image is exactly as tall as the band and keeps its
+   * natural ratio, so the motif is never clipped top or bottom. Overflow past
+   * the left edge only ever discards empty cream.
+   */
+  height: 100% !important;
+  width: auto !important;
+  max-width: none !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: right center !important;
+  display: block;
+  margin-left: auto;
+  /*
+   * The canvas colour matches the band exactly (#f2e7d5 sampled from all four
+   * JPGs), but JPEG block noise in that flat area can still read as a faint
+   * vertical seam where the file starts. Fading the empty left third — the
+   * motif never begins before ~62% — makes the join invisible.
+   */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 22%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 22%);
+}
+
+/*
+ * No wash. The band already paints the artwork's own cream and the headings are
+ * dark green, so a scrim adds nothing — and a partial-width gradient made a
+ * visible vertical seam where it faded out, just left of the motif. The element
+ * stays in the markup so the eight ribbon pages need no change.
+ */
+body.modernist-home .mh-events-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: none;
+  pointer-events: none;
+}
+
+body.modernist-home .mh-events-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.9rem 72px 0.9rem;
+  line-height: normal;
+  overflow: visible;
+}
+
+/*
+ * Below the 1200px content column the band edge and the text column meet, so
+ * reserve room for the right-anchored motif (roughly 1.1× the band height).
+ */
+@media (min-width: 768px) and (max-width: 1279px) {
+  body.modernist-home .mh-events-hero-content {
+    padding-right: clamp(8rem, 15vw, 12rem);
+  }
+}
+
+body.modernist-home .mh-events-hero-kicker {
+  /* Block flex — not inline-flex. Keep overflow visible so uppercase glyphs
+     are never sliced by the ribbon band. */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  padding-top: 0.2em;
+  overflow: visible;
+  flex-shrink: 0;
+  color: color-mix(in srgb, var(--mh-text) 68%, transparent);
+}
+
+body.modernist-home .mh-events-hero-kicker span {
+  line-height: 1.45;
+  overflow: visible;
+}
+
+body.modernist-home .mh-events-hero h1 {
+  margin: 0;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  overflow: visible;
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home .mh-events-hero-lede {
+  margin: 10px 0 0;
+  max-width: 48ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--mh-text) 78%, transparent);
+}
+
+body.modernist-home .mh-events-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 72px 96px;
+}
+
+body.modernist-home .mh-events-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-bottom: 40px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-events-head {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+body.modernist-home .mh-events-head h2 {
+  margin: 0 0 0 -0.02em;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--mh-brand-green);
+}
+
+/* Events toggle ? gallery-style green (Future) / blue (Past) */
+body.modernist-home .mh-events-toggle {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  border-radius: 0;
+  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 2px solid #15803d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 8px 20px rgba(21, 128, 61, 0.16);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+body.modernist-home .mh-events-toggle--past {
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #2563eb;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 8px 20px rgba(37, 99, 235, 0.18);
+}
+
+body.modernist-home .mh-events-toggle-label {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--mh-neutral-500);
+  transition: color 0.2s ease;
+}
+
+body.modernist-home .mh-events-toggle-label--future.is-active {
+  color: #15803d;
+}
+
+body.modernist-home .mh-events-toggle-label--past.is-active {
+  color: #2563eb;
+}
+
+body.modernist-home .mh-events-toggle-btn {
+  position: relative;
+  display: inline-flex;
+  height: 56px;
+  width: 104px;
+  align-items: center;
+  border-radius: 0;
+  border: 2px solid #166534;
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 55%, #14532d 100%);
+  cursor: pointer;
+  padding: 0;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.2),
+    0 6px 14px rgba(21, 128, 61, 0.4);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease, border-color 0.25s ease;
+}
+
+body.modernist-home .mh-events-toggle-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.22),
+    0 8px 18px rgba(21, 128, 61, 0.48);
+}
+
+body.modernist-home .mh-events-toggle-btn.is-past {
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 55%, #1d4ed8 100%);
+  border-color: #1e3a8a;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.22),
+    0 6px 14px rgba(37, 99, 235, 0.45);
+}
+
+body.modernist-home .mh-events-toggle-thumb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: 44px;
+  border-radius: 0;
+  transform: translateX(5px);
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  border: 2px solid #15803d;
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: transform 0.25s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  color: #15803d;
+}
+
+body.modernist-home .mh-events-toggle-thumb svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-events-toggle-btn.is-past .mh-events-toggle-thumb {
+  transform: translateX(51px);
+  background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+  color: #2563eb;
+  border-color: #2563eb;
+}
+
+body.modernist-home .mh-events-hint {
+  margin: 0;
+  font-size: 14px;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-events-search {
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr auto;
+  gap: 16px;
+  align-items: end;
+  background: var(--mh-surface);
+  border-top: 2px solid var(--mh-text);
+  padding: 20px;
+  overflow: visible;
+}
+
+/* Public listing typeahead (PublicListSearchCombobox) */
+body.modernist-home .mh-events-search .mh-typeahead {
+  position: relative;
+  width: 100%;
+  z-index: 20;
+}
+
+body.modernist-home .mh-events-search .mh-typeahead-input {
+  width: 100%;
+  font-family: var(--mh-font);
+  font-size: 15px;
+  color: var(--mh-text);
+  background: var(--mh-bg);
+  border: 1px solid var(--mh-neutral-300);
+  border-radius: 0;
+  padding: 12px 36px 12px 14px;
+}
+
+body.modernist-home .mh-events-search .mh-typeahead-input:focus {
+  outline: 2px solid var(--mh-accent);
+  outline-offset: 1px;
+  border-color: var(--mh-accent);
+}
+
+body.modernist-home .mh-events-search .mh-typeahead [role='listbox'] {
+  position: absolute;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  max-height: 18rem;
+  overflow-y: auto;
+  background: var(--mh-surface);
+  border: 1px solid var(--mh-neutral-300);
+  border-radius: 0;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  padding: 4px 0;
+}
+
+body.modernist-home .mh-events-search .mh-typeahead [role='option'] button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--mh-font);
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-events-search .mh-typeahead [role='option'] button:hover {
+  background: color-mix(in srgb, var(--mh-accent) 12%, transparent);
+}
+
+/* Sponsors catalog: name-only search + "Click Enter for more" */
+body.modernist-home .mh-events-search--sponsors {
+  grid-template-columns: 1fr auto;
+}
+
+body.modernist-home .mh-sponsors-search-more {
+  border-top: 1px solid var(--mh-neutral-300);
+  margin-top: 2px;
+  color: var(--mh-accent);
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  cursor: pointer;
+  font-family: var(--mh-font);
+}
+
+body.modernist-home .mh-sponsors-search-more:hover {
+  background: color-mix(in srgb, var(--mh-accent) 12%, transparent);
+}
+
+body.modernist-home .mh-events-search label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mh-neutral-700);
+  margin-bottom: 8px;
+}
+
+body.modernist-home .mh-events-search input {
+  width: 100%;
+  font-family: var(--mh-font);
+  font-size: 15px;
+  color: var(--mh-text);
+  background: var(--mh-bg);
+  border: 1px solid var(--mh-neutral-300);
+  border-radius: 0;
+  padding: 12px 14px;
+}
+
+body.modernist-home .mh-events-search input:focus {
+  outline: 2px solid var(--mh-accent);
+  outline-offset: 1px;
+  border-color: var(--mh-accent);
+}
+
+body.modernist-home .mh-events-search-dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+body.modernist-home .mh-events-search-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+body.modernist-home .mh-events-search-active {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--mh-accent-100);
+  border-left: 3px solid var(--mh-accent);
+  font-size: 13px;
+  color: var(--mh-accent-800);
+}
+
+body.modernist-home .mh-events-banner {
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  border-top: 2px solid var(--mh-text);
+  background: var(--mh-surface);
+}
+
+body.modernist-home .mh-events-banner--info {
+  border-top-color: var(--mh-accent);
+}
+
+body.modernist-home .mh-events-banner h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+body.modernist-home .mh-events-banner p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--mh-neutral-800);
+}
+
+/* One event per row: flyer image full-width on top, details below */
+body.modernist-home .mh-events-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+body.modernist-home .mh-event-card {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--mh-text);
+  background: transparent;
+  min-width: 0;
+  gap: 0;
+  padding-top: 28px;
+  width: 100%;
+}
+
+/* Full-width flyer ? h-auto + object-contain (image_containment_prevention_hero_images_cards) */
+body.modernist-home .mh-event-card-media {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: var(--mh-neutral-200);
+  line-height: 0;
+}
+
+body.modernist-home .mh-event-card-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: 4px;
+}
+
+body.modernist-home .mh-event-card-media img,
+body.modernist-home .mh-event-card-media .mh-event-card-media-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain !important;
+  object-position: center center;
+  transition: transform 0.35s ease;
+  background: transparent;
+}
+
+body.modernist-home .mh-event-card:hover .mh-event-card-media img,
+body.modernist-home .mh-event-card:hover .mh-event-card-media .mh-event-card-media-img {
+  transform: scale(1.01);
+}
+
+body.modernist-home .mh-event-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  background: #2563eb;
+  border: 2px solid #1e3a8a;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+body.modernist-home .mh-event-card-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 16px 0 8px;
+  border-bottom: 1px solid var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-event-card-date {
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--mh-accent);
+  font-feature-settings: 'tnum' 1;
+}
+
+body.modernist-home .mh-event-card-admission {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  color: var(--mh-neutral-700);
+  background: var(--mh-neutral-200);
+}
+
+body.modernist-home .mh-event-card-admission svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-event-card-admission--ticketed {
+  color: #fff;
+  background: #db2777;
+  border-color: #be185d;
+}
+
+body.modernist-home .mh-event-card-admission--free {
+  color: #fff;
+  background: #15803d;
+  border-color: #166534;
+}
+
+body.modernist-home .mh-event-card-admission--default {
+  color: #fff;
+  background: #2563eb;
+  border-color: #1d4ed8;
+}
+
+body.modernist-home .mh-event-card h3 {
+  margin: 16px 0 8px;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-event-card-caption {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-event-card-where {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-event-card-desc {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-event-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+body.modernist-home .mh-event-card-actions .mh-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+body.modernist-home .mh-event-results-panel {
+  margin-top: 14px;
+  padding: 18px 18px 20px;
+  background: var(--mh-surface);
+  border-top: 3px solid var(--mh-accent);
+  animation: mh-results-open 0.28s ease;
+}
+
+@keyframes mh-results-open {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+body.modernist-home .mh-event-results-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mh-accent-800);
+}
+
+body.modernist-home .mh-event-results-kicker svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+body.modernist-home .mh-event-results-group + .mh-event-results-group {
+  margin-top: 16px;
+}
+
+body.modernist-home .mh-event-results-group-title {
+  margin: 0 0 10px;
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+  font-size: 16px;
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home .mh-event-results-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+body.modernist-home .mh-event-results-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--mh-neutral-100);
+  border-left: 3px solid var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-event-results-row--gold {
+  border-left-color: #c9a227;
+  background: color-mix(in srgb, #c9a227 10%, var(--mh-neutral-100));
+}
+
+body.modernist-home .mh-event-results-row--silver {
+  border-left-color: #8a8478;
+  background: color-mix(in srgb, #8a8478 10%, var(--mh-neutral-100));
+}
+
+body.modernist-home .mh-event-results-row--bronze {
+  border-left-color: var(--mh-accent);
+  background: color-mix(in srgb, var(--mh-accent) 10%, var(--mh-neutral-100));
+}
+
+body.modernist-home .mh-event-results-medal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  font-feature-settings: 'tnum' 1;
+  background: var(--mh-neutral-300);
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-event-results-row--gold .mh-event-results-medal {
+  background: #c9a227;
+  color: #fff8e8;
+}
+
+body.modernist-home .mh-event-results-row--silver .mh-event-results-medal {
+  background: #8a8478;
+  color: #fff8f0;
+}
+
+body.modernist-home .mh-event-results-row--bronze .mh-event-results-medal {
+  background: var(--mh-accent);
+  color: var(--mh-bg);
+}
+
+body.modernist-home .mh-event-results-copy {
+  min-width: 0;
+}
+
+body.modernist-home .mh-event-results-photos {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+body.modernist-home .mh-event-results-photo-btn {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  line-height: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.modernist-home .mh-event-results-photo-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+body.modernist-home .mh-event-results-photo-btn:focus-visible {
+  outline: 2px solid var(--mh-accent);
+  outline-offset: 2px;
+}
+
+body.modernist-home .mh-event-results-photo {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  border: 1px solid var(--mh-neutral-300);
+  background: var(--mh-neutral-100);
+  cursor: pointer;
+  pointer-events: none; /* click handled by button */
+}
+
+body.modernist-home .mh-event-results-photos .mh-event-results-photo {
+  margin-bottom: 0;
+}
+
+body.modernist-home .mh-event-results-photo--work {
+  width: 72px;
+  height: 72px;
+}
+
+body.modernist-home .mh-event-results-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.88);
+  cursor: zoom-out;
+}
+
+body.modernist-home .mh-event-results-lightbox-img {
+  max-width: min(96vw, 1100px);
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: default;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+body.modernist-home .mh-event-results-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+body.modernist-home .mh-event-results-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+body.modernist-home .mh-event-results-lightbox-close svg {
+  width: 22px;
+  height: 22px;
+}
+
+body.modernist-home .mh-event-results-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-event-results-place {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mh-accent-800);
+}
+
+body.modernist-home .mh-event-results-detail {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-event-results-docs {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-event-results-doc {
+  padding: 10px 0 0;
+}
+
+body.modernist-home .mh-event-results-doc h5 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-event-results-doc p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-event-results-empty {
+  padding: 6px 0 2px;
+}
+
+body.modernist-home .mh-event-results-empty-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home .mh-event-results-empty-copy {
+  margin: 0;
+  max-width: 42rem;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-event-results-pending {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0 2px;
+}
+
+body.modernist-home .mh-event-results-pending-line {
+  display: block;
+  height: 12px;
+  width: 72%;
+  background: color-mix(in srgb, var(--mh-neutral-500) 28%, var(--mh-surface));
+}
+
+body.modernist-home .mh-event-results-pending-line--short {
+  width: 44%;
+}
+
+body.modernist-home .mh-event-card-loc-tools {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Match mh-event-detail-meta-icon: 48?48 solid square, white glyph */
+body.modernist-home .mh-event-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+body.modernist-home .mh-event-icon-btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-event-icon-btn--copy {
+  color: #fff;
+  background: #2563eb;
+  border-color: #1d4ed8;
+}
+
+body.modernist-home .mh-event-icon-btn--copy:hover {
+  filter: brightness(1.08);
+  transform: scale(1.05);
+}
+
+body.modernist-home .mh-event-icon-btn--maps {
+  color: #fff;
+  background: #15803d;
+  border-color: #166534;
+}
+
+body.modernist-home .mh-event-icon-btn--maps:hover {
+  filter: brightness(1.08);
+  transform: scale(1.05);
+}
+
+body.modernist-home .mh-events-pagination {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-events-pagination-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+body.modernist-home .mh-events-page-btn {
+  min-height: 48px;
+  min-width: 7.5rem;
+  padding: 14px 22px;
+  font-size: 15px;
+  border-radius: 0;
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(32, 30, 29, 0.12);
+}
+
+body.modernist-home .mh-events-page-btn svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #fff;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-events-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+body.modernist-home .mh-events-page-info {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  padding: 10px 16px;
+  background: #eef2ff;
+  border: 2px solid #4f46e5;
+  color: #4338ca;
+}
+
+body.modernist-home .mh-events-page-info strong {
+  color: #3730a3;
+  font-weight: 800;
+}
+
+body.modernist-home .mh-events-count {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-events-count strong {
+  color: var(--mh-text);
+  font-weight: 800;
+}
+
+body.modernist-home .mh-events-empty,
+body.modernist-home .mh-events-loading,
+body.modernist-home .mh-events-error {
+  padding: 48px 0;
+  text-align: center;
+  font-size: 16px;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-events-error {
+  color: var(--mh-accent-700);
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  body.modernist-home .mh-events-grid {
+    gap: 36px;
+  }
+
+  body.modernist-home .mh-events-search {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  body.modernist-home .mh-events-search-actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 767px) {
+  body.modernist-home .mh-culture-strip {
+    grid-template-columns: 1fr;
+  }
+
+  body.modernist-home .mh-culture-strip-frame {
+    aspect-ratio: 16 / 9;
+    border-right: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--mh-bg) 18%, transparent);
+  }
+
+  body.modernist-home .mh-culture-strip-frame:last-child {
+    border-bottom: none;
+  }
+
+  body.modernist-home .mh-events-hero {
+    --mh-header-clearance: 1rem;
+  }
+
+  body.modernist-home .mh-events-hero-content,
+  body.modernist-home .mh-events-body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Keep the heading clear of the right-anchored ribbon motif */
+  body.modernist-home .mh-events-hero-content {
+    padding-right: clamp(5.5rem, 26vw, 9rem);
+  }
+
+  body.modernist-home .mh-events-body {
+    padding-top: 40px;
+    padding-bottom: 64px;
+  }
+
+  body.modernist-home .mh-events-grid {
+    gap: 32px;
+  }
+
+  body.modernist-home .mh-events-search {
+    grid-template-columns: 1fr;
+  }
+
+  body.modernist-home .mh-events-pagination-row {
+    flex-direction: column;
+  }
+
+  body.modernist-home .mh-events-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  body.modernist-home .mh-events-toggle-label {
+    font-size: 13px;
+    max-width: 36%;
+    line-height: 1.25;
+  }
+
+  body.modernist-home .mh-events-toggle-btn {
+    height: 52px;
+    width: 92px;
+  }
+
+  body.modernist-home .mh-events-toggle-thumb {
+    height: 40px;
+    width: 40px;
+  }
+
+  body.modernist-home .mh-events-toggle-btn.is-past .mh-events-toggle-thumb {
+    transform: translateX(43px);
+  }
+
+  body.modernist-home .mh-events-page-btn {
+    min-width: 100%;
+  }
+}
+
+/* ?? Event detail page (modernist) ?? */
+body.modernist-home .mh-event-detail {
+  background: var(--mh-bg);
+  color: var(--mh-text);
+  min-height: 60vh;
+}
+
+body.modernist-home .mh-event-detail-status {
+  padding: 6rem 1.5rem;
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-event-detail-status--error {
+  color: var(--mh-accent-700);
+  font-weight: 600;
+}
+
+body.modernist-home .mh-event-detail-hero {
+  position: relative;
+  /* Fully below fixed header ? banner no longer sits under the nav */
+  margin-top: var(--header-bar-height, 8rem);
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--mh-text);
+}
+
+body.modernist-home .mh-event-detail-hero-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+}
+
+body.modernist-home .mh-event-detail-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(32, 30, 29, 0.2) 0%,
+    rgba(32, 30, 29, 0.08) 50%,
+    rgba(32, 30, 29, 0.35) 100%
+  );
+}
+
+/* Full-bleed flyer ? edge-to-edge page width (not inset ribbon) */
+body.modernist-home .mh-event-detail-hero-figure {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  display: block;
+  line-height: 0;
+}
+
+body.modernist-home .mh-event-detail-hero-img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center top;
+  display: block;
+}
+
+body.modernist-home .mh-event-detail-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4.5rem;
+}
+
+body.modernist-home .mh-event-detail-panel {
+  border-top: 2px solid var(--mh-text);
+  background: transparent;
+}
+
+body.modernist-home .mh-event-detail-panel-inner {
+  padding: 1.75rem 0 0;
+}
+
+body.modernist-home .mh-event-detail-title {
+  margin: 0 0 0.65rem;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-event-detail-caption {
+  margin: 0 0 1.25rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--mh-neutral-800);
+}
+
+body.modernist-home .mh-event-detail-back {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+/* Event detail CTAs ? same solid weight as gallery / events list */
+body.modernist-home .mh-event-detail-cta {
+  min-height: 48px;
+  min-width: 8rem;
+  padding: 14px 20px;
+  font-size: 15px;
+  border-radius: 0;
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(32, 30, 29, 0.12);
+}
+
+body.modernist-home .mh-event-detail-cta svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #fff;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+body.modernist-home .mh-event-detail-cta-stack .mh-event-detail-cta {
+  width: 100%;
+  justify-content: center;
+}
+
+body.modernist-home .mh-event-detail-actions {
+  align-items: center;
+}
+
+body.modernist-home .mh-event-detail-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  color: var(--mh-text);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  body.modernist-home .mh-event-detail-meta-item {
+    width: auto;
+    min-width: 280px;
+  }
+}
+
+body.modernist-home .mh-event-detail-meta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 0;
+  border: 2px solid transparent;
+}
+
+body.modernist-home .mh-event-detail-meta-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-event-detail-meta-icon--date {
+  color: #fff;
+  background: #2563eb;
+  border-color: #1d4ed8;
+}
+
+body.modernist-home .mh-event-detail-meta-icon--time {
+  color: #fff;
+  background: #15803d;
+  border-color: #166534;
+}
+
+body.modernist-home .mh-event-detail-meta-icon--location {
+  color: #fff;
+  background: #7c3aed;
+  border-color: #6d28d9;
+}
+
+@media (max-width: 767px) {
+  body.modernist-home .mh-event-detail-hero {
+    margin-top: var(--header-bar-height, 8rem);
+    min-height: 0;
+  }
+
+  body.modernist-home .mh-event-detail-hero-figure {
+    padding: 0;
+  }
+
+  body.modernist-home .mh-event-detail-hero-img {
+    max-height: none;
+  }
+
+  body.modernist-home .mh-event-detail-body {
+    padding: 1.75rem 1.25rem 3.5rem;
+  }
+
+  body.modernist-home .mh-event-detail-cta-stack {
+    position: static;
+    margin: 0 0 1rem;
+    width: 100%;
+  }
+
+  body.modernist-home .mh-event-detail-title,
+  body.modernist-home .mh-event-detail-caption {
+    padding-right: 0 !important;
+  }
+
+  body.modernist-home .mh-event-detail-actions .mh-event-detail-cta {
+    width: 100%;
+  }
+}
+
+/* ?? Gallery page (shares mh-events-* shell) ?? */
+body.modernist-home .mh-gallery-page a.mh-event-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+body.modernist-home .mh-gallery-card-media--clickable {
+  cursor: pointer;
+}
+
+/* Soft warm panel behind transparent album covers (not plain gray) */
+body.modernist-home .mh-gallery-page .mh-event-card-media {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.85) 0%, transparent 55%),
+    linear-gradient(155deg, #fff1e8 0%, #ffe4d6 42%, #f5d0c0 100%);
+  min-height: 200px;
+}
+
+body.modernist-home .mh-gallery-page .mh-event-card-media img,
+body.modernist-home .mh-gallery-page .mh-event-card-media .mh-event-card-media-img {
+  background: transparent !important;
+}
+
+body.modernist-home .mh-gallery-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 220px;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.85) 0%, transparent 55%),
+    linear-gradient(155deg, #fff1e8 0%, #ffe4d6 42%, #f5d0c0 100%);
+  color: #c2410c;
+}
+
+body.modernist-home .mh-gallery-card-placeholder svg {
+  width: 3.5rem;
+  height: 3.5rem;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-events-empty h3 {
+  margin: 0 0 8px;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-events-empty p {
+  margin: 0 0 16px;
+}
+
+body.modernist-home .mh-events-empty .mh-btn {
+  margin-top: 8px;
+}
+
+body.modernist-home .mh-events-search-actions .mh-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Gallery toggle ? events-page palette: green (Albums) / blue (Event based) */
+body.modernist-home .mh-gallery-toggle {
+  gap: 18px;
+  padding: 12px 16px;
+  border-radius: 0;
+  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 2px solid #15803d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 8px 20px rgba(21, 128, 61, 0.16);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+body.modernist-home .mh-gallery-toggle--events {
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #2563eb;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 8px 20px rgba(37, 99, 235, 0.18);
+}
+
+body.modernist-home .mh-gallery-toggle-label {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--mh-neutral-500);
+  transition: color 0.2s ease;
+}
+
+body.modernist-home .mh-gallery-toggle-label--albums.is-active {
+  color: #15803d;
+}
+
+body.modernist-home .mh-gallery-toggle-label--events.is-active {
+  color: #2563eb;
+}
+
+body.modernist-home .mh-gallery-toggle-btn {
+  height: 56px;
+  width: 104px;
+  border-radius: 0;
+  border: 2px solid #166534;
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 55%, #14532d 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.2),
+    0 6px 14px rgba(21, 128, 61, 0.4);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease, border-color 0.25s ease;
+}
+
+body.modernist-home .mh-gallery-toggle-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.22),
+    0 8px 18px rgba(21, 128, 61, 0.48);
+}
+
+body.modernist-home .mh-gallery-toggle-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 4px 10px rgba(0, 0, 0, 0.28),
+    0 2px 4px rgba(21, 128, 61, 0.28);
+}
+
+body.modernist-home .mh-gallery-toggle-btn.is-past {
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 55%, #1d4ed8 100%);
+  border-color: #1e3a8a;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.22),
+    0 6px 14px rgba(37, 99, 235, 0.45);
+}
+
+body.modernist-home .mh-gallery-toggle-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+body.modernist-home .mh-gallery-toggle-thumb {
+  height: 44px;
+  width: 44px;
+  border-radius: 0;
+  transform: translateX(5px);
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  border: 2px solid #15803d;
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  color: #15803d;
+}
+
+body.modernist-home .mh-gallery-toggle-thumb svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-gallery-toggle-btn.is-past .mh-gallery-toggle-thumb {
+  transform: translateX(51px);
+  background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+  color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Gallery action buttons ? events page solid palette, larger */
+body.modernist-home .mh-gallery-action-btn {
+  min-height: 48px;
+  min-width: 7.5rem;
+  padding: 14px 22px;
+  font-size: 15px;
+  border-radius: 0;
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(32, 30, 29, 0.12);
+}
+
+body.modernist-home .mh-gallery-action-btn svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  stroke: currentColor;
+  color: inherit;
+}
+
+body.modernist-home .mh-gallery-search-actions {
+  gap: 12px;
+}
+
+body.modernist-home .mh-gallery-pagination .mh-gallery-action-btn:disabled,
+body.modernist-home .mh-gallery-search-actions .mh-gallery-action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+body.modernist-home .mh-gallery-page-info {
+  font-size: 15px;
+  padding: 10px 16px;
+  background: #eef2ff;
+  border: 2px solid #4f46e5;
+  color: #4338ca;
+  font-weight: 700;
+}
+
+/* Album / event card CTA icons inherit button white */
+body.modernist-home .mh-gallery-page .mh-event-card-actions .mh-btn svg {
+  color: #fff;
+  stroke: currentColor;
+}
+
+/* Gallery: tinted search panel (events green/blue) */
+body.modernist-home .mh-gallery-search-panel {
+  margin-top: 8px;
+  padding: 18px 20px 20px;
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(236, 253, 245, 0.95) 0%, rgba(239, 246, 255, 0.95) 100%);
+  border: 1px solid color-mix(in srgb, #15803d 28%, #93c5fd 40%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 10px 28px rgba(32, 30, 29, 0.06);
+}
+
+body.modernist-home .mh-gallery-search-panel-label {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #15803d;
+}
+
+body.modernist-home .mh-gallery-search-panel .mh-events-search {
+  background: rgba(255, 255, 255, 0.72);
+  border-top: 2px solid color-mix(in srgb, #15803d 45%, #2563eb);
+  border-radius: 0 0 12px 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+body.modernist-home .mh-gallery-search-panel .mh-events-search input {
+  background: #fff;
+  border-color: color-mix(in srgb, #2563eb 30%, var(--mh-neutral-300));
+}
+
+@media (max-width: 767px) {
+  body.modernist-home .mh-gallery-toggle {
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 0;
+  }
+
+  body.modernist-home .mh-gallery-toggle-label {
+    font-size: 13px;
+    max-width: 36%;
+    line-height: 1.25;
+  }
+
+  body.modernist-home .mh-gallery-toggle-btn {
+    height: 52px;
+    width: 92px;
+  }
+
+  body.modernist-home .mh-gallery-toggle-thumb {
+    height: 40px;
+    width: 40px;
+  }
+
+  body.modernist-home .mh-gallery-toggle-btn.is-past .mh-gallery-toggle-thumb {
+    transform: translateX(43px);
+  }
+
+  body.modernist-home .mh-gallery-action-btn {
+    min-width: 100%;
+  }
+}
+
+/* ?? Polls page (shares mh-events-* shell) ?? */
+body.modernist-home .mh-polls-page .mh-poll-card-media {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.85) 0%, transparent 55%),
+    linear-gradient(155deg, #eef2ff 0%, #e0e7ff 42%, #c7d2fe 100%);
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+body.modernist-home .mh-poll-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 180px;
+  color: #4338ca;
+}
+
+body.modernist-home .mh-poll-card-placeholder svg {
+  width: 3.25rem;
+  height: 3.25rem;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-poll-card--inactive {
+  opacity: 0.78;
+}
+
+body.modernist-home .mh-poll-status {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid;
+  background: #fff;
+}
+
+body.modernist-home .mh-poll-status--active {
+  color: #15803d;
+  border-color: #15803d;
+  background: #ecfdf5;
+}
+
+body.modernist-home .mh-poll-status--upcoming {
+  color: #a16207;
+  border-color: #ca8a04;
+  background: #fefce8;
+}
+
+body.modernist-home .mh-poll-status--ended {
+  color: #b91c1c;
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+body.modernist-home .mh-poll-status--inactive {
+  color: #475569;
+  border-color: #64748b;
+  background: #f8fafc;
+}
+
+body.modernist-home .mh-polls-page .mh-event-card-actions .mh-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+body.modernist-home .mh-polls-page .mh-event-card-actions .mh-btn svg {
+  color: #fff;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-polls-vote-panel {
+  margin-top: 8px;
+  padding: 4px 0 24px;
+}
+
+body.modernist-home .mh-polls-vote-panel .bg-gradient-to-br,
+body.modernist-home .mh-polls-vote-panel .bg-gradient-to-r {
+  background: #fff !important;
+}
+
+body.modernist-home .mh-polls-vote-panel [class*='border-blue'],
+body.modernist-home .mh-polls-vote-panel [class*='border-purple'] {
+  border-color: color-mix(in srgb, var(--mh-text) 14%, transparent) !important;
+}
+
+body.modernist-home .mh-polls-vote-panel [class*='bg-clip-text'] {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: var(--mh-text) !important;
+  -webkit-text-fill-color: var(--mh-text) !important;
+}
+
+/* Poll detail (/polls/[id]) — Skip-style back + calendar-nav tabs */
+body.modernist-home .mh-poll-detail {
+  min-height: 100vh;
+  padding-top: calc(var(--header-bar-height, 7.5rem) + 0.5rem);
+}
+
+body.modernist-home .mh-poll-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 3.5rem;
+  padding: 0 1.5rem;
+  margin-bottom: 1.25rem;
+  background: color-mix(in srgb, var(--mh-brand-green) 10%, var(--mh-surface));
+  border: 1px solid color-mix(in srgb, var(--mh-brand-green) 28%, transparent);
+  color: var(--mh-brand-green);
+  border-radius: var(--mh-radius-pill);
+  box-shadow: var(--mh-shadow-sm);
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+body.modernist-home .mh-poll-back:hover {
+  background: color-mix(in srgb, var(--mh-brand-green) 16%, var(--mh-surface));
+  transform: scale(1.03);
+}
+
+body.modernist-home .mh-poll-back-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--mh-radius-md, 0.75rem);
+  background: color-mix(in srgb, var(--mh-brand-green) 18%, var(--mh-neutral-100));
+}
+
+body.modernist-home .mh-poll-back-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--mh-brand-green);
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-poll-detail-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home .mh-poll-detail-lede {
+  margin: 0 0 1rem;
+  max-width: 56ch;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--mh-text) 78%, transparent);
+}
+
+body.modernist-home .mh-poll-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+body.modernist-home .mh-poll-tabs .mh-btn svg {
+  color: inherit;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+/* Each poll tab keeps a unique organic fill; active = brighter + inset ring. */
+body.modernist-home .mh-poll-tabs .mh-poll-tab {
+  color: var(--mh-bg);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--mh-brand-green) 12%, transparent);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab.is-active {
+  box-shadow:
+    0 10px 22px color-mix(in srgb, var(--mh-brand-green) 16%, transparent),
+    inset 0 0 0 2px color-mix(in srgb, var(--mh-bg) 55%, transparent);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--vote {
+  background: var(--mh-accent);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--vote:hover,
+body.modernist-home .mh-poll-tabs .mh-poll-tab--vote.is-active {
+  background: var(--mh-accent-500);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--results {
+  background: var(--mh-brand-green);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--results:hover,
+body.modernist-home .mh-poll-tabs .mh-poll-tab--results.is-active {
+  background: var(--mh-brand-green-mid);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--comments {
+  background: var(--mh-accent-700);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--comments:hover,
+body.modernist-home .mh-poll-tabs .mh-poll-tab--comments.is-active {
+  background: var(--mh-accent-800);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--analytics {
+  background: var(--mh-brand-green-bright);
+}
+
+body.modernist-home .mh-poll-tabs .mh-poll-tab--analytics:hover,
+body.modernist-home .mh-poll-tabs .mh-poll-tab--analytics.is-active {
+  background: var(--mh-accent-2-800);
+}
+
+body.modernist-home .mh-poll-detail-panel {
+  background: var(--mh-surface);
+  border: 1px solid color-mix(in srgb, var(--mh-brand-green) 16%, transparent);
+  border-radius: var(--mh-radius-xl);
+  box-shadow: var(--mh-shadow-sm);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+body.modernist-home .mh-poll-detail-info h3 {
+  margin: 0 0 0.25rem;
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+  font-size: 1.25rem;
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home .mh-poll-detail-info > p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--mh-text) 72%, transparent);
+}
+
+/* ?? Calendar page (shares mh-events-* shell) ?? */
+body.modernist-home .mh-calendar-page .mh-events-head {
+  justify-content: space-between;
+  width: 100%;
+}
+
+body.modernist-home .mh-calendar-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+body.modernist-home .mh-calendar-nav .mh-btn svg {
+  color: inherit;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+body.modernist-home .mh-calendar-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+body.modernist-home .mh-calendar-views .mh-btn {
+  opacity: 0.72;
+}
+
+body.modernist-home .mh-calendar-views .mh-btn.is-active {
+  opacity: 1;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+  outline: 2px solid color-mix(in srgb, var(--mh-text) 18%, transparent);
+  outline-offset: 2px;
+}
+
+body.modernist-home .mh-calendar-views .mh-btn svg {
+  color: inherit;
+  stroke: currentColor;
+}
+
+body.modernist-home .mh-calendar-panel {
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--mh-text) 12%, transparent);
+  overflow: hidden;
+}
+
+body.modernist-home .mh-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  background: color-mix(in srgb, var(--mh-text) 12%, transparent);
+}
+
+body.modernist-home .mh-calendar-dow {
+  background: color-mix(in srgb, #4f46e5 10%, #fff);
+  color: #3730a3;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 12px 4px;
+}
+
+body.modernist-home .mh-calendar-cell {
+  min-height: 110px;
+  padding: 8px;
+  background: #fff;
+  transition: background 0.2s ease;
+}
+
+body.modernist-home .mh-calendar-cell--week {
+  min-height: 150px;
+  padding: 10px;
+}
+
+body.modernist-home .mh-calendar-cell.is-empty {
+  background: color-mix(in srgb, var(--mh-text) 4%, #fff);
+}
+
+body.modernist-home .mh-calendar-cell.is-today {
+  background: color-mix(in srgb, #4f46e5 8%, #fff);
+}
+
+body.modernist-home .mh-calendar-cell:hover {
+  background: color-mix(in srgb, var(--mh-accent) 6%, #fff);
+}
+
+body.modernist-home .mh-calendar-daynum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-calendar-daynum.is-today {
+  border-radius: 999px;
+  background: #4f46e5;
+  color: #fff;
+}
+
+body.modernist-home .mh-calendar-week-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--mh-text);
+  opacity: 0.75;
+}
+
+body.modernist-home .mh-calendar-week-label.is-today {
+  color: #15803d;
+  opacity: 1;
+}
+
+body.modernist-home .mh-calendar-month-label {
+  font-size: 11px;
+  color: color-mix(in srgb, var(--mh-text) 55%, transparent);
+  margin-bottom: 4px;
+}
+
+body.modernist-home .mh-calendar-event {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  padding: 6px 8px;
+  background: color-mix(in srgb, #0d9488 12%, #fff);
+  color: #115e59;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+body.modernist-home .mh-calendar-event:hover {
+  background: color-mix(in srgb, #0d9488 22%, #fff);
+  transform: translateY(-1px);
+}
+
+body.modernist-home .mh-calendar-event svg {
+  color: #0f766e;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+body.modernist-home .mh-calendar-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+body.modernist-home .mh-calendar-more:hover {
+  text-decoration: underline;
+}
+
+body.modernist-home .mh-calendar-day-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 22px;
+  background: color-mix(in srgb, #4f46e5 10%, #fff);
+  border-bottom: 1px solid color-mix(in srgb, #4f46e5 22%, transparent);
+}
+
+body.modernist-home .mh-calendar-day-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, #4f46e5 16%, #fff);
+  color: #4338ca;
+}
+
+body.modernist-home .mh-calendar-day-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-calendar-day-sub {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--mh-text) 65%, transparent);
+}
+
+body.modernist-home .mh-calendar-day-body {
+  padding: 18px 22px 24px;
+}
+
+body.modernist-home .mh-calendar-day-event {
+  border: 1px solid color-mix(in srgb, var(--mh-text) 12%, transparent);
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.modernist-home .mh-calendar-day-event:hover {
+  border-color: color-mix(in srgb, #4f46e5 35%, transparent);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+body.modernist-home .mh-calendar-day-event-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 16px;
+}
+
+body.modernist-home .mh-calendar-day-time {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, #4f46e5 30%, transparent);
+  background: color-mix(in srgb, #4f46e5 10%, #fff);
+  color: #4338ca;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+body.modernist-home .mh-calendar-day-event-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-calendar-day-event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: color-mix(in srgb, var(--mh-text) 65%, transparent);
+}
+
+body.modernist-home .mh-calendar-footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  body.modernist-home .mh-calendar-nav {
+    width: 100%;
+  }
+
+  body.modernist-home .mh-calendar-nav .mh-btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 12px;
+  }
+
+  body.modernist-home .mh-calendar-cell {
+    min-height: 88px;
+    padding: 6px;
+  }
+
+  body.modernist-home .mh-calendar-dow {
+    font-size: 10px;
+    padding: 8px 2px;
+  }
+}
+
+/* ?? Team page (/team) ? listing shell reuses mh-events-*; cards reuse mh-team-* ?? */
+body.modernist-home .mh-team-page .mh-team-photo {
+  position: relative;
+}
+
+body.modernist-home .mh-team-page .mh-team-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-team-page .mh-team-bio {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+  max-width: 100%;
+}
+
+body.modernist-home .mh-team-page .mh-team-readmore {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+body.modernist-home .mh-team-page .mh-team-expertise {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+body.modernist-home .mh-team-page .mh-team-card-contact {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--mh-divider);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+body.modernist-home .mh-team-page .mh-team-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  font-size: 13px;
+  color: var(--mh-neutral-700);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.modernist-home .mh-team-page .mh-team-contact-link:hover {
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-team-page .mh-team-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+body.modernist-home .mh-team-page .mh-team-social-link {
+  color: var(--mh-neutral-700);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+body.modernist-home .mh-team-page .mh-team-social-link:hover {
+  color: var(--mh-text);
+  transform: scale(1.08);
+}
+
+body.modernist-home .mh-team-page .mh-team-modal-photo {
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+  background: var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-team-page .mh-team-modal-role {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-team-page .mh-team-modal-designation {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-team-page .mh-team-modal-heading {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-team-page .mh-team-modal-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-team-page .mh-team-modal-contact {
+  padding-top: 16px;
+  border-top: 1px solid var(--mh-divider);
+}
+
+/* ?? Sponsors page (shares mh-events-* shell) ?? */
+/* Name field 50% / Search+Clear 50% on one row (events grid has a dates column) */
+body.modernist-home .mh-sponsors-page .mh-events-search {
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+}
+
+body.modernist-home .mh-sponsors-page .mh-events-search-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+}
+
+body.modernist-home .mh-sponsors-page .mh-events-search-actions .mh-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+}
+
+@media (max-width: 1024px) {
+  body.modernist-home .mh-sponsors-page .mh-events-search {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  body.modernist-home .mh-sponsors-page .mh-events-search-actions {
+    grid-column: auto;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 767px) {
+  body.modernist-home .mh-sponsors-page .mh-events-search {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Match /events poster media: full-width container, image fills width (no max-height / letterbox) */
+body.modernist-home .mh-sponsors-page .mh-sponsor-card-media {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: var(--mh-neutral-200);
+  line-height: 0;
+}
+
+body.modernist-home .mh-sponsors-page .mh-sponsor-card-media img,
+body.modernist-home .mh-sponsors-page .mh-sponsor-card-media .mh-event-card-media-img {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center center;
+  background: transparent !important;
+}
+
+body.modernist-home .mh-sponsors-page .mh-event-card:hover .mh-sponsor-card-media img,
+body.modernist-home .mh-sponsors-page .mh-event-card:hover .mh-sponsor-card-media .mh-event-card-media-img {
+  transform: scale(1.01);
+}
+
+body.modernist-home .mh-sponsors-page .mh-sponsor-card-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--mh-neutral-200);
+}
+
+body.modernist-home .mh-sponsors-page .mh-sponsor-card-tagline {
+  font-style: italic;
+  color: var(--mh-neutral-700);
+}
+
+body.modernist-home .mh-sponsors-page .mh-sponsor-card-contacts {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--mh-neutral-300);
+}
+
+body.modernist-home .mh-sponsors-page .mh-sponsor-card-contacts:empty {
+  display: none;
+}
+
+/* ?? Sponsor detail page (shares mh-event-detail shell) ?? */
+/* Header clearance comes from .mh-events-hero margin-top (same as /events) */
+body.modernist-home .mh-sponsor-detail .mh-event-detail-body {
+  padding-top: 2rem;
+}
+
+/* Spacing only ? fill/containment comes from shared .mh-event-card-media (events posters) */
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-banner {
+  margin: 0 0 1.75rem;
+  border-top: 2px solid var(--mh-text);
+}
+
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-banner img,
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-banner .mh-event-card-media-img {
+  max-height: none !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-event-detail-meta-item a {
+  color: var(--mh-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-event-detail-meta-item a:hover {
+  color: var(--mh-accent);
+}
+
+body.modernist-home .mh-sponsor-detail .mh-event-detail-meta-icon--company {
+  color: #fff;
+  background: #2563eb;
+  border-color: #1d4ed8;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-event-detail-meta-icon--email {
+  color: #fff;
+  background: #ea580c;
+  border-color: #c2410c;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-event-detail-meta-icon--phone {
+  color: #fff;
+  background: #7c3aed;
+  border-color: #6d28d9;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-event-detail-meta-icon--website {
+  color: #fff;
+  background: #0f766e;
+  border-color: #115e59;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-tagline {
+  margin: 0 0 1.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--mh-neutral-300);
+  border-bottom: 1px solid var(--mh-neutral-300);
+  font-family: var(--mh-font);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--mh-neutral-800);
+  text-align: center;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-section-title {
+  margin: 0 0 0.85rem;
+  font-family: var(--mh-font);
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-prose p {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--mh-text);
+}
+
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-prose p:last-child {
+  margin-bottom: 0;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-contacts:empty {
+  display: none;
+}
+
+body.modernist-home .mh-sponsor-detail .mh-sponsor-detail-contacts {
+  padding-top: 0.5rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Organic remapping ? soft radii, Caprasimo headings, washed media, soft cards
+   --------------------------------------------------------------------------- */
+
+body.modernist-home.organic-home .modernist-home h1,
+body.modernist-home.organic-home .modernist-home h2,
+body.modernist-home.organic-home .modernist-home h3,
+body.modernist-home.organic-home .mh-h2,
+body.modernist-home.organic-home .mh-about h2,
+body.modernist-home.organic-home .mh-services-title,
+body.modernist-home.organic-home .mh-team-name,
+body.modernist-home.organic-home .mh-event-card h3,
+body.modernist-home.organic-home .mh-featured-body h2,
+body.modernist-home.organic-home .mh-featured-section-title,
+body.modernist-home.organic-home .mh-onsale-band h2,
+body.modernist-home.organic-home .mh-close h3,
+body.modernist-home.organic-home .mh-home-events-heading {
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+}
+
+/* Brand section titles — KCNJ logo forest green */
+body.modernist-home.organic-home .mh-h2,
+body.modernist-home.organic-home .mh-home-events-heading,
+body.modernist-home.organic-home .mh-services-heading,
+body.modernist-home.organic-home .mh-featured-section-title,
+body.modernist-home.organic-home .mh-about h2,
+body.modernist-home.organic-home .mh-onsale-band h2,
+body.modernist-home.organic-home .mh-events-head h2,
+body.modernist-home.organic-home .mh-close h3 {
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .mh-eyebrow,
+body.modernist-home.organic-home .mh-tag,
+body.modernist-home.organic-home .mh-event-card-badge,
+body.modernist-home.organic-home .mh-featured-kicker {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--mh-radius-pill);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body.modernist-home.organic-home .mh-onsale-band {
+  margin: 0 clamp(16px, 4vw, 56px) clamp(24px, 4vw, 40px);
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--mh-radius-xl);
+  box-shadow: var(--mh-shadow-md);
+  overflow: hidden;
+}
+
+body.modernist-home.organic-home .mh-featured {
+  margin: 0 clamp(16px, 4vw, 56px) clamp(28px, 4vw, 44px);
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0;
+  border-radius: var(--mh-radius-xl);
+  overflow: hidden;
+  background: var(--mh-surface);
+  box-shadow: var(--mh-shadow-sm);
+  min-height: 0;
+}
+
+body.modernist-home.organic-home .mh-featured-media {
+  border-right: 0;
+  min-height: 280px;
+  border-radius: 0;
+}
+
+body.modernist-home.organic-home .mh-featured-media-link {
+  min-height: 280px;
+}
+
+body.modernist-home.organic-home .mh-featured-past-badge {
+  background: color-mix(in srgb, var(--mh-neutral-800, #2d2a26) 92%, transparent);
+  color: #fff8f0;
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+body.modernist-home.organic-home .mh-live-block .mh-live-badge {
+  background: var(--mh-accent);
+  color: #fff8f0;
+  border-radius: 999px;
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--mh-accent) 28%, transparent);
+}
+
+body.modernist-home.organic-home .mh-live-block .mh-live-badge-dot {
+  background: #fff8f0;
+}
+
+body.modernist-home.organic-home .mh-featured-block {
+  border-top: 0;
+}
+
+body.modernist-home.organic-home .mh-featured-section-head {
+  padding-left: clamp(16px, 4vw, 56px);
+  padding-right: clamp(16px, 4vw, 56px);
+}
+
+body.modernist-home.organic-home .mh-event-card {
+  border-radius: var(--mh-radius-xl);
+  overflow: hidden;
+  background: var(--mh-surface);
+  box-shadow: var(--mh-shadow-sm);
+  border: 0;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+body.modernist-home.organic-home .mh-event-card:hover {
+  box-shadow: var(--mh-shadow-lg);
+  transform: translateY(-4px);
+}
+
+body.modernist-home.organic-home .mh-event-card-media,
+body.modernist-home.organic-home .mh-event-card-admission,
+body.modernist-home.organic-home .mh-event-card-loc-tools a,
+body.modernist-home.organic-home .mh-event-card-loc-tools button {
+  border-radius: var(--mh-radius-md);
+}
+
+/* Organic homepage: full-color, crisp images (no desaturate/wash filters) */
+body.modernist-home.organic-home img,
+body.modernist-home.organic-home .mh-event-card-media-img,
+body.modernist-home.organic-home .mh-poster-hero-img,
+body.modernist-home.organic-home .mh-poster-hero-logo-img {
+  filter: none;
+}
+
+body.modernist-home.organic-home .mh-service-card {
+  border-radius: var(--mh-radius-xl);
+  box-shadow: var(--mh-shadow-sm);
+  border: 0;
+  background: var(--mh-bg);
+}
+
+body.modernist-home.organic-home .mh-service-card:hover,
+body.modernist-home.organic-home .mh-service-card:focus-within {
+  box-shadow: var(--mh-shadow-md);
+  border-color: transparent;
+}
+
+body.modernist-home.organic-home .mh-team-card {
+  border-top: 0;
+  border-radius: var(--mh-radius-xl);
+  background: var(--mh-surface);
+  box-shadow: var(--mh-shadow-sm);
+  padding: 18px;
+  transition: transform 0.45s ease, box-shadow 0.45s ease;
+}
+
+body.modernist-home.organic-home .mh-team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--mh-shadow-lg);
+}
+
+body.modernist-home.organic-home .mh-team-photo {
+  border-radius: var(--mh-radius-lg);
+}
+
+body.modernist-home.organic-home .mh-about {
+  border-radius: 0;
+}
+
+body.modernist-home.organic-home .mh-close {
+  margin: 0 clamp(16px, 4vw, 56px) clamp(40px, 6vw, 72px);
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--mh-radius-xl);
+  box-shadow: var(--mh-shadow-lg);
+}
+
+body.modernist-home.organic-home .mh-btn-secondary {
+  background: var(--mh-bg);
+  border-color: var(--mh-divider);
+}
+
+/* Soften hard 2px dividers on homepage sections */
+body.modernist-home.organic-home .mh-section-head,
+body.modernist-home.organic-home .mh-home-sponsors .mh-section-head {
+  border-top-color: var(--mh-divider) !important;
+  border-top-width: 1px !important;
+}
+
+/* Organic homepage sponsors ? same single-column card layout as mcefee */
+body.modernist-home.organic-home .mh-home-sponsors {
+  background: var(--mh-bg);
+}
+
+body.modernist-home.organic-home .mh-home-sponsors .mh-event-card {
+  border-radius: var(--mh-radius-xl);
+  overflow: hidden;
+  background: var(--mh-surface);
+  box-shadow: var(--mh-shadow-md);
+  border: 1px solid color-mix(in srgb, var(--mh-divider) 80%, transparent);
+}
+
+body.modernist-home.organic-home .mh-home-sponsors .mh-sponsor-card-media {
+  background: var(--mh-bg);
+  border-radius: var(--mh-radius-lg) var(--mh-radius-lg) 0 0;
+}
+
+body.modernist-home.organic-home .mh-home-sponsors .mh-event-card-badge {
+  background: color-mix(in srgb, var(--mh-accent) 92%, transparent);
+  color: #fff;
+  border-radius: var(--mh-radius-pill);
+  font-family: var(--mh-font);
+}
+
+body.modernist-home.organic-home .mh-home-sponsors .mh-event-card-body h3 {
+  font-family: var(--mh-font-heading);
+  color: var(--mh-text);
+}
+
+body.modernist-home.organic-home .mh-home-sponsors .mh-btn-details,
+body.modernist-home.organic-home .mh-home-sponsors .mh-btn-tickets {
+  border-radius: var(--mh-radius-pill);
+}
+
+body.modernist-home.organic-home header a,
+body.modernist-home.organic-home nav a {
+  border-radius: var(--mh-radius-pill);
+}
+
+/* ---------------------------------------------------------------------------
+   Public pages (events, gallery, about, contact, …) — organic homepage system
+   Admin routes never get body.organic-home (see PublicOrganicDesignBody).
+   --------------------------------------------------------------------------- */
+
+body.modernist-home.organic-home .font-heading,
+body.modernist-home.organic-home h1.font-heading,
+body.modernist-home.organic-home h2.font-heading,
+body.modernist-home.organic-home h3.font-heading {
+  font-family: var(--mh-font-heading) !important;
+  font-weight: var(--mh-font-heading-weight) !important;
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .font-body,
+body.modernist-home.organic-home .font-caption,
+body.modernist-home.organic-home .font-inter {
+  font-family: var(--mh-font) !important;
+}
+
+body.modernist-home.organic-home .mh-events-page,
+body.modernist-home.organic-home .mh-gallery-page,
+body.modernist-home.organic-home .mh-team-page,
+body.modernist-home.organic-home .mh-calendar-page,
+body.modernist-home.organic-home .mh-sponsors-page,
+body.modernist-home.organic-home .mh-polls-page {
+  background: var(--mh-bg);
+  color: var(--mh-text);
+  font-family: var(--mh-font);
+}
+
+body.modernist-home.organic-home .mh-events-hero h1,
+body.modernist-home.organic-home .mh-events-head h2,
+body.modernist-home.organic-home .mh-events-page h1,
+body.modernist-home.organic-home .mh-events-page h2 {
+  font-family: var(--mh-font-heading);
+  font-weight: var(--mh-font-heading-weight);
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .mh-events-hero {
+  /* Full-bleed edge-to-edge; no inset card look on ultra-wide.
+     overflow must stay visible so kicker/title/lede are never clipped. */
+  border-radius: 0;
+  overflow: visible;
+}
+
+/*
+ * Future/Past switch and the pagination page chip predate the organic theme:
+ * the base layer hard-codes `border-radius: 0` plus a saturated emerald/indigo
+ * palette. Everything sitting next to them (buttons, cards, badges) already
+ * reads from the radius and colour tokens, so point these at the same tokens.
+ */
+body.modernist-home.organic-home .mh-events-toggle {
+  padding: 10px 22px;
+  border-radius: var(--mh-radius-pill);
+  background: var(--mh-surface);
+  border: 1px solid color-mix(in srgb, var(--mh-brand-green) 30%, transparent);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home.organic-home .mh-events-toggle--past {
+  background: var(--mh-surface);
+  border-color: color-mix(in srgb, var(--mh-accent) 38%, transparent);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home.organic-home .mh-events-toggle-label--future.is-active {
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .mh-events-toggle-label--past.is-active {
+  color: var(--mh-accent-700);
+}
+
+/* Keep the 2px border width: the thumb travel is measured from the content box */
+body.modernist-home.organic-home .mh-events-toggle-btn {
+  border-radius: var(--mh-radius-pill);
+  border-color: var(--mh-accent-2-800);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--mh-brand-green) 78%, #ffffff) 0%,
+    var(--mh-brand-green) 100%
+  );
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home.organic-home .mh-events-toggle-btn:hover:not(:disabled) {
+  box-shadow: var(--mh-shadow-md);
+}
+
+body.modernist-home.organic-home .mh-events-toggle-btn.is-past {
+  border-color: var(--mh-accent-700);
+  background: linear-gradient(180deg, var(--mh-accent-400) 0%, var(--mh-accent) 100%);
+}
+
+body.modernist-home.organic-home .mh-events-toggle-thumb {
+  border-radius: var(--mh-radius-pill);
+  border-color: var(--mh-brand-green);
+  background: var(--mh-bg);
+  box-shadow: var(--mh-shadow-sm);
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .mh-events-toggle-btn.is-past .mh-events-toggle-thumb {
+  border-color: var(--mh-accent-700);
+  background: var(--mh-bg);
+  color: var(--mh-accent-700);
+}
+
+body.modernist-home.organic-home .mh-events-page-info {
+  padding: 12px 22px;
+  border-radius: var(--mh-radius-pill);
+  background: var(--mh-surface);
+  border: 1px solid color-mix(in srgb, var(--mh-brand-green) 26%, transparent);
+  color: var(--mh-brand-green);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home.organic-home .mh-events-page-info strong {
+  color: var(--mh-brand-green);
+}
+
+/*
+ * Calendar grid + profile form shells still used white (#fff) / indigo from the
+ * pre-organic modernist layer. Remap them to cream surfaces + brand green so
+ * /calendar and /profile match events, gallery, and the rest of the site.
+ */
+body.modernist-home.organic-home .mh-calendar-panel {
+  background: var(--mh-surface);
+  border: 1px solid color-mix(in srgb, var(--mh-brand-green) 18%, transparent);
+  border-radius: var(--mh-radius-xl);
+  box-shadow: var(--mh-shadow-sm);
+  overflow: hidden;
+}
+
+body.modernist-home.organic-home .mh-calendar-grid {
+  background: color-mix(in srgb, var(--mh-brand-green) 14%, transparent);
+}
+
+body.modernist-home.organic-home .mh-calendar-dow {
+  background: color-mix(in srgb, var(--mh-brand-green) 12%, var(--mh-bg));
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .mh-calendar-cell {
+  background: var(--mh-neutral-100);
+}
+
+body.modernist-home.organic-home .mh-calendar-cell.is-empty {
+  background: color-mix(in srgb, var(--mh-text) 5%, var(--mh-surface));
+}
+
+body.modernist-home.organic-home .mh-calendar-cell.is-today {
+  background: color-mix(in srgb, var(--mh-accent) 16%, var(--mh-neutral-100));
+}
+
+body.modernist-home.organic-home .mh-calendar-cell:hover {
+  background: color-mix(in srgb, var(--mh-brand-green) 10%, var(--mh-neutral-100));
+}
+
+body.modernist-home.organic-home .mh-calendar-daynum.is-today {
+  background: var(--mh-brand-green);
+  color: #fff;
+}
+
+body.modernist-home.organic-home .mh-calendar-week-label.is-today {
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .mh-calendar-event {
+  background: color-mix(in srgb, var(--mh-brand-green) 12%, var(--mh-neutral-100));
+  color: var(--mh-brand-green);
+  border-radius: var(--mh-radius-sm, 0.5rem);
+}
+
+body.modernist-home.organic-home .mh-calendar-event:hover {
+  background: color-mix(in srgb, var(--mh-brand-green) 22%, var(--mh-neutral-100));
+}
+
+body.modernist-home.organic-home .mh-calendar-event svg {
+  color: var(--mh-brand-green);
+}
+
+body.modernist-home.organic-home .mh-calendar-more {
+  color: var(--mh-accent-700);
+}
+
+body.modernist-home.organic-home .mh-calendar-day-header {
+  background: color-mix(in srgb, var(--mh-brand-green) 10%, var(--mh-bg));
+  border-bottom: 1px solid color-mix(in srgb, var(--mh-brand-green) 18%, transparent);
+}
+
+body.modernist-home.organic-home .mh-calendar-day-icon {
+  background: color-mix(in srgb, var(--mh-brand-green) 14%, var(--mh-neutral-100));
+  color: var(--mh-brand-green);
+  border-radius: var(--mh-radius-md, 0.75rem);
+}
+
+body.modernist-home.organic-home .mh-calendar-day-event {
+  background: var(--mh-neutral-100);
+  border-color: color-mix(in srgb, var(--mh-brand-green) 16%, transparent);
+  border-radius: var(--mh-radius-md, 0.75rem);
+}
+
+body.modernist-home.organic-home .mh-calendar-day-event:hover {
+  border-color: color-mix(in srgb, var(--mh-brand-green) 36%, transparent);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home.organic-home .mh-calendar-day-time {
+  border-color: color-mix(in srgb, var(--mh-brand-green) 28%, transparent);
+  background: color-mix(in srgb, var(--mh-brand-green) 12%, var(--mh-bg));
+  color: var(--mh-brand-green);
+  border-radius: var(--mh-radius-sm, 0.5rem);
+}
+
+/* Profile content panel + form fields (was frosted white glass) */
+body.modernist-home.organic-home .mh-profile-panel,
+body.modernist-home.organic-home .homepage-glass-card.services-glass-card-face,
+body.modernist-home.organic-home .home-page-layout .services-glass-card-face {
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--mh-neutral-100) 88%, #fff) 0%,
+    var(--mh-surface) 42%,
+    color-mix(in srgb, var(--mh-surface) 90%, var(--mh-bg)) 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--mh-brand-green) 16%, transparent);
+  box-shadow: var(--mh-shadow-md);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: var(--mh-text);
+}
+
+body.modernist-home.organic-home .mh-profile-panel .bg-gray-50,
+body.modernist-home.organic-home .homepage-glass-card .bg-gray-50 {
+  background: color-mix(in srgb, var(--mh-brand-green) 6%, var(--mh-bg)) !important;
+  border-color: color-mix(in srgb, var(--mh-brand-green) 16%, transparent) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel .bg-blue-50,
+body.modernist-home.organic-home .homepage-glass-card .bg-blue-50 {
+  background: color-mix(in srgb, var(--mh-brand-green) 8%, var(--mh-surface)) !important;
+  border-color: color-mix(in srgb, var(--mh-brand-green) 18%, transparent) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel .bg-green-50,
+body.modernist-home.organic-home .homepage-glass-card .bg-green-50 {
+  background: color-mix(in srgb, var(--mh-brand-green) 10%, var(--mh-neutral-100)) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel label,
+body.modernist-home.organic-home .mh-profile-panel .text-gray-700,
+body.modernist-home.organic-home .mh-profile-panel .text-gray-900,
+body.modernist-home.organic-home .homepage-glass-card label,
+body.modernist-home.organic-home .homepage-glass-card .text-gray-700,
+body.modernist-home.organic-home .homepage-glass-card .text-gray-900 {
+  color: var(--mh-text) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel .text-gray-600,
+body.modernist-home.organic-home .mh-profile-panel .text-gray-500,
+body.modernist-home.organic-home .homepage-glass-card .text-gray-600,
+body.modernist-home.organic-home .homepage-glass-card .text-gray-500 {
+  color: color-mix(in srgb, var(--mh-text) 72%, transparent) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel input:not([type='checkbox']):not([type='radio']),
+body.modernist-home.organic-home .mh-profile-panel textarea,
+body.modernist-home.organic-home .mh-profile-panel select,
+body.modernist-home.organic-home .homepage-glass-card input:not([type='checkbox']):not([type='radio']),
+body.modernist-home.organic-home .homepage-glass-card textarea,
+body.modernist-home.organic-home .homepage-glass-card select {
+  background: var(--mh-neutral-100);
+  border-color: var(--mh-neutral-300);
+  color: var(--mh-text);
+  border-radius: var(--mh-radius-md, 0.75rem);
+}
+
+body.modernist-home.organic-home .mh-profile-panel input:focus,
+body.modernist-home.organic-home .mh-profile-panel textarea:focus,
+body.modernist-home.organic-home .mh-profile-panel select:focus,
+body.modernist-home.organic-home .homepage-glass-card input:focus,
+body.modernist-home.organic-home .homepage-glass-card textarea:focus,
+body.modernist-home.organic-home .homepage-glass-card select:focus {
+  border-color: var(--mh-brand-green);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mh-brand-green) 22%, transparent);
+}
+
+body.modernist-home.organic-home .mh-profile-panel button[type='submit'],
+body.modernist-home.organic-home .homepage-glass-card button[type='submit'] {
+  background: var(--mh-brand-green) !important;
+  border-color: var(--mh-brand-green) !important;
+  color: #fff !important;
+  border-radius: var(--mh-radius-pill);
+}
+
+body.modernist-home.organic-home .mh-profile-panel button[type='submit']:hover,
+body.modernist-home.organic-home .homepage-glass-card button[type='submit']:hover {
+  filter: brightness(1.05);
+}
+
+/* Inner Tailwind span/icon must not keep green-700 on the dark fill */
+body.modernist-home.organic-home .mh-profile-panel button[type='submit'] span,
+body.modernist-home.organic-home .homepage-glass-card button[type='submit'] span,
+body.modernist-home.organic-home .mh-profile-panel button[type='submit'] .text-green-700,
+body.modernist-home.organic-home .homepage-glass-card button[type='submit'] .text-green-700 {
+  color: #fff !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel button[type='submit'] .bg-green-200,
+body.modernist-home.organic-home .homepage-glass-card button[type='submit'] .bg-green-200 {
+  background: color-mix(in srgb, #fff 18%, transparent) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel button[type='submit'] svg,
+body.modernist-home.organic-home .homepage-glass-card button[type='submit'] svg,
+body.modernist-home.organic-home .mh-profile-panel button[type='submit'] .text-green-600,
+body.modernist-home.organic-home .homepage-glass-card button[type='submit'] .text-green-600 {
+  color: #fff !important;
+}
+
+/* Skip for now — cream/forest secondary, not leftover indigo */
+body.modernist-home.organic-home .mh-profile-panel a.bg-indigo-100,
+body.modernist-home.organic-home .homepage-glass-card a.bg-indigo-100 {
+  background: color-mix(in srgb, var(--mh-brand-green) 10%, var(--mh-surface)) !important;
+  border: 1px solid color-mix(in srgb, var(--mh-brand-green) 28%, transparent);
+  color: var(--mh-brand-green) !important;
+  border-radius: var(--mh-radius-pill);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+body.modernist-home.organic-home .mh-profile-panel a.bg-indigo-100:hover,
+body.modernist-home.organic-home .homepage-glass-card a.bg-indigo-100:hover {
+  background: color-mix(in srgb, var(--mh-brand-green) 16%, var(--mh-surface)) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel a.bg-indigo-100 .bg-indigo-200,
+body.modernist-home.organic-home .homepage-glass-card a.bg-indigo-100 .bg-indigo-200 {
+  background: color-mix(in srgb, var(--mh-brand-green) 18%, var(--mh-neutral-100)) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel a.bg-indigo-100 .text-indigo-600,
+body.modernist-home.organic-home .homepage-glass-card a.bg-indigo-100 .text-indigo-600,
+body.modernist-home.organic-home .mh-profile-panel a.bg-indigo-100 .text-indigo-700,
+body.modernist-home.organic-home .homepage-glass-card a.bg-indigo-100 .text-indigo-700,
+body.modernist-home.organic-home .mh-profile-panel a.bg-indigo-100 svg,
+body.modernist-home.organic-home .homepage-glass-card a.bg-indigo-100 svg {
+  color: var(--mh-brand-green) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel .bg-blue-600,
+body.modernist-home.organic-home .homepage-glass-card .bg-blue-600 {
+  background: var(--mh-brand-green) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel .hover\:bg-blue-700:hover,
+body.modernist-home.organic-home .homepage-glass-card .hover\:bg-blue-700:hover {
+  background: var(--mh-brand-green-mid) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-panel .text-blue-600,
+body.modernist-home.organic-home .homepage-glass-card .text-blue-600 {
+  color: var(--mh-brand-green) !important;
+}
+
+body.modernist-home.organic-home .mh-profile-page {
+  background: var(--mh-bg);
+  color: var(--mh-text);
+  font-family: var(--mh-font);
+}
+
+/* Clear the organic header on generic public mains */
+body.modernist-home.organic-home main.pt-28 {
+  padding-top: calc(var(--header-bar-height, 7.5rem) + 1.25rem) !important;
+}
+
+body.modernist-home.organic-home main.py-24 {
+  padding-top: calc(var(--header-bar-height, 7.5rem) + 1.5rem) !important;
+}
+
+@media (max-width: 639px) {
+  body.modernist-home.organic-home main.pt-28 {
+    padding-top: calc(var(--header-bar-height, 6.5rem) + 1rem) !important;
+  }
+
+  body.modernist-home.organic-home main.py-24 {
+    padding-top: calc(var(--header-bar-height, 6.5rem) + 1.25rem) !important;
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+   Homepage contact (Get in Touch) — adapted from mosc-temp HomePageClient
+   --------------------------------------------------------------------------- */
+
+body.modernist-home .mh-contact {
+  padding-bottom: 84px;
+}
+
+body.modernist-home .mh-contact-lede {
+  max-width: 42rem;
+  margin-bottom: 2.5rem;
+}
+
+body.modernist-home .mh-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  body.modernist-home .mh-contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+body.modernist-home .mh-contact-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 10px 30px -18px rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.modernist-home .mh-contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -18px rgba(15, 23, 42, 0.4);
+}
+
+body.modernist-home .mh-contact-card-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+body.modernist-home .mh-contact-icon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+body.modernist-home .mh-contact-card:hover .mh-contact-icon {
+  transform: scale(1.1);
+}
+
+body.modernist-home .mh-contact-icon--location {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+body.modernist-home .mh-contact-icon--phone {
+  background: #dcfce7;
+  color: #22c55e;
+}
+
+body.modernist-home .mh-contact-icon--email {
+  background: #ffedd5;
+  color: #f97316;
+}
+
+body.modernist-home .mh-contact-icon--social {
+  background: #f3e8ff;
+  color: #a855f7;
+}
+
+body.modernist-home .mh-contact-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--mh-text, #111827);
+  transition: color 0.3s ease;
+}
+
+body.modernist-home .mh-contact-card:hover h3 {
+  color: #2563eb;
+}
+
+body.modernist-home .mh-contact-card p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+body.modernist-home .mh-contact-card a {
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+body.modernist-home .mh-contact-card a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+body.modernist-home .mh-contact-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+body.modernist-home .mh-contact-social-btn {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.2s ease;
+}
+
+body.modernist-home .mh-contact-social-btn:hover {
+  transform: scale(1.1);
+}
+
+body.modernist-home .mh-contact-social-btn--facebook {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+body.modernist-home .mh-contact-social-btn--facebook:hover {
+  background: #bfdbfe;
+}
+
+body.modernist-home .mh-contact-social-btn--instagram {
+  background: #fce7f3;
+  color: #db2777;
+}
+
+body.modernist-home .mh-contact-social-btn--instagram:hover {
+  background: #fbcfe8;
+}
+
+body.modernist-home .mh-contact-social-btn--twitter {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+body.modernist-home .mh-contact-social-btn--twitter:hover {
+  background: #bae6fd;
+}
+
+body.modernist-home .mh-contact-social-btn--linkedin {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+body.modernist-home .mh-contact-social-btn--linkedin:hover {
+  background: #bfdbfe;
+}
+
+body.modernist-home .mh-contact-social-btn--youtube {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+body.modernist-home .mh-contact-social-btn--youtube:hover {
+  background: #fecaca;
+}
+
+body.modernist-home .mh-contact-social-btn--tiktok {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+body.modernist-home .mh-contact-social-btn--tiktok:hover {
+  background: #e5e7eb;
+}
+
+body.modernist-home .mh-contact-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+body.modernist-home .mh-contact-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+

@@ -1,0 +1,124 @@
+/*
+ * /school design system. Every rule is scoped to .school-theme (set by src/app/school/layout.tsx),
+ * so nothing here reaches the rest of the application.
+ * Source of truth: replica/design/tokens.json (channels below are the same hex values as R G B).
+ * The `sch-*` Tailwind colours and fonts that read these variables are declared in tailwind.config.js.
+ */
+.school-theme {
+  --sch-bg: 251 248 241;
+  --sch-surface: 255 255 255;
+  --sch-surface-alt: 242 236 221;
+  --sch-border: 226 217 195;
+  --sch-border-input: 133 122 97;
+  --sch-text: 27 42 38;
+  --sch-text-muted: 85 98 93;
+  --sch-accent: 15 92 77;
+  --sch-accent-strong: 10 65 54;
+  --sch-on-accent: 255 255 255;
+  --sch-gold: 138 100 16;
+  --sch-gold-bright: 230 185 92;
+  --sch-laterite: 168 63 37;
+  --sch-ink: 11 59 50;
+  --sch-on-ink: 246 241 228;
+  --sch-on-ink-muted: 185 207 199;
+  --sch-danger: 179 38 30;
+  --sch-success: 31 122 77;
+
+  --sch-shadow-card: 0 1px 2px rgb(11 59 50 / 0.06), 0 6px 20px rgb(11 59 50 / 0.07);
+  --sch-shadow-pop: 0 18px 48px rgb(11 59 50 / 0.2);
+  --sch-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  background-color: rgb(var(--sch-bg));
+  color: rgb(var(--sch-text));
+  font-family: var(--font-sch-sans), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.625;
+  -webkit-font-smoothing: antialiased;
+}
+
+.school-theme :focus-visible {
+  outline: 2px solid rgb(var(--sch-accent));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.school-theme .sch-on-dark :focus-visible {
+  outline-color: rgb(var(--sch-gold-bright));
+}
+
+/* Kasavu border: the gold-edged band of a Kerala handloom, used as the section divider. */
+.school-theme .sch-kasavu {
+  height: 10px;
+  background:
+    linear-gradient(rgb(var(--sch-gold-bright)), rgb(var(--sch-gold-bright))) 0 2px / 100% 2px no-repeat,
+    linear-gradient(rgb(var(--sch-gold-bright)), rgb(var(--sch-gold-bright))) 0 6px / 100% 1px no-repeat,
+    rgb(var(--sch-ink));
+}
+
+/* Arch frame: a nod to the arched verandas of traditional Kerala school buildings. */
+.school-theme .sch-arch {
+  border-radius: 999px 999px 16px 16px;
+  overflow: hidden;
+}
+
+/* Faint woven texture for dark bands. */
+.school-theme .sch-weave {
+  background-image:
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.035) 0 2px, transparent 2px 14px),
+    repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.035) 0 2px, transparent 2px 14px);
+}
+
+.school-theme .sch-card {
+  background: rgb(var(--sch-surface));
+  border: 1px solid rgb(var(--sch-border));
+  border-radius: 12px;
+  box-shadow: var(--sch-shadow-card);
+  transition: transform 240ms var(--sch-ease), box-shadow 240ms var(--sch-ease), border-color 240ms var(--sch-ease);
+}
+
+.school-theme a.sch-card:hover {
+  transform: translateY(-3px);
+  border-color: rgb(var(--sch-accent) / 0.45);
+  box-shadow: var(--sch-shadow-pop);
+}
+
+.school-theme .sch-prose {
+  max-width: 720px;
+  white-space: pre-wrap;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.school-theme .sch-ticker {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: sch-ticker 40s linear infinite;
+}
+
+.school-theme .sch-ticker:hover,
+.school-theme .sch-ticker:focus-within {
+  animation-play-state: paused;
+}
+
+@keyframes sch-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .school-theme .sch-ticker {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+  .school-theme .sch-card,
+  .school-theme a.sch-card:hover {
+    transition: none;
+    transform: none;
+  }
+}

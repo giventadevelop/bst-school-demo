@@ -1,0 +1,1199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Test Suite Report</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .stat-card.passed { border-left: 4px solid #10b981; }
+    .stat-card.failed { border-left: 4px solid #ef4444; }
+    .stat-card.skipped { border-left: 4px solid #f59e0b; }
+    .stat-card.total { border-left: 4px solid #3b82f6; }
+    .stat-number {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      color: #6b7280;
+      font-size: 14px;
+    }
+    .test-results {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .test-item {
+      padding: 15px;
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 10px;
+    }
+    .test-item:last-child {
+      border-bottom: none;
+    }
+    .test-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .test-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .test-status {
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .test-status.passed { background: #d1fae5; color: #065f46; }
+    .test-status.failed { background: #fee2e2; color: #991b1b; }
+    .test-status.skipped { background: #fef3c7; color: #92400e; }
+    .test-details {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .test-error {
+      color: #ef4444;
+      margin-top: 8px;
+      padding: 10px;
+      background: #fef2f2;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .category-header {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 20px 0 10px 0;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Admin Test Suite Report</h1>
+    <p>Generated: 8/16/2026, 1:57:27 PM</p>
+    <p>Duration: 169.21s</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card total">
+      <div class="stat-number">31</div>
+      <div class="stat-label">Total Tests</div>
+    </div>
+    <div class="stat-card passed">
+      <div class="stat-number">28</div>
+      <div class="stat-label">Passed</div>
+    </div>
+    <div class="stat-card failed">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Failed</div>
+    </div>
+    <div class="stat-card skipped">
+      <div class="stat-number">0</div>
+      <div class="stat-label">Skipped</div>
+    </div>
+  </div>
+
+  <div class="test-results">
+    
+      <div class="category-header">core</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-001] Admin Dashboard</div>
+              <div class="test-details">
+                /admin • 4356ms • Priority: critical
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8781):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/manage-usage:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/manage-events:0:0)</span></li><li><strong>[warning]</strong> %c%s%c background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px  Server   Error: Route "/admin/events/dashboard" used `searchParams.eventId`. `searchParams` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at EventDashboardPage (about://React/Server/F:%5Cproject_workspace%5Ckcnj-temp%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__073e7fl._.js?0:520:34)
+    at resolveErrorDev (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1919:105)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1469:28)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1584:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1407:17)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1639:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2525:61)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at resolveConsoleEntry (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2047:96)
+    at processFullStringRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2453:17)
+    at processFullBinaryRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2393:9)
+    at processBinaryChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2502:221)
+    at progress (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2676:20) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/dashboard:0:0)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8771 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 3/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-002] Manage Users (Usage)</div>
+              <div class="test-details">
+                /admin/manage-usage • 5077ms • Priority: critical
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8778):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/manage-usage:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/manage-events:0:0)</span></li><li><strong>[warning]</strong> %c%s%c background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px  Server   Error: Route "/admin/events/dashboard" used `searchParams.eventId`. `searchParams` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at EventDashboardPage (about://React/Server/F:%5Cproject_workspace%5Ckcnj-temp%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__073e7fl._.js?0:520:34)
+    at resolveErrorDev (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1919:105)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1469:28)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1584:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1407:17)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1639:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2525:61)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at resolveConsoleEntry (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2047:96)
+    at processFullStringRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2453:17)
+    at processFullBinaryRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2393:9)
+    at processBinaryChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2502:221)
+    at progress (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2676:20) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/dashboard:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/registrations:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8768 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 10/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-003] Manage Events</div>
+              <div class="test-details">
+                /admin/manage-events • 4421ms • Priority: critical
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8776):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/manage-events:0:0)</span></li><li><strong>[warning]</strong> %c%s%c background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px  Server   Error: Route "/admin/events/dashboard" used `searchParams.eventId`. `searchParams` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at EventDashboardPage (about://React/Server/F:%5Cproject_workspace%5Ckcnj-temp%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__073e7fl._.js?0:520:34)
+    at resolveErrorDev (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1919:105)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1469:28)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1584:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1407:17)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1639:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2525:61)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at resolveConsoleEntry (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2047:96)
+    at processFullStringRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2453:17)
+    at processFullBinaryRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2393:9)
+    at processBinaryChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2502:221)
+    at progress (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2676:20) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/dashboard:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/registrations:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/polls:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8766 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 12/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">events</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-004] Event Analytics Dashboard</div>
+              <div class="test-details">
+                /admin/events/dashboard • 4739ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8774):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> %c%s%c background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px  Server   Error: Route "/admin/events/dashboard" used `searchParams.eventId`. `searchParams` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at EventDashboardPage (about://React/Server/F:%5Cproject_workspace%5Ckcnj-temp%5C.next%5Cdev%5Cserver%5Cchunks%5Cssr%5C%5Broot-of-the-server%5D__073e7fl._.js?0:520:34)
+    at resolveErrorDev (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1919:105)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1469:28)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1584:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at getOutlinedModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1407:17)
+    at parseModelString (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1639:50)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2522:66)
+    at reviveModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2525:61)
+    at parseModel (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2517:16)
+    at initializeModelChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:1084:25)
+    at resolveConsoleEntry (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2047:96)
+    at processFullStringRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2453:17)
+    at processFullBinaryRow (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2393:9)
+    at processBinaryChunk (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2502:221)
+    at progress (http://localhost:3003/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_0p3wegg._.js:2676:20) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/dashboard:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/registrations:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/polls:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/focus-groups:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8764 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 11/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-005] Event Registrations</div>
+              <div class="test-details">
+                /admin/events/registrations • 4877ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8771):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/events/registrations:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/polls:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/focus-groups:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/plans:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8761 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 9/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">polls</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-006] Poll Management</div>
+              <div class="test-details">
+                /admin/polls • 4824ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8769):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/polls:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/focus-groups:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/plans:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/subscriptions:0:0)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8759 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 6/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">focus-groups</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-007] Focus Groups</div>
+              <div class="test-details">
+                /admin/focus-groups • 5303ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status failed">FAILED</span>
+          </div>
+          <div class="test-error">❌ Focus groups: search with no matches did not show expected empty message</div>
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8767):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/focus-groups:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/plans:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/subscriptions:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8757 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+            <div class="test-details">
+              📸 <a href="F:\project_workspace\kcnj-temp\TestSprite\admin-tests\screenshots\failure-admin-007-1786902927147.png" target="_blank">View Screenshot</a>
+            </div>
+          
+        </div>
+      
+    
+      <div class="category-header">membership</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-008] Membership Plans</div>
+              <div class="test-details">
+                /admin/membership/plans • 4950ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status failed">FAILED</span>
+          </div>
+          <div class="test-error">❌ Membership plans page missing expected elements: h2, [role="dialog"], button[title="Edit"], button[title="Delete"], button[title="Activate"], button[title="Deactivate"]</div>
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8765):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/plans:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/subscriptions:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-email-addresses:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8755 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 10/0
+            </div>
+          
+          
+            <div class="test-details">
+              📸 <a href="F:\project_workspace\kcnj-temp\TestSprite\admin-tests\screenshots\failure-admin-008-1786902932227.png" target="_blank">View Screenshot</a>
+            </div>
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-009] Membership Subscriptions</div>
+              <div class="test-details">
+                /admin/membership/subscriptions • 4895ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8762):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/membership/subscriptions:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-email-addresses:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/bulk-email:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/newsletter-emails:0:0)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8752 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 9/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">email</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-010] Email Addresses</div>
+              <div class="test-details">
+                /admin/tenant-email-addresses • 4943ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8759):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-email-addresses:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/bulk-email:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/newsletter-emails:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/media:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8749 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-011] Bulk Email</div>
+              <div class="test-details">
+                /admin/bulk-email • 4836ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8756):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/bulk-email:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/newsletter-emails:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/media:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/executive-committee:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8746 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-012] Newsletter Emails</div>
+              <div class="test-details">
+                /admin/newsletter-emails • 4883ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8754):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/newsletter-emails:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/media:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/executive-committee:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-sponsors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8744 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 2/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">media</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-013] Media Management</div>
+              <div class="test-details">
+                /admin/media • 5111ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8752):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/media:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/executive-committee:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-sponsors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-featured-performers:0:0)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8742 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 8/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">content</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-014] Executive Committee</div>
+              <div class="test-details">
+                /admin/executive-committee • 5671ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status failed">FAILED</span>
+          </div>
+          <div class="test-error">❌ Executive committee: search with no matches did not show expected message</div>
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8750):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/executive-committee:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-sponsors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-featured-performers:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-contacts:0:0)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8740 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 8/0
+            </div>
+          
+          
+            <div class="test-details">
+              📸 <a href="F:\project_workspace\kcnj-temp\TestSprite\admin-tests\screenshots\failure-admin-014-1786902962686.png" target="_blank">View Screenshot</a>
+            </div>
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-015] Event Sponsors (Global)</div>
+              <div class="test-details">
+                /admin/event-sponsors • 5213ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8748):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-sponsors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-featured-performers:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-contacts:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-emails:0:0)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8738 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 8/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-016] Global Performers</div>
+              <div class="test-details">
+                /admin/event-featured-performers • 5026ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8745):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-featured-performers:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-contacts:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-emails:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-program-directors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8735 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-017] Global Contacts</div>
+              <div class="test-details">
+                /admin/event-contacts • 4680ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8742):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-contacts:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-emails:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-program-directors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/organizations:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8732 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-018] Global Emails</div>
+              <div class="test-details">
+                /admin/event-emails • 4934ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8740):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-emails:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-program-directors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/organizations:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8730 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-019] Global Program Directors</div>
+              <div class="test-details">
+                /admin/event-program-directors • 4909ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8738):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/event-program-directors:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/organizations:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/settings/13/edit:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8728 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-024] Gallery Albums</div>
+              <div class="test-details">
+                /admin/gallery/albums • 4799ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8725):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/gallery/albums:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/homepage-cache:0:0)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8715 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 4/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-030] Official Documents</div>
+              <div class="test-details">
+                /admin/official-documents • 5128ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (4):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/official-documents:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/official-document-categories:0:0)</span></li>
+                
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 7/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-031] Official Document Categories</div>
+              <div class="test-details">
+                /admin/official-document-categories • 5051ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (2):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/official-document-categories:0:0)</span></li>
+                
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 8/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">tenant</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-020] Organizations</div>
+              <div class="test-details">
+                /admin/tenant-management/organizations • 5061ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8736):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/organizations:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/settings/13/edit:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/test:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8726 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 8/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-021] Tenant Settings</div>
+              <div class="test-details">
+                /admin/tenant-management/settings • 5171ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8733):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/settings/13/edit:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/test:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/test-stripe:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8723 more</li>
+              </ul>
+            </div>
+          
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-022] Tenant Management Test CRUD</div>
+              <div class="test-details">
+                /admin/tenant-management/test • 4890ms • Priority: medium
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8729):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/tenant-management/test:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/test-stripe:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/gallery/albums:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/homepage-cache:0:0)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8719 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 6/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-025] Homepage Cache</div>
+              <div class="test-details">
+                /admin/homepage-cache • 4721ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8722):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/homepage-cache:0:0)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8712 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 4/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">utilities</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-023] Test Stripe</div>
+              <div class="test-details">
+                /admin/test-stripe • 4874ms • Priority: low
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8727):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/test-stripe:0:0)</span></li><li><strong>[warning]</strong> Image with src "/images/KCNJ/logo_latest-transparent.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/gallery/albums:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/homepage-cache:0:0)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8717 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 6/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-026] Admin QR Scanner</div>
+              <div class="test-details">
+                /admin/qr-scanner • 5240ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8720):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 8710 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 5/0
+            </div>
+          
+          
+        </div>
+      
+    
+      <div class="category-header">analytics</div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-027] Check-In Analytics</div>
+              <div class="test-details">
+                /admin/check-in-analytics • 5008ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (1780):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> Camera permission error: NotSupportedError: Not supported <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li><li><strong>[error]</strong> [QR-SCANNER] Scanner error: Error: Camera permission denied. Please enable camera access in your browser settings.
+    at QrScanner.useEffect.checkPermissions (http://localhost:3003/_next/static/chunks/src_components_qr_QrScanner_tsx_0evjzsw._.js:56:33) <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318:31)</span></li>
+                <li style="color: #6b7280; font-style: italic;">... and 1770 more</li>
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 2/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-028] Sales Analytics</div>
+              <div class="test-details">
+                /admin/sales-analytics • 5013ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (8):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/sales-analytics:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/manual-payments:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/official-documents:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/official-document-categories:0:0)</span></li>
+                
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 3/0
+            </div>
+          
+          
+        </div>
+      
+        <div class="test-item">
+          <div class="test-header">
+            <div>
+              <div class="test-name">[admin-029] Manual Payments</div>
+              <div class="test-details">
+                /admin/manual-payments • 4849ms • Priority: high
+              </div>
+            </div>
+            <span class="test-status passed">PASSED</span>
+          </div>
+          
+          
+          
+            <div class="test-details" style="color: #f59e0b;">
+              ⚠️ Console Warnings/Errors (6):
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/manual-payments:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/official-documents:0:0)</span></li><li><strong>[warning]</strong> Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477:27)</span></li><li><strong>[warning]</strong> The resource http://localhost:3003/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. <span style="color: #6b7280; font-size: 11px;">(http://localhost:3003/admin/official-document-categories:0:0)</span></li>
+                
+              </ul>
+            </div>
+          
+          
+            <div class="test-details">
+              📊 Elements found: 2/0
+            </div>
+          
+          
+        </div>
+      
+    
+  </div>
+</body>
+</html>
+  

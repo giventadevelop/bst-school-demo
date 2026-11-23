@@ -1,0 +1,10 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "school-dev",
+      "url": "http://localhost:3004",
+      "port": 3004
+    }
+  ]
+}
