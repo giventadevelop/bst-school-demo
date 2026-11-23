@@ -48,24 +48,29 @@ export async function fetchPublishedPublicProfileForPagesServer(): Promise<Publi
  */
 export async function fetchTenantOrganizationForProfilePagesServer(): Promise<TenantOrganizationDTO | null> {
   try {
-    // This list endpoint does not apply tenantId.equals, so an unsorted page can change
-    // which organization is first after an update. Keep id order so the school name stays put.
-    const params = new URLSearchParams({
+    // tenant-organizations ignores tenantId.equals and returns every organization.
+    // The settings row is the tenant-scoped record; its organization id is this school.
+    const settingsParams = new URLSearchParams({
       'tenantId.equals': getTenantId(),
       size: '1',
-      sort: 'id,asc',
     });
-    const res = await fetchWithJwtRetry(`${getApiBase()}/api/tenant-organizations?${params}`, {
+    const settingsRes = await fetchWithJwtRetry(`${getApiBase()}/api/tenant-settings?${settingsParams}`, {
       cache: 'no-store',
     });
-    if (!res.ok) return null;
-    const data = await res.json();
-    const list = Array.isArray(data)
-      ? data
-      : Array.isArray(data?.content)
-        ? data.content
+    if (!settingsRes.ok) return null;
+    const settingsData = await settingsRes.json();
+    const settingsList = Array.isArray(settingsData)
+      ? settingsData
+      : Array.isArray(settingsData?.content)
+        ? settingsData.content
         : [];
-    return (list[0] as TenantOrganizationDTO) ?? null;
+    const orgId = settingsList[0]?.tenantOrganization?.id;
+    if (!orgId) return null;
+    const orgRes = await fetchWithJwtRetry(`${getApiBase()}/api/tenant-organizations/${orgId}`, {
+      cache: 'no-store',
+    });
+    if (!orgRes.ok) return null;
+    return (await orgRes.json()) as TenantOrganizationDTO;
   } catch (error) {
     console.error('[fetchTenantOrganizationForProfilePagesServer]', error);
     return null;
