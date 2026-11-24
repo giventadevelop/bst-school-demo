@@ -1,6 +1,13 @@
 import { cache } from 'react';
 import { fetchTenantOrganizationForProfilePagesServer } from '@/lib/profileSiteServer';
 
+/** E2E tenants are named like "[E2E] Demo 1786902446152". Show the school name on the public site. */
+function publicSchoolName(raw: string | null | undefined): string {
+  const name = raw?.trim() || 'Our School';
+  if (/^\[E2E\]\s+Demo\b/.test(name)) return 'BST Demo School';
+  return name;
+}
+
 export type SchoolIdentity = {
   name: string;
   description: string;
@@ -18,7 +25,7 @@ export const getSchoolIdentity = cache(async (): Promise<SchoolIdentity> => {
   const street = [org?.addressLine1, org?.addressLine2].filter(Boolean).join(', ');
   const locality = [org?.city, org?.stateProvince, org?.zipCode].filter(Boolean).join(', ');
   return {
-    name: org?.organizationName?.trim() || 'Our School',
+    name: publicSchoolName(org?.organizationName),
     description: org?.description?.trim() || '',
     phone: org?.contactPhone?.trim() || '',
     email: org?.contactEmail?.trim() || '',

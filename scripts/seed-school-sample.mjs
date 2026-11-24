@@ -9,7 +9,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const scrapeRoot = 'F:/project_workspace/christ-nagar-school/christ-nagar-school/christnagarschoolicse.edu.in';
+const scrapeCandidates = [
+  'F:/project_workspace/christ-nagar-school/christ-nagar-school/christnagarschoolicse.edu.in',
+  path.resolve(root, '../christ-nagar-school/christnagarschoolicse.edu.in'),
+];
+const scrapeRoot = scrapeCandidates.find((dir) => fs.existsSync(path.join(dir, 'index.html')));
+if (!scrapeRoot) {
+  throw new Error(`Christ Nagar scrape not found. Looked in:\n${scrapeCandidates.join('\n')}`);
+}
 const sampleDir = path.join(root, 'public', 'school', 'samples');
 const footerWidgetIds = new Set(['d428ba3', '23e8185', '71223e4']);
 
@@ -188,6 +195,11 @@ const departments = [
   ['commerce', 'Commerce', 'commerce'],
   ['history-geography', 'History and Geography', 'history-geography'],
   ['german', 'German', 'department-of-german'],
+  ['geography', 'Geography', 'department-of-geography'],
+  ['general-science', 'General science', 'department-of-general-science'],
+  ['physical-training', 'Physical training', 'physical-training'],
+  ['art-music-dance', 'Yoga, art, dance, music, band and NCC', 'art-music-dance'],
+  ['librarian', 'Librarian', 'yoga-2'],
 ];
 
 const facilities = [
@@ -197,6 +209,8 @@ const facilities = [
   ['computer-lab', 'Computer lab', 'computer-lab'],
   ['music-room', 'Music room', 'music-room'],
   ['bus', 'School bus', 'bus-facilities'],
+  ['information-center', 'Information center', 'information-center'],
+  ['physics-lab', 'Physics lab', 'physics-lab'],
 ];
 
 const activities = [
@@ -211,6 +225,9 @@ const activities = [
   ['karate', 'Karate', 'karate', 'SPORT'],
   ['yoga', 'Yoga', 'yoga-2', 'SPORT'],
   ['ncc', 'NCC', 'ncc', 'SPORT'],
+  ['band', 'Band', 'band', 'CLUB'],
+  ['roller-skating', 'Roller skating', 'roller-skating', 'SPORT'],
+  ['aerobics', 'Aerobics', 'aerobics', 'SPORT'],
 ];
 
 const pages = [
@@ -568,6 +585,43 @@ async function main() {
       createdAt: now,
       updatedAt: now,
     });
+  }
+
+  const videoHtml = fs.readFileSync(path.join(scrapeRoot, 'video-gallery', 'index.html'), 'utf8');
+  const videoRe =
+    /youtube\.com\/embed\/([A-Za-z0-9_-]{11})[\s\S]{0,900}?elementor-heading-title[^>]*>([\s\S]*?)<\/h1>/g;
+  const listed = await api('GET', 'gallery-youtube-videos', {
+    query: `tenantId.equals=${encodeURIComponent(tenantId)}&size=100`,
+  });
+  const existingVideos = listed.ok ? rows(listed.data) : [];
+  let videoIndex = 0;
+  let videoMatch;
+  const seenVideoIds = new Set();
+  while ((videoMatch = videoRe.exec(videoHtml))) {
+    const youtubeId = videoMatch[1];
+    if (seenVideoIds.has(youtubeId)) continue;
+    seenVideoIds.add(youtubeId);
+    const title = clip(htmlToText(videoMatch[2]), 180);
+    const youtubeUrl = `https://www.youtube.com/watch?v=${youtubeId}`;
+    if (existingVideos.some((row) => String(row.youtubeUrl || '').includes(youtubeId) || row.title === title)) {
+      skipped += 1;
+      console.log(`SKIP gallery-youtube-videos ${title}`);
+      continue;
+    }
+    if (
+      await create('gallery-youtube-videos', {
+        title,
+        youtubeUrl,
+        description: title,
+        displayOrder: videoIndex,
+        isActive: true,
+        createdAt: now,
+        updatedAt: now,
+      })
+    ) {
+      created += 1;
+    }
+    videoIndex += 1;
   }
 
   console.log(`Done. Created ${created}, skipped ${skipped}.`);

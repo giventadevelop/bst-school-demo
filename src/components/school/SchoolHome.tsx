@@ -1,16 +1,13 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { fetchSchoolHome } from '@/lib/school/schoolPublic';
 import { getSchoolIdentity } from '@/lib/school/schoolIdentity';
 import { fetchPublishedProfileWritingsServer } from '@/lib/profileSiteServer';
-import {
-  ButtonLink,
-  Container,
-  DateBadge,
-  EmptyState,
-  SectionHeading,
-  colourAt,
-  formatDate,
-} from '@/components/school/ui';
+import { Container, formatDate } from '@/components/school/ui';
+import ExpandableMessage from '@/components/school/home/ExpandableMessage';
+import HomeMotion from '@/components/school/home/HomeMotion';
+import { homeClass } from '@/components/school/home/homeFonts';
+import './home/home.css';
 
 function flashText(item: { headline?: string; title?: string }) {
   return item.headline || item.title || '';
@@ -20,20 +17,60 @@ function staffName(person: { firstName?: string; lastName?: string }) {
   return [person.firstName, person.lastName].filter(Boolean).join(' ') || 'Staff member';
 }
 
-const QUICK_LINKS = [
-  { href: '/admissions', label: 'Admissions', note: 'Apply and pay fees', colour: 'c-red' },
-  { href: '/academics', label: 'Academics', note: 'Streams and subjects', colour: 'c-blue' },
-  { href: '/events', label: 'Calendar', note: 'What is coming up', colour: 'c-gold' },
-  { href: '/downloads', label: 'Downloads', note: 'Circulars and forms', colour: 'c-plum' },
-  { href: '/gallery', label: 'Gallery', note: 'Moments on campus', colour: 'c-teal' },
-  { href: '/contact', label: 'Contact', note: 'Reach the office', colour: 'c-orange' },
+function eventDate(value?: string) {
+  if (!value) return null;
+  const date = new Date(value.includes('T') ? value : `${value}T12:00:00`);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+/**
+ * The line shown large beside the principal's portrait: the summary when it is short,
+ * otherwise the shortest sentence of the message that still reads as a full thought (40 to 160 characters).
+ */
+function pullQuote(summary?: string, body?: string) {
+  const short = summary?.trim();
+  if (short && short.length <= 180) return short;
+  const pieces = (body || short || '').replace(/\s+/g, ' ').split(/(?<=[.!?])\s+(?=[A-Z])/);
+  // "St. Joseph" and "etc. Some" are not sentence ends: rejoin a piece that stops on a short abbreviation.
+  const sentences: string[] = [];
+  for (const piece of pieces) {
+    const previous = sentences[sentences.length - 1];
+    if (previous && /(^|\s)[A-Za-z]{1,3}\.$/.test(previous)) sentences[sentences.length - 1] = `${previous} ${piece}`;
+    else sentences.push(piece);
+  }
+  const candidates = sentences.map((sentence) => sentence.trim()).filter((sentence) => sentence.length >= 40 && sentence.length <= 160);
+  return candidates.sort((a, b) => a.length - b.length)[0] || '';
+}
+
+const QUICK_LINKS: { href: string; label: string; note: string; bg: string; icon: ReactNode }[] = [
+  { href: '/admissions', label: 'Admissions', note: 'Apply and pay fees', bg: '#ffd9dc', icon: <><path d="M3 9l9-5 9 5-9 5z" /><path d="M7 11.5V16c3 2 7 2 10 0v-4.5" /></> },
+  { href: '/academics', label: 'Academics', note: 'Streams and subjects', bg: '#dcebfa', icon: <path d="M4 5h7v14H4zM13 5h7v14h-7z" /> },
+  { href: '/events', label: 'Calendar', note: 'What is coming up', bg: '#fff3cf', icon: <><rect x="4" y="6" width="16" height="14" rx="2" /><path d="M4 10h16M9 3v5M15 3v5" /></> },
+  { href: '/downloads', label: 'Downloads', note: 'Circulars and forms', bg: '#e9defa', icon: <path d="M12 4v11M7 11l5 5 5-5M5 20h14" /> },
+  { href: '/gallery', label: 'Gallery', note: 'Moments on campus', bg: '#d9f1e5', icon: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 16l5-5 4 4 3-3 6 6" /></> },
+  { href: '/contact', label: 'Contact', note: 'Reach the office', bg: '#ffe3cc', icon: <path d="M4 5h16v11H9l-5 4z" /> },
 ];
 
 const STEPS = [
-  { n: '1', title: 'Choose a stream', copy: 'Read the departments and subject combinations, then start an application.', colour: 'c-blue' },
-  { n: '2', title: 'Send your documents', copy: 'The office lists what to attach. Upload them from the admissions page.', colour: 'c-gold' },
-  { n: '3', title: 'Confirm your place', copy: 'Pay the fee online once the school confirms the seat.', colour: 'c-green' },
+  { title: 'Choose a stream', copy: 'Read the departments and subject combinations, then start an application.' },
+  { title: 'Send your documents', copy: 'The office lists what to attach. Upload them from the admissions page.' },
+  { title: 'Confirm your place', copy: 'Pay the fee online once the school confirms the seat.' },
 ];
+
+/** One section of the notebook sheet: its name in the margin, its content on the page. */
+function Block({ label, note, children }: { label: string; note?: ReactNode; children: ReactNode }) {
+  return (
+    <section className="nb-block">
+      <div className="nb-label">
+        <h2>
+          {label}
+          {note && <small>{note}</small>}
+        </h2>
+      </div>
+      <div className="nb-body">{children}</div>
+    </section>
+  );
+}
 
 export default async function SchoolHome() {
   const [data, school, writings] = await Promise.all([
@@ -44,10 +81,23 @@ export default async function SchoolHome() {
   const ticker = data.flashes.map(flashText).filter(Boolean);
   const news = writings.filter((writing) => writing.writingType !== 'EXTERNAL_LINK').slice(0, 3);
   const heroImage = data.facilities.find((facility) => facility.imageUrl)?.imageUrl;
-  const principalImage = data.principal?.imageUrl;
+  const principal = data.principal;
+  const quote = pullQuote(principal?.summary, principal?.body);
+  const messageParagraphs = (principal?.body || '')
+    .split(/\n+/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+  const facilities = data.facilities.slice(0, 4);
+  const numbers = [
+    { n: data.departments.length || data.facilities.length, label: 'Published areas' },
+    { n: data.staff.length, label: 'Staff shown' },
+    { n: data.highlights.length, label: 'Highlights' },
+    { n: data.events.length, label: 'Upcoming events' },
+  ];
 
   return (
     <>
+      {/* The notice bar sits outside the notebook skin and keeps the site's own styling. */}
       {ticker.length > 0 && (
         <section aria-label="Announcements" style={{ background: 'var(--gold-50)', borderBottom: '1px solid rgba(138,90,0,.2)' }}>
           <Container className="flex items-baseline gap-3.5 py-2.5 text-sm leading-6">
@@ -67,334 +117,330 @@ export default async function SchoolHome() {
         </section>
       )}
 
-      <section>
-        <Container className="flex flex-wrap items-center gap-10 py-12 sm:py-20">
-          <div className="min-w-0 flex-[1_1_420px]">
-            <h1 className="h1">{school.name}</h1>
-            <p className="lead mt-6 max-w-xl">
-              {school.description || 'Admissions, academics, campus life, news and events from the school.'}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/admissions">Apply</ButtonLink>
-              <Link href="/academics" className="btn btn-outline btn-lg">
+      <div className={homeClass}>
+      <HomeMotion />
+      <section className="nb-hero">
+        <div className="nb-wrap">
+          <div>
+            <h1>{school.name}</h1>
+            <p className="nb-lead">{school.description || 'Admissions, academics, campus life, news and events from the school.'}</p>
+            <div className="nb-cta">
+              <Link href="/admissions" className="nb-btn nb-btn-sun">
+                Apply
+              </Link>
+              <Link href="/academics" className="nb-btn nb-btn-ghost-light">
                 Explore the streams
               </Link>
             </div>
           </div>
-          <div className="relative min-w-0 flex-[1_1_380px]">
-            {heroImage ? (
-              <img src={heroImage} alt="" className="aspect-[5/4] min-h-[260px] w-full rounded-lg object-cover" />
-            ) : (
-              <div className="ph ph-green aspect-[5/4] min-h-[260px] rounded-lg" role="img" aria-label="Campus" />
+          <div className="nb-hero-art">
+            {heroImage ? <img src={heroImage} alt="" /> : <div className="nb-ph" role="img" aria-label="Campus" />}
+            {data.events.length > 0 && (
+              <div className="nb-board">
+                <h2>
+                  Coming up <Link href="/events">Full calendar</Link>
+                </h2>
+                <ul>
+                  {data.events.slice(0, 3).map((event) => {
+                    const date = eventDate(event.startDate);
+                    return (
+                      <li key={event.id}>
+                        <time dateTime={event.startDate}>
+                          <b>{date ? date.getDate() : '–'}</b>
+                          {date ? date.toLocaleDateString('en-IN', { month: 'short' }) : ''}
+                        </time>
+                        <Link href={`/events/${event.id}`}>{event.title}</Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             )}
           </div>
-        </Container>
+        </div>
       </section>
+      <svg className="nb-wave" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="currentColor" d="M0 0h1200v10c-200 44-400 44-600 18S200 2 0 34z" />
+      </svg>
 
-      <section aria-label="Quick links" className="pb-6">
-        <Container>
-          <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
-            {QUICK_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className={`tile ${link.colour}`}>
-                <span className="ico" aria-hidden="true">
-                  →
-                </span>
-                <b>{link.label}</b>
-                <small>{link.note}</small>
+      <div className="nb-wrap">
+        <div className="nb-sheet">
+          <Block label="Start here" note="Six shortcuts">
+            <div className="nb-quick">
+              {QUICK_LINKS.map((link) => (
+                <Link key={link.href} href={link.href} style={{ ['--bg' as string]: link.bg }}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    {link.icon}
+                  </svg>
+                  <span>
+                    <b>{link.label}</b>
+                    <small>{link.note}</small>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </Block>
+
+          <Block label="From the principal's desk">
+            {principal ? (
+              <div className="nb-principal">
+                <figure>
+                  {principal.imageUrl ? <img src={principal.imageUrl} alt="" /> : <div className="nb-ph" role="img" aria-label="Principal" />}
+                  <figcaption>{principal.title || "Principal's message"}</figcaption>
+                </figure>
+                <div>
+                  {quote && <p className="nb-quote">{quote}</p>}
+                  <ExpandableMessage paragraphs={messageParagraphs} />
+                  <div className="nb-actions">
+                    <Link href="/about/principals-message" className="nb-btn nb-btn-ghost">
+                      Read the full message
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className="nb-empty">
+                A message from the principal will appear here. Publish the school page with the slug principals-message to show it.
+              </p>
+            )}
+          </Block>
+
+          <Block
+            label="Academics"
+            note={
+              <Link href="/academics" className="nb-more">
+                All departments
               </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="sec">
-        <Container className="flex flex-wrap items-start gap-10">
-          <div className="max-w-[400px] flex-[1_1_260px]">
-            {principalImage ? (
-              <img src={principalImage} alt="" className="aspect-[4/5] w-full rounded-lg object-cover" />
+            }
+          >
+            <h3 className="nb-big">Streams and departments</h3>
+            {data.departments.length > 0 ? (
+              <ul className="nb-depts">
+                {data.departments.map((department) => (
+                  <li key={department.id}>
+                    <article>
+                      {department.imageUrl ? <img src={department.imageUrl} alt="" /> : <div className="nb-ph" />}
+                      <div>
+                        <h3>{department.name}</h3>
+                        {department.summary && <p>{department.summary}</p>}
+                        <Link href={`/departments/${department.slug}`} className="nb-btn nb-btn-navy">
+                          Subjects and faculty
+                        </Link>
+                      </div>
+                    </article>
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <div className="ph ph-plum aspect-[4/5] rounded-lg" role="img" aria-label="Principal" />
+              <p className="nb-empty">
+                Departments will be listed here soon.{' '}
+                <Link href="/academics" className="nb-more">
+                  Academics
+                </Link>
+              </p>
             )}
-            <p className="h5 mt-4">{data.principal?.title || "Principal's message"}</p>
-          </div>
-          <div className="min-w-0 flex-[2_1_420px]">
-            <p className="kicker">From the principal&apos;s desk</p>
-            {data.principal ? (
-              <>
-                {data.principal.summary && <p className="mb-5 max-w-[56ch] text-[22px] font-medium leading-snug">{data.principal.summary}</p>}
-                {data.principal.body && <p className="body mb-6 line-clamp-[8] max-w-[58ch] whitespace-pre-wrap">{data.principal.body}</p>}
-                <ButtonLink href="/about/principals-message" variant="outline">
-                  Read the full message
-                </ButtonLink>
-              </>
-            ) : (
-              <EmptyState
-                title="A message from the principal will appear here."
-                hint="Publish the school page with the slug principals-message to show it."
-              />
-            )}
-          </div>
-        </Container>
-      </section>
+          </Block>
 
-      <section className="sec alt">
-        <Container>
-          <SectionHeading eyebrow="Academics" title="Streams and departments" action={{ href: '/academics', label: 'All departments' }} />
-          {data.departments.length > 0 ? (
-            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))' }}>
-              {data.departments.map((department, index) => (
-                <li key={department.id}>
-                  <article className={`card stripe ${colourAt(index)}`}>
-                    {department.imageUrl ? (
-                      <img src={department.imageUrl} alt="" className="aspect-[4/3] w-full object-cover" />
-                    ) : (
-                      <div className={`ph ph-${['blue', 'gold', 'plum'][index % 3]} aspect-[4/3]`} />
-                    )}
-                    <div className="flex flex-1 flex-col p-6">
-                      <h3 className="h3 mb-2">{department.name}</h3>
-                      {department.summary && <p className="body mb-5">{department.summary}</p>}
-                      <Link href={`/departments/${department.slug}`} className="btn btn-block mt-auto" style={{ background: 'var(--c50)', color: 'var(--ct)' }}>
-                        Subjects and faculty <span aria-hidden="true">→</span>
-                      </Link>
-                    </div>
-                  </article>
+          <Block label="Admissions">
+            <h3 className="nb-big">How to join in three steps</h3>
+            <ol className="nb-steps">
+              {STEPS.map((step) => (
+                <li key={step.title}>
+                  <h3>{step.title}</h3>
+                  <p>{step.copy}</p>
                 </li>
               ))}
-            </ul>
-          ) : (
-            <EmptyState title="Departments will be listed here soon." action={{ href: '/academics', label: 'Academics' }} />
-          )}
-        </Container>
-      </section>
-
-      <section className="sec">
-        <Container>
-          <p className="kicker">Admissions</p>
-          <h2 className="h2 mb-10">How to join in three steps</h2>
-          <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))' }}>
-            {STEPS.map((step) => (
-              <div key={step.n} className={`panel ${step.colour}`}>
-                <p className="step-n">{step.n}</p>
-                <h3 className="h4 mb-2">{step.title}</h3>
-                <p className="body max-w-[38ch]">{step.copy}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8">
-            <ButtonLink href="/admissions">View admissions</ButtonLink>
-          </div>
-        </Container>
-      </section>
-
-      <section aria-label="The school in numbers" style={{ background: 'var(--band)', color: '#fff' }}>
-        <Container className="grid gap-9 py-14" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
-          {[
-            { n: String(data.departments.length || data.facilities.length), label: 'Published areas', colour: 'c-blue' },
-            { n: String(data.staff.length), label: 'Staff shown', colour: 'c-gold' },
-            { n: String(data.highlights.length), label: 'Highlights', colour: 'c-plum' },
-            { n: String(data.events.length), label: 'Upcoming events', colour: 'c-green' },
-          ].map((stat) => (
-            <div key={stat.label} className={`${stat.colour} border-t-4 pt-4`} style={{ borderColor: 'var(--c)' }}>
-              <p className="stat-n" style={{ color: 'var(--cl, #fff)' }}>
-                {stat.n}
-              </p>
-              <p className="m-0 text-[13px] font-medium uppercase tracking-[0.08em] text-white/85">{stat.label}</p>
-            </div>
-          ))}
-        </Container>
-      </section>
-
-      <section className="sec">
-        <Container className="mb-8">
-          <p className="kicker">Campus life</p>
-        </Container>
-        <div className="band flex min-h-[380px] items-end" style={{ ['--ph1' as string]: '#E8710A', ['--ph2' as string]: '#0B4F3A' }}>
-          <Container className="on-dark w-full py-14">
-            <h2 className="h1 mb-7 max-w-[16ch] text-[clamp(34px,4.6cqw,64px)]">Life on campus</h2>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/activities" className="btn btn-gold">
-                Clubs and activities <span aria-hidden="true">→</span>
+            </ol>
+            <div className="nb-after-steps">
+              <Link href="/admissions" className="nb-btn nb-btn-navy">
+                View admissions
               </Link>
-              <Link href="/facilities" className="btn btn-line-light">
+            </div>
+          </Block>
+
+          <Block label="The school in numbers">
+            <div className="nb-numbers">
+              {numbers.map((stat) => (
+                <div key={stat.label}>
+                  <b>{stat.n}</b>
+                  <span>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </Block>
+
+          <Block label="Campus life">
+            <h3 className="nb-big">Life on campus</h3>
+            {facilities.length > 0 && (
+              <div className="nb-facilities">
+                {facilities.map((facility) => (
+                  <Link key={facility.id} href={`/facilities/${facility.slug}`}>
+                    {facility.imageUrl ? <img src={facility.imageUrl} alt="" /> : <div className="nb-ph" />}
+                    <span>
+                      <b>{facility.name}</b>
+                      {facility.summary && <small>{facility.summary}</small>}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+            <div className="nb-campus-links">
+              <Link href="/activities" className="nb-btn nb-btn-sun">
+                Clubs and activities
+              </Link>
+              <Link href="/facilities" className="nb-btn nb-btn-ghost">
                 Facilities
               </Link>
-              <Link href="/gallery" className="btn btn-line-light">
+              <Link href="/gallery" className="nb-btn nb-btn-ghost">
                 Photo gallery
               </Link>
             </div>
-          </Container>
-        </div>
-        {data.facilities.length > 0 && (
-          <Container className="grid gap-6 pt-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))' }}>
-            {data.facilities.slice(0, 4).map((facility, index) => (
-              <Link
-                key={facility.id}
-                href={`/facilities/${facility.slug}`}
-                className={`card stripe ${colourAt(index)}`}
-                style={{ textDecoration: 'none', color: 'var(--ink)' }}
-              >
-                {facility.imageUrl ? (
-                  <img src={facility.imageUrl} alt="" className="aspect-[4/3] w-full object-cover" />
-                ) : (
-                  <div className="ph ph-teal aspect-[4/3]" />
-                )}
-                <div className="px-4 py-4">
-                  <p className="h5">
-                    {facility.name} <span style={{ color: 'var(--c)' }}>→</span>
-                  </p>
-                  {facility.summary && <p className="muted text-sm">{facility.summary}</p>}
-                </div>
-              </Link>
-            ))}
-          </Container>
-        )}
-      </section>
+          </Block>
 
-      <section className="sec alt">
-        <Container className="flex flex-wrap gap-10">
-          <div className="max-w-[400px] flex-[1_1_280px]">
-            <p className="kicker">Fees</p>
-            <h2 className="h2 mb-5">Fees and admissions</h2>
-            <p className="body mb-7">Fee invoices published by the office can be paid from the admissions page.</p>
-            <ButtonLink href="/admissions">Pay a fee online</ButtonLink>
-          </div>
-          <div className="panel c-gold min-w-0 flex-[2_1_460px]">
-            <p className="h4">Scholarships and questions</p>
-            <p className="body mt-3">Ask the office about fee support, documents, and deadlines.</p>
-            <div className="mt-6">
-              <ButtonLink href="/contact" variant="outline">
-                Ask the office
-              </ButtonLink>
+          <Block label="Fees">
+            <div className="nb-fees">
+              <div>
+                <h3>Fees and admissions</h3>
+                <p>Fee invoices published by the office can be paid from the admissions page.</p>
+                <Link href="/admissions" className="nb-btn nb-btn-navy">
+                  Pay a fee online
+                </Link>
+              </div>
+              <div>
+                <h3>Scholarships and questions</h3>
+                <p>Ask the office about fee support, documents, and deadlines.</p>
+                <Link href="/contact" className="nb-btn nb-btn-ghost">
+                  Ask the office
+                </Link>
+              </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Block>
 
-      {data.highlights.length > 0 && (
-        <section className="sec">
-          <Container>
-            <SectionHeading eyebrow="Results" title="Our star performers" action={{ href: '/achievements', label: 'All achievements' }} />
-            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(46%, 200px), 1fr))' }}>
-              {data.highlights.slice(0, 4).map((item, index) => (
-                <li key={item.id}>
-                  <article className={`card stripe ${colourAt(index)}`}>
-                    {item.imageUrl ? (
-                      <img src={item.imageUrl} alt="" className="aspect-[3/4] w-full object-cover" />
-                    ) : (
-                      <div className="ph ph-green aspect-[3/4]" />
-                    )}
-                    <div className="px-4 py-4">
-                      <p className="h5">{item.personName}</p>
-                      {item.subtitle && <p className="ct text-sm font-medium">{item.subtitle}</p>}
-                    </div>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </Container>
-        </section>
-      )}
-
-      <section className="sec alt">
-        <Container>
-          <SectionHeading eyebrow="From the newsroom" title="Latest news" action={{ href: '/news', label: 'All news' }} />
-          {news.length > 0 ? (
-            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))' }}>
-              {news.map((writing, index) => (
-                <li key={writing.id ?? writing.slug}>
-                  <Link
-                    href={writing.slug ? `/news/${encodeURIComponent(writing.slug)}` : '/news'}
-                    className={`card ${colourAt(index)}`}
-                    style={{ textDecoration: 'none', color: 'var(--ink)' }}
-                  >
-                    <div className="flex flex-1 flex-col gap-2.5 p-5">
-                      {writing.publishedAt && <span className="muted text-[13px]">{formatDate(writing.publishedAt)}</span>}
-                      <span className="text-[21px] font-semibold leading-snug">{writing.title}</span>
-                      {writing.excerpt && <span className="body text-[15px] leading-6">{writing.excerpt}</span>}
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <EmptyState title="No news published yet." />
+          {data.highlights.length > 0 && (
+            <Block
+              label="Results"
+              note={
+                <Link href="/achievements" className="nb-more">
+                  All achievements
+                </Link>
+              }
+            >
+              <h3 className="nb-big">Our star performers</h3>
+              <ul className="nb-stars">
+                {data.highlights.slice(0, 4).map((item) => (
+                  <li key={item.id}>
+                    {item.imageUrl ? <img src={item.imageUrl} alt="" /> : <div className="nb-ph" />}
+                    <h3>{item.personName}</h3>
+                    {item.subtitle && <p>{item.subtitle}</p>}
+                  </li>
+                ))}
+              </ul>
+            </Block>
           )}
-        </Container>
-      </section>
 
-      <section className="sec">
-        <Container className="flex flex-wrap gap-8">
-          <div className="max-w-[360px] flex-[1_1_260px]">
-            <SectionHeading eyebrow="What's happening" title="Upcoming events" />
-            <ButtonLink href="/events" variant="outline">
-              Full calendar
-            </ButtonLink>
-          </div>
-          <div className="flex min-w-0 flex-[2_1_460px] flex-col gap-3">
-            {data.events.length > 0 ? (
-              data.events.map((event, index) => {
-                const date = event.startDate ? new Date(event.startDate.includes('T') ? event.startDate : `${event.startDate}T12:00:00`) : null;
-                return (
-                  <Link key={event.id} href={`/events/${event.id}`} className={`row ${colourAt(index)}`}>
-                    <DateBadge value={event.startDate} colour={colourAt(index)} />
-                    <span className="min-w-0">
-                      <span className="block text-[19px] font-semibold leading-7">{event.title}</span>
-                      <span className="muted block text-sm">
-                        {date && !Number.isNaN(date.getTime()) ? formatDate(event.startDate) : event.description || ''}
-                      </span>
-                    </span>
-                    <span aria-hidden="true" style={{ color: 'var(--c)', fontSize: 20 }}>
-                      →
-                    </span>
-                  </Link>
-                );
-              })
+          <Block
+            label="From the newsroom"
+            note={
+              <Link href="/news" className="nb-more">
+                All news
+              </Link>
+            }
+          >
+            <h3 className="nb-big">Latest news</h3>
+            {news.length > 0 ? (
+              <ul className="nb-news">
+                {news.map((writing) => (
+                  <li key={writing.id ?? writing.slug}>
+                    <Link href={writing.slug ? `/news/${encodeURIComponent(writing.slug)}` : '/news'}>
+                      {writing.publishedAt && <time dateTime={writing.publishedAt}>{formatDate(writing.publishedAt)}</time>}
+                      <h3>{writing.title}</h3>
+                      {writing.excerpt && <p>{writing.excerpt}</p>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <EmptyState title="No upcoming events." hint="New dates are added here as soon as they are announced." />
+              <p className="nb-empty">No news published yet.</p>
             )}
-          </div>
-        </Container>
-      </section>
+          </Block>
 
-      {data.staff.length > 0 && (
-        <section className="sec alt">
-          <Container>
-            <SectionHeading eyebrow="Faculty" title="Teachers and mentors" action={{ href: '/staff', label: 'Staff directory' }} />
-            <ul className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(46%, 200px), 1fr))' }}>
-              {data.staff.map((person, index) => (
-                <li key={person.id}>
-                  <article className={`card stripe ${colourAt(index)}`}>
-                    {person.profileImageUrl ? (
-                      <img src={person.profileImageUrl} alt="" className="aspect-square w-full object-cover" />
-                    ) : (
-                      <div className="ph ph-blue aspect-square" />
-                    )}
-                    <div className="px-4 py-4">
-                      <h3 className="h5">{staffName(person)}</h3>
-                      {person.designation && <p className="ct text-sm font-semibold">{person.designation}</p>}
-                      {person.subjectName && <p className="muted text-sm">{person.subjectName}</p>}
-                    </div>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </Container>
-        </section>
-      )}
+          <Block
+            label="What's happening"
+            note={
+              <Link href="/events" className="nb-more">
+                Full calendar
+              </Link>
+            }
+          >
+            <h3 className="nb-big">Upcoming events</h3>
+            {data.events.length > 0 ? (
+              <ul className="nb-events">
+                {data.events.map((event) => {
+                  const date = eventDate(event.startDate);
+                  return (
+                    <li key={event.id}>
+                      <Link href={`/events/${event.id}`}>
+                        <time dateTime={event.startDate}>
+                          {date ? date.getDate() : '–'}
+                          {date && <small>{date.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}</small>}
+                        </time>
+                        <span>
+                          <b>{event.title}</b>
+                          {!date && event.description && <span>{event.description}</span>}
+                        </span>
+                        <i>View event</i>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="nb-empty">No upcoming events. New dates are added here as soon as they are announced.</p>
+            )}
+          </Block>
 
-      <section style={{ background: 'var(--cta)', color: 'var(--cta-text)' }}>
-        <Container className="flex flex-wrap items-center justify-between gap-8 py-16">
-          <h2 className="h1 max-w-[17ch] text-[clamp(34px,4.6cqw,64px)]">Start an admission, or ask the office a question.</h2>
-          <div className="on-dark flex flex-wrap gap-3">
-            <Link href="/admissions" className="btn btn-lg btn-white">
-              Start an admission <span aria-hidden="true">→</span>
+          {data.staff.length > 0 && (
+            <Block
+              label="Faculty"
+              note={
+                <Link href="/staff" className="nb-more">
+                  Staff directory
+                </Link>
+              }
+            >
+              <h3 className="nb-big">Teachers and mentors</h3>
+              <ul className="nb-faculty">
+                {data.staff.map((person) => (
+                  <li key={person.id}>
+                    {person.profileImageUrl ? <img src={person.profileImageUrl} alt="" /> : <div className="nb-ph" />}
+                    <h3>{staffName(person)}</h3>
+                    <p>
+                      {person.designation && <b>{person.designation}</b>}
+                      {person.designation && person.subjectName && <br />}
+                      {person.subjectName}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          )}
+        </div>
+      </div>
+
+      <section className="nb-closing">
+        <div className="nb-wrap">
+          <h2>Start an admission, or ask the office a question.</h2>
+          <div>
+            <Link href="/admissions" className="nb-btn nb-btn-navy">
+              Start an admission
             </Link>
-            <Link href="/contact" className="btn btn-lg btn-line-light">
+            <Link href="/contact" className="nb-btn nb-btn-ghost">
               Contact the office
             </Link>
           </div>
-        </Container>
+        </div>
       </section>
+      </div>
     </>
   );
 }

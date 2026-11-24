@@ -19,6 +19,7 @@ const COLUMNS = [
       { href: '/facilities', label: 'Facilities' },
       { href: '/activities', label: 'Clubs & activities' },
       { href: '/gallery', label: 'Photo gallery' },
+      { href: '/videos', label: 'Video gallery' },
       { href: '/events', label: 'Events' },
       { href: '/achievements', label: 'Achievements' },
     ],

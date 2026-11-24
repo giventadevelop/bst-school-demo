@@ -4,49 +4,117 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-type NavItem = { href: string; label: string };
+type NavItem = { href: string; label: string; items?: NavItem[] };
 type NavGroup = { label: string; href?: string; items?: NavItem[] };
 
-/** Main navigation of the school site. All paths are root-level. */
+/**
+ * Labels match the original Christ Nagar menu.
+ * Index links and records that are not in that menu stay on their own pages and are not listed here.
+ */
 const NAV: NavGroup[] = [
   { label: 'Home', href: '/' },
   {
-    label: 'About',
-    items: [
-      { href: '/about', label: 'Our story' },
-      { href: '/about/principals-message', label: "Principal's message" },
-      { href: '/academics', label: 'Academics' },
-    ],
+    label: 'About Us',
+    href: '/about',
+    items: [{ href: '/about/principals-message', label: "Principal's Message" }],
   },
   {
-    label: 'Faculty',
+    label: 'Facilities',
+    href: '/facilities',
     items: [
-      { href: '/staff', label: 'Staff directory' },
-      { href: '/departments', label: 'Departments' },
+      { href: '/facilities/information-center', label: 'Information Center' },
+      { href: '/facilities/library', label: 'Library' },
+      { href: '/facilities/chemistry-lab', label: 'Chemistry Lab' },
+      { href: '/facilities/biology-lab', label: 'Biology Lab' },
+      { href: '/facilities/physics-lab', label: 'Physics Lab' },
+      { href: '/facilities/computer-lab', label: 'Computer Lab' },
+      { href: '/facilities/music-room', label: 'Music Room' },
+      { href: '/facilities/bus', label: 'Bus Facilities' },
     ],
   },
+  { label: 'Achievements', href: '/achievements' },
   {
-    label: 'Campus life',
+    label: 'Activities',
+    href: '/activities',
     items: [
-      { href: '/facilities', label: 'Facilities' },
-      { href: '/activities', label: 'Clubs & activities' },
-      { href: '/gallery', label: 'Photo gallery' },
+      { href: '/activities/band', label: 'Band' },
+      { href: '/activities/ncc', label: 'NCC' },
+      { href: '/activities/quiz-club', label: 'Quiz Club' },
+      { href: '/activities/roller-skating', label: 'Roller Skating' },
+      { href: '/activities/chess', label: 'Chess' },
+      { href: '/activities/karate', label: 'Karate' },
+      { href: '/activities/basketball', label: 'Basketball' },
+      { href: '/activities/aerobics', label: 'Aerobics' },
     ],
   },
   {
     label: 'Updates',
+    href: '/news',
     items: [
       { href: '/news', label: 'News' },
-      { href: '/events', label: 'Events' },
-      { href: '/achievements', label: 'Achievements' },
       { href: '/downloads', label: 'Downloads' },
+    ],
+  },
+  {
+    label: 'Media',
+    href: '/gallery',
+    items: [
+      { href: '/gallery', label: 'Photo Gallery' },
+      { href: '/videos', label: 'Video Gallery' },
+    ],
+  },
+  {
+    label: 'Faculty',
+    href: '/staff',
+    items: [
+      { href: '/staff/administration', label: 'Administration' },
+      {
+        href: '/departments',
+        label: 'Teaching',
+        items: [
+          { href: '/departments/english', label: 'DEPARTMENT OF ENGLISH' },
+          { href: '/departments/malayalam', label: 'Department of Malayalam' },
+          { href: '/departments/hindi', label: 'Department of Hindi' },
+          { href: '/departments/history-geography', label: 'Department of History' },
+          { href: '/departments/geography', label: 'DEPARTMENT OF GEOGRAPHY' },
+          { href: '/departments/physics', label: 'Department of Physics' },
+          { href: '/departments/chemistry', label: 'Department of Chemistry' },
+          { href: '/departments/biology', label: 'Department of Biology' },
+          { href: '/departments/commerce', label: 'Department of Commerce' },
+          { href: '/departments/general-science', label: 'DEPARTMENT OF GENERAL SCIENCE' },
+          { href: '/departments/mathematics', label: 'Department of Mathematics' },
+          { href: '/departments/german', label: 'DEPARTMENT OF GERMAN' },
+          { href: '/departments/computer-science', label: 'Department of Computer Science' },
+          { href: '/departments/physical-training', label: 'Department of Physical Training' },
+          { href: '/departments/art-music-dance', label: 'DEPARTMENT OF YOGA, ART, DANCE, MUSIC, BAND & NCC' },
+          { href: '/departments/librarian', label: 'LIBRARIAN' },
+        ],
+      },
+      { href: '/staff/teaching-kg', label: 'Teaching (KG)' },
+      { href: '/staff/supporting-staff', label: 'Supporting Staff' },
     ],
   },
   { label: 'Contact', href: '/contact' },
 ];
 
+function Chevron({ direction = 'down' }: { direction?: 'down' | 'right' }) {
+  return (
+    <svg className="nav-chevron" viewBox="0 0 20 20" width="14" height="14" aria-hidden="true">
+      {direction === 'right' ? (
+        <path d="M7.5 5 12.5 10 7.5 15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      ) : (
+        <path d="M5 7.5 10 12.5 15 7.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      )}
+    </svg>
+  );
+}
+
 function isActive(pathname: string, href: string) {
   return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function itemActive(pathname: string, item: NavItem) {
+  return isActive(pathname, item.href) || !!item.items?.some((child) => isActive(pathname, child.href));
 }
 
 export default function SchoolNav({
@@ -79,7 +147,7 @@ export default function SchoolNav({
   return (
     <header className="sticky top-0 z-40" style={{ background: 'var(--ground)' }}>
       <div className="topbar">
-        <div className="wrap flex flex-wrap justify-end gap-x-6 gap-y-1 py-2">
+        <div className="wrap flex flex-wrap justify-end gap-x-6 gap-y-1">
           {phone && <a href={`tel:${phone.replace(/\s+/g, '')}`}>{phone}</a>}
           {email && <a href={`mailto:${email}`}>{email}</a>}
           <Link href="/sign-in" className="font-semibold">
@@ -99,19 +167,10 @@ export default function SchoolNav({
 
         <nav aria-label="School" className="ml-auto hidden items-stretch gap-7 self-stretch lg:flex">
           {NAV.map((group) =>
-            group.href ? (
-              <Link
-                key={group.label}
-                href={group.href}
-                className="nav-link"
-                aria-current={isActive(pathname, group.href) ? 'page' : undefined}
-              >
-                {group.label}
-              </Link>
-            ) : (
+            group.items ? (
               <div
                 key={group.label}
-                className="relative flex items-stretch"
+                className="nav-drop relative flex items-stretch"
                 onMouseEnter={() => setMenu(group.label)}
                 onMouseLeave={() => setMenu(null)}
                 onFocus={() => setMenu(group.label)}
@@ -120,22 +179,48 @@ export default function SchoolNav({
                 }}
               >
                 <Link
-                  href={group.items?.[0]?.href || '#'}
+                  href={group.href || group.items[0]?.href || '#'}
                   className="nav-link"
-                  aria-current={group.items?.some((item) => isActive(pathname, item.href)) ? 'page' : undefined}
+                  aria-current={group.items.some((item) => itemActive(pathname, item)) || (group.href ? isActive(pathname, group.href) : false) ? 'page' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={menu === group.label}
                 >
                   {group.label}
+                  <Chevron />
                 </Link>
-                {menu === group.label && (
-                  <div className="menu">
-                    {group.items?.map((item) => (
-                      <Link key={item.href} href={item.href} aria-current={isActive(pathname, item.href) ? 'page' : undefined}>
-                        {item.label}
-                      </Link>
-                    ))}
+                <div className="menu">
+                    {group.items?.map((item) =>
+                      item.items ? (
+                        <div key={item.href} className="has-sub">
+                          <Link href={item.href} aria-current={itemActive(pathname, item) ? 'page' : undefined}>
+                            {item.label}
+                            <Chevron direction="right" />
+                          </Link>
+                          <div className="submenu">
+                            {item.items.map((child) => (
+                              <Link key={child.href} href={child.href} aria-current={isActive(pathname, child.href) ? 'page' : undefined}>
+                                {child.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <Link key={item.href} href={item.href} aria-current={isActive(pathname, item.href) ? 'page' : undefined}>
+                          {item.label}
+                        </Link>
+                      )
+                    )}
                   </div>
-                )}
               </div>
+            ) : (
+              <Link
+                key={group.label}
+                href={group.href || '/'}
+                className="nav-link"
+                aria-current={group.href && isActive(pathname, group.href) ? 'page' : undefined}
+              >
+                {group.label}
+              </Link>
             )
           )}
         </nav>
@@ -145,7 +230,7 @@ export default function SchoolNav({
         </Link>
         <button
           type="button"
-          className="btn btn-outline lg:hidden"
+          className="btn btn-outline nav-toggle lg:hidden"
           aria-expanded={open}
           aria-controls="school-mobile-nav"
           onClick={() => setOpen((value) => !value)}
@@ -163,23 +248,37 @@ export default function SchoolNav({
         >
           {NAV.map((group) => (
             <div key={group.label} className="border-b py-3.5" style={{ borderColor: 'var(--line)' }}>
-              {group.href ? (
-                <Link href={group.href} className="block text-xl font-semibold no-underline" style={{ color: 'var(--ink)' }}>
+              {!group.items ? (
+                <Link href={group.href || '/'} className="block text-xl font-semibold no-underline" style={{ color: 'var(--ink)' }}>
                   {group.label}
                 </Link>
               ) : (
                 <>
-                  <p className="text-xl font-semibold">{group.label}</p>
+                  <p className="flex items-center gap-2 text-xl font-semibold">
+                    {group.label}
+                    <Chevron />
+                  </p>
                   <div className="flex flex-col">
                     {group.items?.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="flex min-h-11 items-center py-2 no-underline"
-                        style={{ color: 'var(--body)' }}
-                      >
-                        {item.label}
-                      </Link>
+                      <div key={item.href}>
+                        <Link
+                          href={item.href}
+                          className="flex min-h-11 items-center py-2 no-underline"
+                          style={{ color: 'var(--body)' }}
+                        >
+                          {item.label}
+                        </Link>
+                        {item.items?.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="flex min-h-11 items-center py-2 pl-4 no-underline"
+                            style={{ color: 'var(--body)' }}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     ))}
                   </div>
                 </>

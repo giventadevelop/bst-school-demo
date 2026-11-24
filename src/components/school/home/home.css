@@ -1,0 +1,451 @@
+/*
+ * Homepage "notebook" skin. Everything is scoped to .nb (the homepage root), so no other page changes.
+ * The header and footer are recoloured only while the homepage is on screen, through :has(.nb).
+ * Selectors start with .school-theme so they outrank the design-system rules in src/styles/school-ds.css.
+ */
+.school-theme .nb {
+  --nb-navy: #16264c;
+  --nb-navy-2: #22386b;
+  --nb-sun: #ffc53d;
+  --nb-sun-soft: #fff3cf;
+  --nb-red: #b1040e;
+  --nb-sky: #dcebfa;
+  --nb-mint: #d9f1e5;
+  --nb-paper: #f4f7fb;
+  --nb-muted: #51607f;
+  --nb-body: #2c3a5e;
+  --nb-line: #d5deeb;
+  --nb-display: var(--font-nb-display), 'Segoe UI', system-ui, sans-serif;
+  --nb-text: var(--font-nb-text), var(--font-malayalam), 'Segoe UI', system-ui, sans-serif;
+  --nb-margin: 176px;
+  background: var(--nb-paper);
+  color: var(--nb-navy);
+  font-family: var(--nb-text);
+  font-size: 17px;
+  line-height: 1.6;
+}
+/* :where() keeps these resets at the lowest specificity so the component rules below can set margins. */
+.school-theme :where(.nb) :where(h1, h2, h3, p, ul, ol, figure) {
+  margin: 0;
+}
+.school-theme :where(.nb) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+.school-theme :where(.nb) :where(img) {
+  display: block;
+  max-width: 100%;
+}
+.school-theme.site .nb a {
+  color: inherit;
+}
+.school-theme.site .nb :focus-visible {
+  outline: 3px solid var(--nb-sun);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.school-theme .nb-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* buttons */
+.school-theme.site .nb .nb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font: 600 16px var(--nb-text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s, border-color 0.18s, color 0.18s, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.school-theme.site .nb .nb-btn-sun { background: var(--nb-sun); color: var(--nb-navy); }
+.school-theme.site .nb .nb-btn-sun:hover { background: #ffd466; }
+.school-theme.site .nb .nb-btn-navy { background: var(--nb-navy); color: #fff; }
+.school-theme.site .nb .nb-btn-navy:hover { background: var(--nb-navy-2); }
+.school-theme.site .nb .nb-btn-ghost { border-color: var(--nb-navy); color: var(--nb-navy); }
+.school-theme.site .nb .nb-btn-ghost:hover { background: var(--nb-navy); color: #fff; }
+.school-theme.site .nb .nb-btn-ghost-light { border-color: rgba(255, 255, 255, 0.55); color: #fff; }
+.school-theme.site .nb .nb-btn-ghost-light:hover { border-color: var(--nb-sun); color: var(--nb-sun); }
+.school-theme .nb .nb-more { font-weight: 600; text-underline-offset: 4px; }
+
+/* image stand-in when a record has no photo */
+.school-theme .nb .nb-ph {
+  background: linear-gradient(145deg, var(--nb-navy-2), var(--nb-navy));
+}
+
+/* hero */
+.school-theme .nb-hero { background: var(--nb-navy); color: #fff; position: relative; overflow: hidden; }
+.school-theme .nb-hero::after {
+  content: '';
+  position: absolute;
+  right: -140px;
+  top: -140px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: var(--nb-navy-2);
+}
+.school-theme .nb-hero .nb-wrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+  padding-top: 72px;
+  padding-bottom: 96px;
+}
+.school-theme .nb-hero h1 {
+  font: 800 clamp(46px, 7vw, 92px) / 0.95 var(--nb-display);
+  letter-spacing: -0.03em;
+  max-width: 9ch;
+  text-wrap: balance;
+}
+.school-theme .nb-lead { margin-top: 24px; max-width: 34ch; font-size: 20px; line-height: 1.5; color: #d6e0f5; }
+.school-theme .nb-cta { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+.school-theme .nb-hero-art { position: relative; }
+.school-theme .nb-hero-art > img,
+.school-theme .nb-hero-art > .nb-ph {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 28px 28px 28px 120px;
+}
+.school-theme .nb-board {
+  position: absolute;
+  left: -36px;
+  bottom: -56px;
+  width: min(330px, 82%);
+  background: #fff;
+  color: var(--nb-navy);
+  border-radius: 18px;
+  padding: 18px 20px 14px;
+  box-shadow: 0 18px 40px rgba(8, 16, 40, 0.35);
+}
+.school-theme .nb-board h2 { font: 700 17px var(--nb-display); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.school-theme .nb-board h2 a { font: 600 14px var(--nb-text); white-space: nowrap; }
+.school-theme .nb-board li { display: grid; grid-template-columns: 54px 1fr; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px dashed var(--nb-line); }
+.school-theme .nb-board li:first-child { border-top: 0; }
+.school-theme .nb-board time { font: 700 14px/1.1 var(--nb-display); background: var(--nb-sun-soft); border-radius: 10px; padding: 7px 0; text-align: center; }
+.school-theme .nb-board time b { display: block; font-size: 20px; }
+.school-theme.site .nb .nb-board li a { font-weight: 600; text-decoration: none; font-size: 15.5px; line-height: 1.3; }
+.school-theme.site .nb .nb-board li a:hover { text-decoration: underline; }
+.school-theme .nb-wave { display: block; width: 100%; height: 46px; margin-top: -1px; color: var(--nb-navy); }
+
+/* notebook sheet: the red margin line and the labels written in it */
+.school-theme .nb-sheet {
+  position: relative;
+  background: #fff;
+  border-radius: 22px;
+  margin-top: 12px;
+  box-shadow: 0 1px 0 var(--nb-line), 0 20px 50px rgba(22, 38, 76, 0.07);
+}
+.school-theme .nb-sheet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--nb-margin);
+  width: 2px;
+  background: var(--nb-red);
+  opacity: 0.75;
+}
+.school-theme .nb-block { display: grid; grid-template-columns: var(--nb-margin) minmax(0, 1fr); border-top: 1px solid var(--nb-line); }
+.school-theme .nb-block:first-child { border-top: 0; }
+.school-theme .nb-label { padding: 44px 22px 0 28px; }
+.school-theme .nb-label h2 { position: sticky; top: 150px; font: 700 17px/1.25 var(--nb-display); color: var(--nb-red); }
+.school-theme .nb-label h2 small { display: block; margin-top: 6px; font: 500 14px/1.4 var(--nb-text); color: var(--nb-muted); }
+.school-theme .nb-body { padding: 44px 44px 52px 40px; min-width: 0; }
+.school-theme .nb-big { font: 800 clamp(30px, 3.6vw, 46px) / 1.05 var(--nb-display); letter-spacing: -0.02em; margin-bottom: 26px; max-width: 20ch; }
+.school-theme .nb-empty { border: 2px dashed var(--nb-line); border-radius: 16px; padding: 30px; color: var(--nb-muted); }
+
+/* quick links */
+.school-theme .nb-quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.school-theme.site .nb .nb-quick a { display: flex; gap: 14px; align-items: center; padding: 16px 18px; border-radius: 16px; background: var(--nb-paper); text-decoration: none; border: 2px solid transparent; }
+.school-theme.site .nb .nb-quick a:hover { border-color: var(--nb-navy); background: #fff; }
+.school-theme .nb-quick svg { flex: none; width: 44px; height: 44px; padding: 10px; border-radius: 12px; background: var(--bg); stroke: var(--nb-navy); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.school-theme .nb-quick b { display: block; font: 700 18px/1.2 var(--nb-display); }
+.school-theme .nb-quick small { font-size: 14.5px; color: var(--nb-muted); }
+
+/* principal */
+.school-theme .nb-principal { display: grid; grid-template-columns: 230px 1fr; gap: 38px; align-items: start; }
+.school-theme .nb-principal figure img,
+.school-theme .nb-principal figure .nb-ph { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 120px 120px 18px 18px; border: 6px solid var(--nb-sun); }
+.school-theme .nb-principal figcaption { margin-top: 12px; font: 700 17px var(--nb-display); }
+.school-theme .nb-quote { font: 500 clamp(21px, 2.1vw, 26px) / 1.4 var(--nb-display); letter-spacing: -0.01em; max-width: 34ch; }
+.school-theme .nb-msg { margin-top: 18px; max-width: 62ch; color: var(--nb-body); }
+.school-theme .nb-msg p + p { margin-top: 12px; }
+.school-theme .nb-toggle { margin-top: 16px; background: none; border: 0; padding: 0; font: 600 16px var(--nb-text); color: var(--nb-navy); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.school-theme .nb-actions { margin-top: 22px; }
+
+/* departments */
+.school-theme .nb-depts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+.school-theme .nb-depts article { height: 100%; display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; background: var(--nb-sky); }
+.school-theme .nb-depts li:nth-child(3n + 2) article { background: var(--nb-sun-soft); }
+.school-theme .nb-depts li:nth-child(3n) article { background: var(--nb-mint); }
+.school-theme .nb-depts img,
+.school-theme .nb-depts .nb-ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 20%; }
+.school-theme .nb-depts article > div:last-child { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 22px; }
+.school-theme .nb-depts h3 { font: 800 26px/1.1 var(--nb-display); letter-spacing: -0.02em; margin-bottom: 8px; }
+.school-theme .nb-depts p { font-size: 16px; color: var(--nb-body); margin-bottom: 18px; }
+.school-theme .nb-depts .nb-btn { margin-top: auto; }
+
+/* admissions steps: three joined squares, the middle one dropped like a hopscotch court */
+.school-theme .nb-steps { display: grid; grid-template-columns: repeat(3, 1fr); counter-reset: nb-step; }
+.school-theme .nb-steps li { position: relative; padding: 22px 24px 26px; border: 2px solid var(--nb-navy); margin-left: -2px; counter-increment: nb-step; }
+.school-theme .nb-steps li:first-child { margin-left: 0; border-radius: 18px 0 0 18px; background: var(--nb-sky); }
+.school-theme .nb-steps li:nth-child(2) { background: var(--nb-sun-soft); transform: translateY(18px); }
+.school-theme .nb-steps li:last-child { border-radius: 0 18px 18px 0; background: var(--nb-mint); }
+.school-theme .nb-steps li::before { content: counter(nb-step); display: block; font: 800 54px/1 var(--nb-display); margin-bottom: 10px; }
+.school-theme .nb-steps h3 { font: 700 20px/1.2 var(--nb-display); margin-bottom: 6px; }
+.school-theme .nb-steps p { font-size: 16px; color: var(--nb-body); }
+.school-theme .nb-after-steps { margin-top: 44px; }
+
+/* numbers */
+.school-theme .nb-numbers { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--nb-navy); color: #fff; border-radius: 20px; overflow: hidden; }
+.school-theme .nb-numbers div { padding: 26px 24px; border-left: 1px solid rgba(255, 255, 255, 0.16); }
+.school-theme .nb-numbers div:first-child { border-left: 0; }
+.school-theme .nb-numbers b { display: block; font: 800 56px/1 var(--nb-display); color: var(--nb-sun); font-variant-numeric: tabular-nums; }
+.school-theme .nb-numbers span { font-size: 15.5px; color: #d6e0f5; }
+
+/* campus mosaic */
+.school-theme .nb-facilities { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 20px; }
+.school-theme.site .nb .nb-facilities a { display: block; text-decoration: none; }
+.school-theme .nb-facilities img,
+.school-theme .nb-facilities .nb-ph { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 16px; }
+.school-theme .nb-facilities a:nth-child(4n + 1) img,
+.school-theme .nb-facilities a:nth-child(4n) img { border-radius: 16px 16px 16px 70px; }
+.school-theme .nb-facilities b { display: block; margin-top: 12px; font: 700 21px/1.2 var(--nb-display); }
+.school-theme.site .nb .nb-facilities a:hover b { text-decoration: underline; text-underline-offset: 4px; }
+.school-theme .nb-facilities small { display: block; margin-top: 6px; font: 400 15.5px/1.55 var(--nb-text); color: var(--nb-body); }
+.school-theme .nb-campus-links { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* fees */
+.school-theme .nb-fees { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.school-theme .nb-fees > div { border-radius: 20px; padding: 30px; background: var(--nb-paper); }
+.school-theme .nb-fees > div:first-child { background: var(--nb-sun-soft); }
+.school-theme .nb-fees h3 { font: 800 26px/1.1 var(--nb-display); letter-spacing: -0.01em; margin-bottom: 10px; }
+.school-theme .nb-fees p { margin-bottom: 20px; max-width: 36ch; }
+
+/* star performers */
+.school-theme .nb-stars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.school-theme .nb-stars li { position: relative; }
+.school-theme .nb-stars img,
+.school-theme .nb-stars .nb-ph { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 16px; }
+.school-theme .nb-stars li::before { content: ''; position: absolute; top: -6px; right: 16px; width: 28px; height: 44px; background: var(--nb-sun); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 76%, 0 100%); z-index: 1; }
+.school-theme .nb-stars h3 { margin-top: 10px; font: 700 15.5px/1.3 var(--nb-display); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.school-theme .nb-stars p { font-size: 14.5px; color: var(--nb-muted); }
+
+/* news: lead story with the others beside it */
+.school-theme .nb-news { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+.school-theme.site .nb .nb-news a { display: block; text-decoration: none; border-radius: 18px; padding: 24px; background: var(--nb-paper); border: 2px solid transparent; }
+.school-theme.site .nb .nb-news a:hover { border-color: var(--nb-navy); background: #fff; }
+.school-theme .nb-news li:first-child { grid-row: span 2; }
+.school-theme .nb-news li:first-child a { height: 100%; background: var(--nb-sky); }
+.school-theme .nb-news time { font-size: 14.5px; font-weight: 600; color: var(--nb-red); }
+.school-theme .nb-news h3 { font: 700 21px/1.25 var(--nb-display); margin: 6px 0; }
+.school-theme .nb-news li:first-child h3 { font-size: clamp(24px, 2.6vw, 32px); letter-spacing: -0.015em; }
+.school-theme .nb-news p { font-size: 16px; color: var(--nb-body); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* events */
+.school-theme .nb-events li { border-top: 1px solid var(--nb-line); }
+.school-theme .nb-events li:last-child { border-bottom: 1px solid var(--nb-line); }
+.school-theme.site .nb .nb-events a { display: grid; grid-template-columns: 110px 1fr auto; gap: 18px; align-items: center; padding: 16px 6px; text-decoration: none; border-radius: 10px; }
+.school-theme.site .nb .nb-events a:hover { background: var(--nb-paper); }
+.school-theme .nb-events time { font: 800 30px/1 var(--nb-display); }
+.school-theme .nb-events time small { display: block; font: 600 14px var(--nb-text); color: var(--nb-red); margin-top: 4px; }
+.school-theme .nb-events b { font: 700 21px/1.2 var(--nb-display); }
+.school-theme .nb-events span span { display: block; font-size: 15px; color: var(--nb-muted); }
+.school-theme .nb-events i { font-style: normal; font-weight: 600; font-size: 15px; }
+
+/* faculty */
+.school-theme .nb-faculty { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.school-theme .nb-faculty img,
+.school-theme .nb-faculty .nb-ph { width: 128px; height: 128px; border-radius: 50%; object-fit: cover; border: 5px solid var(--nb-sky); }
+.school-theme .nb-faculty h3 { margin-top: 12px; font: 700 18px/1.2 var(--nb-display); }
+.school-theme .nb-faculty p { font-size: 15px; color: var(--nb-muted); }
+.school-theme .nb-faculty p b { color: var(--nb-red); font-weight: 600; }
+
+/* closing call to action */
+.school-theme .nb-closing { background: var(--nb-sun); color: var(--nb-navy); margin-top: 56px; }
+.school-theme .nb-closing .nb-wrap { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: space-between; padding-top: 60px; padding-bottom: 60px; }
+.school-theme .nb-closing h2 { font: 800 clamp(32px, 4.4vw, 58px) / 1 var(--nb-display); letter-spacing: -0.025em; max-width: 16ch; }
+.school-theme .nb-closing div div { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* header and footer, recoloured only while the homepage is showing */
+/* The strip above the header (phone, email, sign in) and the notice bar keep the site's own styling. */
+.school-theme:has(.nb) { --focus: #16264c; }
+.school-theme:has(.nb) .nav-link:hover,
+.school-theme:has(.nb) .nav-link[aria-current] { color: #16264c !important; border-bottom-color: #ffc53d; }
+.school-theme:has(.nb) > header .btn-primary { background: #16264c; border-radius: 999px; }
+.school-theme:has(.nb) > header .btn-primary:hover { background: #22386b; }
+.school-theme:has(.nb) > header .btn-outline { border-color: #16264c; color: #16264c !important; border-radius: 999px; }
+.school-theme:has(.nb) > header .btn-outline:hover { background: #dcebfa; }
+.school-theme:has(.nb) .menu { border-top-color: #ffc53d; }
+.school-theme:has(.nb) .menu a:hover { background: #dcebfa; color: #16264c !important; }
+.school-theme.theme-a:has(.nb) .foot { background: #16264c; color: #fff; }
+.school-theme.theme-a:has(.nb) .foot .fm { color: #d6e0f5; }
+.school-theme.theme-a:has(.nb) .foot .rule { border-color: rgba(255, 255, 255, 0.18); }
+.school-theme:has(.nb) .foot img { content: url('/school/logo-bst-white.svg'); }
+
+/*
+ * Motion. Three kinds:
+ *  1. the hero arrives in sequence when the page loads;
+ *  2. sections rise into place as they are scrolled to (HomeMotion.tsx tags them with data-nb-reveal);
+ *  3. cards, photos and buttons answer the pointer.
+ * Under prefers-reduced-motion, 1 is off, 2 becomes a plain fade, and 3 stays.
+ * Entrances animate the `translate` property so they never fight the `transform` used by hover states.
+ */
+@keyframes nb-rise {
+  from { opacity: 0; translate: 0 26px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes nb-pop {
+  from { opacity: 0; scale: 0.94; translate: 0 18px; }
+  to { opacity: 1; scale: 1; translate: 0 0; }
+}
+@keyframes nb-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+@keyframes nb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-36px, 28px) scale(1.08); }
+}
+@keyframes nb-fade {
+  from { opacity: 0; translate: 0 8px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 1. hero load sequence */
+  .school-theme .nb-hero h1 { animation: nb-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+  .school-theme .nb-lead { animation: nb-rise 0.7s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+  .school-theme .nb-cta { animation: nb-rise 0.7s 0.24s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+  .school-theme .nb-hero-art > img,
+  .school-theme .nb-hero-art > .nb-ph { animation: nb-pop 0.9s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+  .school-theme .nb-board { animation: nb-rise 0.7s 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) backwards, nb-float 6s 1.4s ease-in-out infinite; }
+  .school-theme .nb-hero::after { animation: nb-drift 16s ease-in-out infinite; }
+
+  /* 2. scroll reveal: sections travel upward as they fade in */
+  .school-theme .nb [data-nb-reveal].is-in { animation-name: nb-rise; }
+
+  /* the rest of the principal's message fades in when it is opened */
+  .school-theme .nb-msg p + p { animation: nb-fade 0.35s ease backwards; }
+}
+
+/* 2. scroll reveal, shared part: a plain fade, staggered by --i. Kept under reduced motion because nothing travels. */
+@keyframes nb-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.school-theme .nb [data-nb-reveal] { opacity: 0; }
+.school-theme .nb [data-nb-reveal].is-in {
+  opacity: 1;
+  animation: nb-appear 0.65s calc(var(--i, 0) * 80ms) cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+}
+
+/* 3. pointer feedback. Small and user-triggered, so it stays on under reduced motion. */
+@media all {
+  .school-theme.site .nb .nb-btn { position: relative; overflow: hidden; }
+  .school-theme.site .nb .nb-btn:active { transform: translateY(0) scale(0.97); }
+  .school-theme.site .nb .nb-btn-sun::after,
+  .school-theme.site .nb .nb-btn-navy::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.38) 50%, transparent 65%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  .school-theme.site .nb .nb-quick a,
+  .school-theme.site .nb .nb-news a { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.18s, background-color 0.18s; }
+  .school-theme .nb-quick svg { transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1); }
+  .school-theme .nb-depts article,
+  .school-theme .nb-fees > div,
+  .school-theme .nb-steps li { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .school-theme .nb-depts img,
+  .school-theme .nb-depts .nb-ph { transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  /* the text panel sits over the photo so the zoom stays inside the picture area */
+  .school-theme .nb-depts article > div:last-child { position: relative; background: inherit; }
+  .school-theme .nb-facilities img,
+  .school-theme .nb-facilities .nb-ph,
+  .school-theme .nb-stars img,
+  .school-theme .nb-stars .nb-ph,
+  .school-theme .nb-principal figure img,
+  .school-theme .nb-principal figure .nb-ph { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+  .school-theme .nb-stars li::before { transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1); }
+  .school-theme .nb-faculty img,
+  .school-theme .nb-faculty .nb-ph { transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1), border-color 0.3s; }
+  .school-theme .nb-numbers b { transform-origin: left bottom; transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1); }
+  .school-theme.site .nb .nb-events a { transition: background-color 0.18s, padding-left 0.25s ease; }
+  .school-theme .nb-events i { transition: transform 0.25s ease; }
+}
+
+@media (hover: hover) {
+  .school-theme.site .nb .nb-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(22, 38, 76, 0.22); }
+  .school-theme.site .nb .nb-btn:hover:active { transform: translateY(0) scale(0.97); box-shadow: none; }
+  .school-theme.site .nb .nb-btn-sun:hover::after,
+  .school-theme.site .nb .nb-btn-navy:hover::after { transform: translateX(120%); transition: transform 0.7s ease; }
+  .school-theme.site .nb .nb-quick a:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(22, 38, 76, 0.12); }
+  .school-theme .nb-quick a:hover svg { transform: rotate(-8deg) scale(1.12); }
+  .school-theme .nb-depts li:hover article { transform: translateY(-6px); box-shadow: 0 20px 36px rgba(22, 38, 76, 0.18); }
+  .school-theme .nb-depts li:hover img,
+  .school-theme .nb-depts li:hover .nb-ph { transform: scale(1.07); }
+  .school-theme .nb-fees > div:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(22, 38, 76, 0.12); }
+  .school-theme .nb-facilities a:hover img,
+  .school-theme .nb-facilities a:hover .nb-ph { transform: translateY(-6px) scale(1.015); box-shadow: 0 20px 36px rgba(22, 38, 76, 0.24); }
+  .school-theme .nb-stars li:hover img,
+  .school-theme .nb-stars li:hover .nb-ph { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 18px 32px rgba(22, 38, 76, 0.22); }
+  .school-theme .nb-stars li:hover::before { transform: translateY(5px) scale(1.12); }
+  .school-theme .nb-principal figure:hover img,
+  .school-theme .nb-principal figure:hover .nb-ph { transform: rotate(-2deg) scale(1.02); box-shadow: 0 18px 34px rgba(22, 38, 76, 0.2); }
+  .school-theme .nb-faculty li:hover img,
+  .school-theme .nb-faculty li:hover .nb-ph { transform: scale(1.08); border-color: var(--nb-sun); }
+  .school-theme .nb-numbers div:hover b { transform: scale(1.12); }
+  .school-theme.site .nb .nb-news a:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(22, 38, 76, 0.12); }
+  .school-theme.site .nb .nb-events a:hover { padding-left: 16px; }
+  .school-theme .nb-events a:hover i { transform: translateX(5px); }
+}
+@media (hover: hover) and (min-width: 961px) {
+  .school-theme .nb-steps li:hover { transform: translateY(-6px); box-shadow: 0 16px 28px rgba(22, 38, 76, 0.16); z-index: 1; }
+  .school-theme .nb-steps li:nth-child(2):hover { transform: translateY(12px); }
+}
+
+@media (max-width: 960px) {
+  .school-theme .nb { --nb-margin: 0px; }
+  .school-theme .nb-wrap { padding: 0 18px; }
+  .school-theme .nb-hero .nb-wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 56px; }
+  .school-theme .nb-board { position: relative; left: auto; bottom: auto; width: auto; margin: -48px 14px 0; }
+  .school-theme .nb-sheet::before { left: 0; width: 4px; border-radius: 22px 0 0 22px; }
+  .school-theme .nb-block { display: block; }
+  .school-theme .nb-label { padding: 30px 22px 0 26px; }
+  .school-theme .nb-label h2 { position: static; }
+  .school-theme .nb-body { padding: 14px 22px 36px 26px; }
+  .school-theme .nb-quick,
+  .school-theme .nb-fees,
+  .school-theme .nb-facilities,
+  .school-theme .nb-news,
+  .school-theme .nb-principal,
+  .school-theme .nb-steps { grid-template-columns: 1fr; }
+  .school-theme .nb-principal figure { max-width: 210px; }
+  .school-theme .nb-steps li,
+  .school-theme .nb-steps li:first-child,
+  .school-theme .nb-steps li:last-child { margin: -2px 0 0; border-radius: 0; transform: none; }
+  .school-theme .nb-steps li:first-child { border-radius: 18px 18px 0 0; margin-top: 0; }
+  .school-theme .nb-steps li:last-child { border-radius: 0 0 18px 18px; }
+  .school-theme .nb-after-steps { margin-top: 24px; }
+  .school-theme .nb-numbers,
+  .school-theme .nb-stars,
+  .school-theme .nb-faculty { grid-template-columns: repeat(2, 1fr); }
+  .school-theme .nb-numbers div:nth-child(3) { border-left: 0; }
+  .school-theme .nb-numbers div:nth-child(n + 3) { border-top: 1px solid rgba(255, 255, 255, 0.16); }
+  .school-theme.site .nb .nb-events a { grid-template-columns: 84px 1fr; }
+  .school-theme .nb-events i { display: none; }
+}
