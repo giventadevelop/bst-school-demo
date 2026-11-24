@@ -1,0 +1,38 @@
+---
+description: School admission and fee payments stay on Razorpay or NTT DATA in this Next app, not on Stripe ticket flows
+globs: src/app/api/school/**/*.ts, src/app/api/webhooks/razorpay/**/*.ts, src/lib/payments/**/*.ts, src/components/school/SchoolFeePayButton.tsx, src/app/(school)/admissions/**/*.tsx
+alwaysApply: false
+---
+
+# School fee payment gateways
+
+Admissions fees are INR invoices on `school_fee_invoice` and `school_fee_payment`. This Next app creates the provider session and receives the webhook. Stripe ticket and membership flows stay on their own tables.
+
+## Razorpay (working path)
+
+- Admissions loads open invoices with `feeKind=ADMISSION` from `GET /api/school-fee-invoices`.
+- [`SchoolFeePayButton`](mdc:src/components/school/SchoolFeePayButton.tsx) posts `POST /api/school/fee-checkout`, then loads Razorpay Checkout in the browser.
+- [`fee-checkout/route.ts`](mdc:src/app/api/school/fee-checkout/route.ts) creates the order with server-only keys and inserts `school_fee_payment` with provider `RAZORPAY` and status `CREATED`.
+- [`razorpay/route.ts`](mdc:src/app/api/webhooks/razorpay/route.ts) checks `x-razorpay-signature`. On `payment.captured` it patches the payment to `CAPTURED` and the invoice to `PAID`.
+- Server env, Amplify prefix first: `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`. The key secret and webhook secret stay off the browser. Only the key id is publishable.
+- Read keys from [`razorpayFee.ts`](mdc:src/lib/payments/razorpayFee.ts).
+
+## NTT DATA Payment Services India (reserved)
+
+- Provider name is `NTT_DATA`. It uses the same invoice and payment rows. Do not add a second invoice model.
+- `POST /api/school/fee-checkout` with `provider: NTT_DATA` returns HTTP 501 from `nttDataCheckoutUnavailable()` and inserts no payment row.
+- Merchant id, product id, and gateway URL belong in `payment_provider_config.configuration_json`. The hash key belongs in `provider_secret_key_encrypted`. Use case is `FEE_COLLECTION`.
+- Do not invent env var names or a hash algorithm. Replace the 501 branch only after a merchant account and the request/response hash spec exist. The webhook then lives on this Next app and patches the same two rows.
+- The full write-up is the India fee payments section of `documentation/school_site_type/SCHOOL_SITE_TYPE_GUIDE.html` in the admin app.
+
+## Do
+
+- Keep school fee checkout and its webhook in this frontend.
+- Send INR school fees through Razorpay until NTT checkout is implemented.
+- Leave Stripe ticket and membership webhooks unchanged.
+
+## Don't
+
+- Do not post a school fee invoice through `StripeFeesTaxService` or the Stripe webhook.
+- Do not enable `NTT_DATA` checkout by guessing the hash.
+- Do not put `RAZORPAY_KEY_SECRET` or `RAZORPAY_WEBHOOK_SECRET` in a `NEXT_PUBLIC_` variable.
