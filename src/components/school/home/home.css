@@ -1,6 +1,7 @@
 /*
  * Homepage "notebook" skin. Everything is scoped to .nb (the homepage root), so no other page changes.
- * The header and footer are recoloured only while the homepage is on screen, through :has(.nb).
+ * The header is recoloured only while the homepage is on screen, through :has(.nb).
+ * The navy footer lives in school-ds.css and is shared with every school page.
  * Selectors start with .school-theme so they outrank the design-system rules in src/styles/school-ds.css.
  */
 .school-theme .nb {
@@ -278,7 +279,7 @@
 .school-theme .nb-closing h2 { font: 800 clamp(32px, 4.4vw, 58px) / 1 var(--nb-display); letter-spacing: -0.025em; max-width: 16ch; }
 .school-theme .nb-closing div div { display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* header and footer, recoloured only while the homepage is showing */
+/* header recoloured only while the homepage is showing. The footer is navy on every school page. */
 /* The strip above the header (phone, email, sign in) and the notice bar keep the site's own styling. */
 .school-theme:has(.nb) { --focus: #16264c; }
 .school-theme:has(.nb) .nav-link:hover,
@@ -289,10 +290,6 @@
 .school-theme:has(.nb) > header .btn-outline:hover { background: #dcebfa; }
 .school-theme:has(.nb) .menu { border-top-color: #ffc53d; }
 .school-theme:has(.nb) .menu a:hover { background: #dcebfa; color: #16264c !important; }
-.school-theme.theme-a:has(.nb) .foot { background: #16264c; color: #fff; }
-.school-theme.theme-a:has(.nb) .foot .fm { color: #d6e0f5; }
-.school-theme.theme-a:has(.nb) .foot .rule { border-color: rgba(255, 255, 255, 0.18); }
-.school-theme:has(.nb) .foot img { content: url('/school/logo-bst-white.svg'); }
 
 /*
  * Motion. Three kinds:

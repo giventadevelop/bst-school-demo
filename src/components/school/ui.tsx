@@ -9,6 +9,14 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 
 export type Crumb = { label: string; href?: string };
 
+function CrumbChevron() {
+  return (
+    <svg className="crumb-sep" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6" />
+    </svg>
+  );
+}
+
 export function PageBanner({
   eyebrow,
   title,
@@ -21,28 +29,35 @@ export function PageBanner({
   crumbs?: Crumb[];
 }) {
   return (
-    <header className="alt">
-      <Container className="py-10 sm:py-14">
-        <nav aria-label="Breadcrumb" className="muted mb-6 text-sm">
-          <ol className="flex flex-wrap items-center gap-1.5">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            {crumbs.map((crumb) => (
-              <li key={crumb.label} className="flex items-center gap-1.5">
-                <span aria-hidden="true">/</span>
-                {crumb.href ? (
-                  <Link href={crumb.href}>{crumb.label}</Link>
-                ) : (
-                  <span aria-current="page">{crumb.label}</span>
-                )}
+    <header className="pagehead c-blue">
+      <div className="edge" aria-hidden="true" />
+      <div className="pagehead-photo" aria-hidden="true" />
+      <svg className="pagehead-wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M0 34c180 22 320-20 520-8 210 12 340 28 520 8 160-18 280-6 400 6v16H0Z" />
+      </svg>
+      <Container>
+        <div className="pagehead-copy">
+          <nav aria-label="Breadcrumb" className="crumbs">
+            <ol>
+              <li>
+                <Link href="/">Home</Link>
               </li>
-            ))}
-          </ol>
-        </nav>
-        {eyebrow && <p className="kicker">{eyebrow}</p>}
-        <h1 className="h2">{title}</h1>
-        {intro && <p className="lead mt-4 max-w-2xl">{intro}</p>}
+              {crumbs.map((crumb) => (
+                <li key={`${crumb.href ?? ''}-${crumb.label}`}>
+                  <CrumbChevron />
+                  {crumb.href ? (
+                    <Link href={crumb.href}>{crumb.label}</Link>
+                  ) : (
+                    <span aria-current="page">{crumb.label}</span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+          {eyebrow && <p className="kicker">{eyebrow}</p>}
+          <h1 className="h2 pagehead-title">{title}</h1>
+          {intro && <p className="lead">{intro}</p>}
+        </div>
       </Container>
     </header>
   );
@@ -102,7 +117,7 @@ export function ButtonLink({
 
 export function EmptyState({ title, hint, action }: { title: string; hint?: string; action?: { href: string; label: string } }) {
   return (
-    <div className="panel c-red">
+    <div className="panel c-gold">
       <p className="h5">{title}</p>
       {hint && <p className="body mt-2">{hint}</p>}
       {action && (
@@ -156,7 +171,7 @@ export function PersonCard({
 }) {
   return (
     <article className={`card stripe ${colour}`}>
-      <div className="aspect-square bg-[var(--c50,#F6F6F6)]">
+      <div className="card-photo aspect-square bg-[var(--c50,#F6F6F6)]">
         {imageUrl ? (
           <img src={imageUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
         ) : (
@@ -191,7 +206,7 @@ export function FeatureCard({
 }) {
   return (
     <Link href={href} className={`card stripe ${colour}`} style={{ textDecoration: 'none', color: 'var(--ink)' }}>
-      <div className="relative overflow-hidden" style={{ aspectRatio: '4 / 3', background: 'var(--mist)' }}>
+      <div className="card-photo relative aspect-[5/4] overflow-hidden" style={{ background: 'var(--mist)' }}>
         {imageUrl ? (
           <img src={imageUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
         ) : (
@@ -234,7 +249,7 @@ export function DateBadge({ value, colour = 'c-red' }: { value?: string | null; 
 export function Article({ summary, body, imageUrl }: { summary?: string; body?: string; imageUrl?: string }) {
   return (
     <Container className="py-12 sm:py-16">
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,720px)_1fr]">
+      <div className={`grid gap-10${imageUrl ? ' lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start' : ''}`}>
         <div>
           {summary && <p className="h4 mb-6 max-w-[56ch]">{summary}</p>}
           {body ? (
@@ -244,8 +259,8 @@ export function Article({ summary, body, imageUrl }: { summary?: string; body?: 
           )}
         </div>
         {imageUrl && (
-          <div className="lg:justify-self-end">
-            <img src={imageUrl} alt="" className="aspect-[4/5] w-full max-w-sm rounded-lg object-cover" />
+          <div className="w-full max-w-sm lg:max-w-none lg:w-[20rem]">
+            <img src={imageUrl} alt="" className="aspect-[4/5] w-full rounded-lg object-cover" />
           </div>
         )}
       </div>

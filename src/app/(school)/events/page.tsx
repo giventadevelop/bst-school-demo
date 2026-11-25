@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { fetchSchoolResource } from '@/lib/school/schoolPublic';
-import { Container, DateBadge, EmptyState, PageBanner, formatDate } from '@/components/school/ui';
+import { Container, DateBadge, EmptyState, PageBanner, colourAt } from '@/components/school/ui';
 
 export const metadata = { title: 'Events' };
 
@@ -8,16 +8,16 @@ type EventRow = { id?: number; title?: string; startDate?: string; description?:
 
 function EventList({ events }: { events: EventRow[] }) {
   return (
-    <ul className="grid gap-3 md:grid-cols-2">
-      {events.map((event) => (
+    <ul className="grid gap-3">
+      {events.map((event, index) => (
         <li key={event.id}>
-          <Link href={`/events/${event.id}`} className="sch-card flex h-full items-start gap-4 p-4">
-            <DateBadge value={event.startDate} />
-            <div className="min-w-0">
-              <h3 className="font-semibold leading-snug">{event.title}</h3>
-              {event.startDate && <p className="text-sm text-sch-laterite">{formatDate(event.startDate)}</p>}
-              {event.description && <p className="mt-1 line-clamp-2 text-sm text-sch-muted">{event.description}</p>}
-            </div>
+          <Link href={`/events/${event.id}`} className={`row ${colourAt(index)}`}>
+            <DateBadge value={event.startDate} colour={colourAt(index)} />
+            <span className="min-w-0">
+              <h3 className="h5">{event.title}</h3>
+              {event.description && <p className="muted mt-1 line-clamp-2 text-sm">{event.description}</p>}
+            </span>
+            <span className="btn btn-text">View</span>
           </Link>
         </li>
       ))}
@@ -42,7 +42,7 @@ export default async function SchoolEventsPage() {
       />
       <Container className="py-12 sm:py-16">
         <section className="mb-14">
-          <h2 className="mb-6 font-sch-display text-3xl font-semibold">Upcoming</h2>
+          <h2 className="h2 mb-6">Upcoming</h2>
           {upcoming.length > 0 ? (
             <EventList events={upcoming} />
           ) : (
@@ -51,7 +51,7 @@ export default async function SchoolEventsPage() {
         </section>
         {past.length > 0 && (
           <section>
-            <h2 className="mb-6 font-sch-display text-3xl font-semibold">Recently held</h2>
+            <h2 className="h2 mb-6">Recently held</h2>
             <EventList events={past} />
           </section>
         )}

@@ -1,5 +1,5 @@
 import { CollectionDetail, DEPARTMENTS } from '@/components/school/SchoolCollection';
-import { Container, PersonCard } from '@/components/school/ui';
+import { Container, PersonCard, colourAt } from '@/components/school/ui';
 import { fetchSchoolResource, type SchoolStaffRecord } from '@/lib/school/schoolPublic';
 
 export default async function SchoolDepartmentPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -16,17 +16,18 @@ export default async function SchoolDepartmentPage({ params }: { params: Promise
         const members = name ? staff.filter((member) => member.subjectName?.trim().toLowerCase() === name) : [];
         if (members.length === 0) return null;
         return (
-          <section className="border-t border-sch-border bg-sch-surface-alt/60 py-12 sm:py-16">
+          <section className="wash c-blue sec">
             <Container>
-              <h2 className="mb-8 font-sch-display text-3xl font-semibold">Faculty</h2>
-              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {members.map((member) => (
+              <h2 className="h2 mb-8">Faculty</h2>
+              <ul className="card-grid">
+                {members.map((member, index) => (
                   <li key={member.id}>
                     <PersonCard
                       name={[member.firstName, member.lastName].filter(Boolean).join(' ')}
                       role={member.designation}
                       detail={member.qualification}
                       imageUrl={member.profileImageUrl}
+                      colour={colourAt(index)}
                     />
                   </li>
                 ))}

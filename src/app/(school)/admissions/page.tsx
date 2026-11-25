@@ -1,6 +1,6 @@
 import SchoolFeePayButton from '@/components/school/SchoolFeePayButton';
 import { fetchSchoolResource, type SchoolFeeInvoiceRecord, type SchoolPageRecord } from '@/lib/school/schoolPublic';
-import { Article, ButtonLink, Container, EmptyState, PageBanner } from '@/components/school/ui';
+import { Article, ButtonLink, Container, EmptyState, PageBanner, colourAt } from '@/components/school/ui';
 
 export const metadata = { title: 'Admissions' };
 
@@ -38,20 +38,20 @@ export default async function SchoolAdmissionsPage() {
       />
       {page?.body && <Article body={page.body} imageUrl={page.imageUrl} />}
 
-      <section id="fees" className="scroll-mt-32 border-t border-sch-border bg-sch-surface-alt/60 py-12 sm:py-16">
+      <section id="fees" className="wash c-green sec scroll-mt-32">
         <Container>
-          <h2 className="mb-2 font-sch-display text-3xl font-semibold">Admission fees</h2>
-          <p className="mb-8 max-w-2xl text-sch-muted">Open admission fees can be paid securely online.</p>
+          <h2 className="h2 mb-2">Admission fees</h2>
+          <p className="body mb-8 max-w-2xl">Open admission fees can be paid securely online.</p>
           {invoices.length > 0 ? (
-            <ul className="grid gap-5 md:grid-cols-2">
-              {invoices.map((invoice) => (
+            <ul className="card-grid">
+              {invoices.map((invoice, index) => (
                 <li key={invoice.id}>
-                  <article className="sch-card flex h-full flex-col p-6">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sch-laterite">
-                      {[invoice.academicYear, invoice.classLabel].filter(Boolean).join(' · ')}
+                  <article className={`card stripe ${colourAt(index)} h-full p-6`}>
+                    <p className="tag t-red">
+                      {[invoice.academicYear, invoice.classLabel].filter(Boolean).join(' · ') || 'Admission'}
                     </p>
-                    <h3 className="mt-2 font-sch-display text-xl font-semibold">{invoice.title}</h3>
-                    <p className="my-4 font-sch-display text-3xl font-semibold text-sch-accent">
+                    <h3 className="h5 mt-3">{invoice.title}</h3>
+                    <p className="stat-n ct">
                       {formatMoney(Number(invoice.amountDue || 0), invoice.currency || 'INR')}
                     </p>
                     <div className="mt-auto">

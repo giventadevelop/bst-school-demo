@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { fetchSchoolResource, type SchoolNamedRecord, type SchoolPageRecord } from '@/lib/school/schoolPublic';
-import { Article, Container, EmptyState, FeatureCard, NotFoundBlock, PageBanner, type Crumb } from '@/components/school/ui';
+import { Article, Container, EmptyState, FeatureCard, NotFoundBlock, PageBanner, colourAt, type Crumb } from '@/components/school/ui';
 
 type Collection = {
   /** Backend resource, e.g. `school-facilities`. */
@@ -55,14 +55,9 @@ export async function CollectionList({
         )}
         {Array.from(groups.entries()).map(([kind, items]) => (
           <section key={kind || 'all'} className="mb-12 last:mb-0">
-            {kind && groups.size > 1 && (
-              <h2 className="mb-6 flex items-center gap-4 font-sch-display text-2xl font-semibold">
-                {kind}
-                <span aria-hidden className="h-px flex-1 bg-sch-border" />
-              </h2>
-            )}
-            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((row) => (
+            {kind && groups.size > 1 && <h2 className="h3 mb-6">{kind}</h2>}
+            <ul className="card-grid">
+              {items.map((row, index) => (
                 <li key={row.id}>
                   <FeatureCard
                     href={`/${collection.segment}/${row.slug}`}
@@ -70,6 +65,7 @@ export async function CollectionList({
                     summary={row.summary}
                     imageUrl={row.imageUrl}
                     tag={groupByKind ? undefined : humanize(row.activityKind)}
+                    colour={colourAt(index)}
                   />
                 </li>
               ))}

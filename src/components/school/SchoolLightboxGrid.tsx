@@ -43,23 +43,25 @@ export default function SchoolLightboxGrid({ photos }: { photos: Photo[] }) {
 
   return (
     <>
-      <ul className="columns-2 gap-4 md:columns-3 lg:columns-4 [&>li]:mb-4">
+      <ul className="card-grid">
         {photos.map((photo, position) => (
-          <li key={`${photo.src}-${position}`} className="break-inside-avoid">
+          <li key={`${photo.src}-${position}`}>
             <button
               type="button"
               onClick={(event) => {
                 openerRef.current = event.currentTarget;
                 setIndex(position);
               }}
-              className="group block w-full overflow-hidden rounded-xl border border-sch-border bg-sch-surface-alt"
+              className="card w-full"
             >
+              <span className="card-photo block aspect-[4/3]">
               <img
                 src={photo.src}
                 alt={photo.alt}
                 loading="lazy"
-                className="w-full transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover"
               />
+              </span>
               <span className="sr-only">Open photo {position + 1} of {photos.length}</span>
             </button>
           </li>
@@ -71,14 +73,15 @@ export default function SchoolLightboxGrid({ photos }: { photos: Photo[] }) {
           role="dialog"
           aria-modal="true"
           aria-label={`Photo ${index + 1} of ${photos.length}`}
-          className="sch-on-dark fixed inset-0 z-50 flex items-center justify-center bg-sch-ink/95 p-4"
+          className="sch-on-dark fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'color-mix(in srgb, var(--ink) 95%, transparent)' }}
           onClick={close}
         >
           <button
             ref={closeRef}
             type="button"
             onClick={close}
-            className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-sch-on-ink/10 text-sch-on-ink hover:bg-sch-on-ink/20"
+            className="btn btn-line-light absolute right-4 top-4 h-11 w-11 rounded-full p-0"
           >
             <span className="sr-only">Close</span>
             <X aria-hidden className="h-5 w-5" />
@@ -91,7 +94,7 @@ export default function SchoolLightboxGrid({ photos }: { photos: Photo[] }) {
                   event.stopPropagation();
                   step(-1);
                 }}
-                className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-sch-on-ink/10 text-sch-on-ink hover:bg-sch-on-ink/20"
+                className="btn btn-line-light absolute left-3 top-1/2 h-11 w-11 -translate-y-1/2 rounded-full p-0"
               >
                 <span className="sr-only">Previous photo</span>
                 <ChevronLeft aria-hidden className="h-6 w-6" />
@@ -102,7 +105,7 @@ export default function SchoolLightboxGrid({ photos }: { photos: Photo[] }) {
                   event.stopPropagation();
                   step(1);
                 }}
-                className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-sch-on-ink/10 text-sch-on-ink hover:bg-sch-on-ink/20"
+                className="btn btn-line-light absolute right-3 top-1/2 h-11 w-11 -translate-y-1/2 rounded-full p-0"
               >
                 <span className="sr-only">Next photo</span>
                 <ChevronRight aria-hidden className="h-6 w-6" />
@@ -111,7 +114,7 @@ export default function SchoolLightboxGrid({ photos }: { photos: Photo[] }) {
           )}
           <figure className="max-h-full max-w-5xl" onClick={(event) => event.stopPropagation()}>
             <img src={current.src} alt={current.alt} className="max-h-[82vh] w-auto rounded-lg" />
-            <figcaption className="mt-3 text-center text-sm text-sch-on-ink-muted">
+            <figcaption className="mt-3 text-center text-sm text-white/80">
               {current.alt ? `${current.alt} · ` : ''}
               {index + 1} / {photos.length}
             </figcaption>

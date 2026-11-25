@@ -19,15 +19,17 @@ export default async function SchoolContactPage() {
       />
       <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[1fr_1.3fr]">
         <section aria-labelledby="contact-details">
-          <h2 id="contact-details" className="font-sch-display text-3xl font-semibold">
+          <h2 id="contact-details" className="h2">
             {school.name}
           </h2>
           {hasDetails ? (
             <ul className="mt-6 space-y-5">
               {school.addressLines.length > 0 && (
-                <li className="flex gap-4">
-                  <MapPin aria-hidden className="mt-1 h-5 w-5 shrink-0 text-sch-laterite" />
-                  <address className="not-italic text-sch-muted">
+                <li className="c-blue flex gap-4">
+                  <span className="ico !mb-0 mt-0.5 shrink-0" aria-hidden="true">
+                    <MapPin className="h-5 w-5" />
+                  </span>
+                  <address className="muted not-italic">
                     {school.addressLines.map((line) => (
                       <span key={line} className="block">
                         {line}
@@ -37,29 +39,33 @@ export default async function SchoolContactPage() {
                 </li>
               )}
               {school.phone && (
-                <li className="flex gap-4">
-                  <Phone aria-hidden className="mt-1 h-5 w-5 shrink-0 text-sch-laterite" />
-                  <a href={`tel:${school.phone.replace(/\s+/g, '')}`} className="font-semibold text-sch-accent hover:underline">
+                <li className="c-gold flex gap-4">
+                  <span className="ico !mb-0 mt-0.5 shrink-0" aria-hidden="true">
+                    <Phone className="h-5 w-5" />
+                  </span>
+                  <a href={`tel:${school.phone.replace(/\s+/g, '')}`} className="font-semibold">
                     {school.phone}
                   </a>
                 </li>
               )}
               {school.email && (
-                <li className="flex gap-4">
-                  <Mail aria-hidden className="mt-1 h-5 w-5 shrink-0 text-sch-laterite" />
-                  <a href={`mailto:${school.email}`} className="break-all font-semibold text-sch-accent hover:underline">
+                <li className="c-green flex gap-4">
+                  <span className="ico !mb-0 mt-0.5 shrink-0" aria-hidden="true">
+                    <Mail className="h-5 w-5" />
+                  </span>
+                  <a href={`mailto:${school.email}`} className="break-all font-semibold">
                     {school.email}
                   </a>
                 </li>
               )}
             </ul>
           ) : (
-            <p className="mt-4 text-sch-muted">Contact details have not been published yet. Please use the form.</p>
+            <p className="muted mt-4">Contact details have not been published yet. Please use the form.</p>
           )}
         </section>
 
-        <section aria-labelledby="contact-form" className="sch-card p-6 sm:p-8">
-          <h2 id="contact-form" className="font-sch-display text-2xl font-semibold">
+        <section aria-labelledby="contact-form" className="card p-6 sm:p-8">
+          <h2 id="contact-form" className="h3">
             Send an enquiry
           </h2>
           <SchoolContactForm />

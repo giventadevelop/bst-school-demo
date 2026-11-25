@@ -44,6 +44,7 @@ const SCHOOL_SECTIONS = [
   '/pages',
   '/staff',
   '/school',
+  '/videos',
 ];
 
 function isSchoolPath(pathname: string) {

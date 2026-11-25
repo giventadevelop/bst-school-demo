@@ -36,10 +36,10 @@ export default async function SchoolVideosPage() {
         {videos.length === 0 ? (
           <EmptyState title="No videos published yet." hint="Recordings appear here after each event." />
         ) : (
-          <ul className="grid gap-8 sm:grid-cols-2">
+          <ul className="card-grid">
             {videos.map((video) => (
-              <li key={video.id || video.videoId} className="sch-card overflow-hidden">
-                <div className="aspect-video bg-black">
+              <li key={video.id || video.videoId} className="card overflow-hidden">
+                <div className="aspect-video" style={{ background: 'var(--ink)' }}>
                   <iframe
                     title={video.title || 'School video'}
                     src={`https://www.youtube.com/embed/${video.videoId}`}
@@ -49,8 +49,8 @@ export default async function SchoolVideosPage() {
                   />
                 </div>
                 <div className="p-5">
-                  <h2 className="font-sch-display text-xl font-semibold leading-snug">{video.title || 'School video'}</h2>
-                  {video.description && <p className="mt-2 text-sm text-sch-muted">{video.description}</p>}
+                  <h3 className="h5">{video.title || 'School video'}</h3>
+                  {video.description && <p className="body mt-2">{video.description}</p>}
                 </div>
               </li>
             ))}

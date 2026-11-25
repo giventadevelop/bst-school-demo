@@ -1,5 +1,5 @@
 import { fetchSchoolResource, type SchoolStaffRecord } from '@/lib/school/schoolPublic';
-import { Container, EmptyState, PageBanner, PersonCard, TextLink } from '@/components/school/ui';
+import { Container, EmptyState, PageBanner, PersonCard, TextLink, colourAt } from '@/components/school/ui';
 
 function humanize(value: string) {
   const text = value.replace(/[_-]+/g, ' ').toLowerCase();
@@ -60,19 +60,12 @@ export async function SchoolStaffDirectory({
 
         {Array.from(categories.entries()).map(([name, stages]) => (
           <section key={name} id={anchor(name)} className="mb-14 scroll-mt-32 last:mb-0">
-            <h2 className="mb-6 flex items-center gap-4 font-sch-display text-3xl font-semibold">
-              {humanize(name)}
-              <span aria-hidden className="h-px flex-1 bg-sch-border" />
-            </h2>
+            <h2 className="h2 mb-6">{humanize(name)}</h2>
             {Array.from(stages.entries()).map(([stageName, members]) => (
               <div key={stageName || 'all'} className="mb-8 last:mb-0">
-                {stageName && (
-                  <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-sch-laterite">
-                    {humanize(stageName)}
-                  </h3>
-                )}
-                <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {members.map((member) => (
+                {stageName && <h3 className="kicker">{humanize(stageName)}</h3>}
+                <ul className="card-grid">
+                  {members.map((member, index) => (
                     <li key={member.id}>
                       <PersonCard
                         name={[member.firstName, member.lastName].filter(Boolean).join(' ')}
@@ -85,6 +78,7 @@ export async function SchoolStaffDirectory({
                           .filter(Boolean)
                           .join(' · ')}
                         imageUrl={member.profileImageUrl}
+                        colour={colourAt(index)}
                       />
                     </li>
                   ))}
@@ -95,7 +89,7 @@ export async function SchoolStaffDirectory({
         ))}
 
         {!category && !stage && (
-          <div className="mt-12 border-t border-sch-border pt-8">
+          <div className="mt-12 border-t pt-8" style={{ borderColor: 'var(--line)' }}>
             <TextLink href="/departments" label="Browse by department" />
           </div>
         )}

@@ -129,6 +129,7 @@ export default function SchoolNav({
   const pathname = usePathname() ?? '/';
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [dismissed, setDismissed] = useState<string | null>(null);
 
   useEffect(() => {
     setOpen(false);
@@ -170,12 +171,22 @@ export default function SchoolNav({
             group.items ? (
               <div
                 key={group.label}
-                className="nav-drop relative flex items-stretch"
+                className={`nav-drop relative flex items-stretch${dismissed === group.label ? ' is-dismissed' : ''}`}
                 onMouseEnter={() => setMenu(group.label)}
-                onMouseLeave={() => setMenu(null)}
+                onMouseLeave={() => {
+                  setMenu(null);
+                  setDismissed((current) => (current === group.label ? null : current));
+                }}
                 onFocus={() => setMenu(group.label)}
                 onBlur={(event) => {
                   if (!event.currentTarget.contains(event.relatedTarget as Node)) setMenu(null);
+                }}
+                onClick={(event) => {
+                  const link = (event.target as HTMLElement).closest('a');
+                  if (!link) return;
+                  setMenu(null);
+                  setDismissed(group.label);
+                  link.blur();
                 }}
               >
                 <Link
@@ -245,6 +256,9 @@ export default function SchoolNav({
           aria-label="School (mobile)"
           className="max-h-[calc(100vh-112px)] overflow-y-auto border-b px-[clamp(20px,5cqw,64px)] pb-7 pt-2 lg:hidden"
           style={{ background: 'var(--ground)', borderColor: 'var(--line)', boxShadow: 'var(--shadow-lift)' }}
+          onClick={(event) => {
+            if ((event.target as HTMLElement).closest('a')) setOpen(false);
+          }}
         >
           {NAV.map((group) => (
             <div key={group.label} className="border-b py-3.5" style={{ borderColor: 'var(--line)' }}>

@@ -5,8 +5,6 @@ import { buildContactFormPayload } from '@/lib/contactForm';
 
 type Status = 'idle' | 'sending' | 'sent' | 'failed';
 
-const FIELD = 'input mt-1.5';
-
 export default function SchoolContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
@@ -54,9 +52,9 @@ export default function SchoolContactForm() {
   if (status === 'sent') {
     return (
       <div role="status" className="panel c-green mt-6">
-        <p className="font-semibold text-sch-success">Thank you. Your message has been sent.</p>
-        <p className="mt-1 text-sm text-sch-muted">The school office will reply to the email address you gave.</p>
-        <button type="button" onClick={() => setStatus('idle')} className="mt-4 text-sm font-semibold text-sch-accent underline underline-offset-4">
+        <p className="h5">Thank you. Your message has been sent.</p>
+        <p className="body mt-2">The school office will reply to the email address you gave.</p>
+        <button type="button" onClick={() => setStatus('idle')} className="btn btn-text mt-4">
           Send another message
         </button>
       </div>
@@ -65,29 +63,31 @@ export default function SchoolContactForm() {
 
   return (
     <form onSubmit={submit} className="mt-6 grid gap-5 sm:grid-cols-2">
-      <label className="block text-sm font-semibold">
-        Full name
-        <input name="name" type="text" required autoComplete="name" className={FIELD} />
-      </label>
-      <label className="block text-sm font-semibold">
-        Email
-        <input name="email" type="email" required autoComplete="email" className={FIELD} />
-      </label>
-      <label className="block text-sm font-semibold">
-        Phone <span className="font-normal text-sch-muted">(optional)</span>
-        <input name="phone" type="tel" autoComplete="tel" className={FIELD} />
-      </label>
-      <label className="block text-sm font-semibold">
-        Subject
-        <input name="subject" type="text" required className={FIELD} />
-      </label>
-      <label className="block text-sm font-semibold sm:col-span-2">
-        Message
-        <textarea name="message" required rows={6} className={FIELD} />
-      </label>
+      <div className="field">
+        <label htmlFor="contact-name">Full name</label>
+        <input id="contact-name" name="name" type="text" required autoComplete="name" className="input" />
+      </div>
+      <div className="field">
+        <label htmlFor="contact-email">Email</label>
+        <input id="contact-email" name="email" type="email" required autoComplete="email" className="input" />
+      </div>
+      <div className="field">
+        <label htmlFor="contact-phone">
+          Phone <span className="muted font-normal">(optional)</span>
+        </label>
+        <input id="contact-phone" name="phone" type="tel" autoComplete="tel" className="input" />
+      </div>
+      <div className="field">
+        <label htmlFor="contact-subject">Subject</label>
+        <input id="contact-subject" name="subject" type="text" required className="input" />
+      </div>
+      <div className="field sm:col-span-2">
+        <label htmlFor="contact-message">Message</label>
+        <textarea id="contact-message" name="message" required rows={6} className="input" />
+      </div>
       <div className="sm:col-span-2">
         {status === 'failed' && (
-          <p role="alert" className="mb-4 text-sm font-semibold text-sch-danger">
+          <p role="alert" className="err mb-4">
             {error}
           </p>
         )}

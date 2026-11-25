@@ -6,7 +6,7 @@ export const metadata = { title: 'About' };
 export default function SchoolAboutPage() {
   return (
     <ContentPage slug="about" eyebrow="Who we are" fallbackTitle="Our story" crumbs={[{ label: 'Our story' }]}>
-      <section className="border-t border-sch-border bg-sch-surface-alt/60 py-12">
+      <section className="wash c-gold border-t py-12" style={{ borderColor: 'var(--line)' }}>
         <Container className="flex flex-wrap gap-3">
           <ButtonLink href="/about/principals-message">Principal&apos;s message</ButtonLink>
           <ButtonLink href="/academics" variant="outline">
