@@ -33,7 +33,7 @@ export default async function SchoolAdmissionsPage() {
       <PageBanner
         eyebrow="Join us"
         title={page?.title || 'Admissions'}
-        intro={page?.summary}
+        intro={page?.body?.trim() ? undefined : page?.summary}
         crumbs={[{ label: 'Admissions' }]}
       />
       {page?.body && <Article body={page.body} imageUrl={page.imageUrl} />}

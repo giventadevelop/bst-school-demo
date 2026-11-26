@@ -366,22 +366,22 @@ export function SchoolPageFrame({
   );
 }
 
-/** Title, summary and body of a school content record, with an optional lead image. */
+/** Body of a school content record, with an optional lead image shown in full. */
 export function Article({ summary, body, imageUrl }: { summary?: string; body?: string; imageUrl?: string }) {
+  const text = body?.trim() || summary?.trim() || '';
   return (
     <Container className="py-12 sm:py-16">
-      <div className={`grid gap-10${imageUrl ? ' lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start' : ''}`}>
+      <div className={`grid gap-10${imageUrl ? ' lg:grid-cols-[minmax(0,1fr)_minmax(16rem,32rem)] lg:items-start' : ''}`}>
         <div>
-          {summary && <p className="h4 mb-6 max-w-[56ch]">{summary}</p>}
-          {body ? (
-            <div className="sch-prose">{body}</div>
+          {text ? (
+            <div className="sch-prose">{text}</div>
           ) : (
-            !summary && <p className="muted">Details for this page have not been published yet.</p>
+            <p className="muted">Details for this page have not been published yet.</p>
           )}
         </div>
         {imageUrl && (
-          <div className="w-full max-w-sm lg:max-w-none lg:w-[20rem]">
-            <img src={imageUrl} alt="" className="aspect-[4/5] w-full rounded-lg object-cover" />
+          <div className="w-full">
+            <img src={imageUrl} alt="" className="h-auto w-full rounded-lg object-contain" />
           </div>
         )}
       </div>

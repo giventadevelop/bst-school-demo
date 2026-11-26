@@ -46,9 +46,19 @@
   border-radius: 6px;
 }
 .school-theme .nb-wrap {
-  max-width: 1600px;
+  max-width: none;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 16px;
+  padding-left: var(--page-gutter, 40px);
+  padding-right: var(--page-gutter, 40px);
+}
+/* Homepage column is full width, so the bar and footer follow the same edges. */
+.school-theme.site:has(.nb) .nav {
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+.school-theme.site:has(.nb) .foot .wrap {
+  max-width: none;
 }
 
 /* buttons */
@@ -417,7 +427,6 @@
 
 @media (max-width: 960px) {
   .school-theme .nb { --nb-margin: 0px; }
-  .school-theme .nb-wrap { padding: 0 18px; }
   .school-theme .nb-hero .nb-wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 56px; }
   .school-theme .nb-board { position: relative; left: auto; bottom: auto; width: auto; margin: -48px 14px 0; }
   .school-theme .nb-sheet::before { left: 0; width: 4px; border-radius: 22px 0 0 22px; }
