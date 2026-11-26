@@ -1,12 +1,24 @@
-import { fetchPublishedProfileWritingsServer } from '@/lib/profileSiteServer';
+import type { ProfileWritingDTO } from '@/types/profileSite';
+import { fetchSchoolPage } from '@/lib/school/schoolPublic';
 import { getProfileWritingDetailPath } from '@/lib/profileSitePaths';
-import { Container, EmptyState, FeatureCard, PageBanner, colourAt, formatDate } from '@/components/school/ui';
+import { Container, EmptyState, FeatureCard, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, formatDate, readPageParam } from '@/components/school/ui';
 
 export const metadata = { title: 'News' };
 
-export default async function SchoolNewsPage() {
-  const writings = await fetchPublishedProfileWritingsServer();
-  const articles = writings.filter((writing) => writing.writingType !== 'EXTERNAL_LINK');
+export default async function SchoolNewsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const page = readPageParam(params?.page);
+  const result = await fetchSchoolPage<ProfileWritingDTO>(
+    'profile-writings',
+    { 'status.equals': 'PUBLISHED', sort: 'displayOrder,asc' },
+    page,
+    SCHOOL_PAGE_SIZE,
+  );
+  const articles = result.items.filter((writing) => writing.writingType !== 'EXTERNAL_LINK');
 
   return (
     <>
@@ -40,6 +52,7 @@ export default async function SchoolNewsPage() {
             })}
           </ul>
         )}
+        <SchoolPager page={result.page} pageSize={result.pageSize} total={result.total} noun="stories" hrefFor={(next) => `/news?page=${next}`} />
       </Container>
     </>
   );

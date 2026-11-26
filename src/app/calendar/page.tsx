@@ -1,8 +1,6 @@
-import PageHeaderRibbonMedia from '@/components/PageHeaderRibbonMedia';
 import { fetchEventsForMonthServer } from './ApiServerActions';
 import CalendarClient from './CalendarClient';
-import CalendarPageBackground from './CalendarPageBackground';
-import '@/styles/modernist-homepage.css';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 export default async function CalendarPage({
   searchParams,
@@ -41,36 +39,21 @@ export default async function CalendarPage({
   const initialEvents = await fetchEventsForMonthServer(year, month, focusGroup);
 
   return (
-    <>
-      <CalendarPageBackground />
-      <main className="mh-events-page modernist-home mh-calendar-page">
-        <section className="mh-events-hero" aria-label="Calendar">
-          <PageHeaderRibbonMedia />
-          <div className="mh-events-hero-scrim" aria-hidden="true" />
-          <div className="mh-events-hero-content">
-            <div className="mh-events-hero-kicker">
-              <span className="mh-dot" aria-hidden="true" />
-              <span>KCNJ schedule</span>
-            </div>
-            <h1>Event Calendar</h1>
-            <p className="mh-events-hero-lede">
-              Browse and explore upcoming events across all months.
-            </p>
-          </div>
-        </section>
-
-        <div className="mh-events-body">
-          <CalendarClient
-            initialEvents={initialEvents}
-            initialYear={year}
-            initialMonth={month}
-            focusGroup={focusGroup}
-            initialView={initialView as 'month' | 'week' | 'day'}
-            initialDate={initialDate}
-            homepageDesign
-          />
-        </div>
-      </main>
-    </>
+    <SchoolPageFrame
+      eyebrow="What's happening"
+      title="Event Calendar"
+      intro="Browse and explore upcoming events across all months."
+      crumbs={[{ label: 'Event Calendar' }]}
+    >
+      <CalendarClient
+        initialEvents={initialEvents}
+        initialYear={year}
+        initialMonth={month}
+        focusGroup={focusGroup}
+        initialView={initialView as 'month' | 'week' | 'day'}
+        initialDate={initialDate}
+        homepageDesign
+      />
+    </SchoolPageFrame>
   );
 }

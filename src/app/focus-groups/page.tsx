@@ -1,8 +1,6 @@
 import { getAppUrl } from '@/lib/env';
 import FocusGroupsGridWithSearch from './FocusGroupsGridWithSearch';
-import SubpageHomeDesignBackground from '@/components/SubpageHomeDesignBackground';
-import PageHeaderRibbonMedia from '@/components/PageHeaderRibbonMedia';
-import subpageStyles from '@/components/SubpageHomeDesign.module.css';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 async function fetchEventsForGroup(baseUrl: string, groupId: number) {
   try {
@@ -42,36 +40,13 @@ export default async function FocusGroupsPage() {
   );
 
   return (
-    <>
-      <SubpageHomeDesignBackground bodyClass="focus-groups-page-background" />
-
-      <section className="mh-events-hero" aria-label="Focus Groups">
-        <PageHeaderRibbonMedia />
-        <div className="mh-events-hero-scrim" aria-hidden="true" />
-        <div className="mh-events-hero-content">
-          <div className="mh-events-hero-kicker">
-            <span className="mh-dot" aria-hidden="true" />
-            <span>Community circles</span>
-          </div>
-          <h1>Focus Groups</h1>
-          <p className="mh-events-hero-lede">
-            Explore our specialized groups and their upcoming activities.
-          </p>
-        </div>
-      </section>
-
-      <div
-        className={`${subpageStyles.subpageRoot} home-page-layout relative z-[1] min-h-screen w-full overflow-x-hidden`}
-      >
-        <div
-          className="w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8"
-          style={{ paddingTop: '2.5rem', paddingBottom: '2rem' }}
-        >
-          <div className="homepage-glass-card services-glass-card-face rounded-2xl p-6 lg:p-8 mb-8 w-full max-w-[75%] mx-auto">
-            <FocusGroupsGridWithSearch groups={groupsWithEvents} total={total} />
-          </div>
-        </div>
-      </div>
-    </>
+    <SchoolPageFrame
+      eyebrow="Community circles"
+      title="Focus Groups"
+      intro="Explore our specialized groups and their upcoming activities."
+      crumbs={[{ label: 'Focus Groups' }]}
+    >
+      <FocusGroupsGridWithSearch groups={groupsWithEvents} total={total} />
+    </SchoolPageFrame>
   );
 }

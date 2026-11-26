@@ -1,10 +1,16 @@
 import { fetchAlbumsForGallery } from '@/app/gallery/ApiServerActions';
-import { Container, EmptyState, FeatureCard, PageBanner, colourAt } from '@/components/school/ui';
+import { Container, EmptyState, FeatureCard, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Photo gallery' };
 
-export default async function SchoolGalleryPage() {
-  const { albumsWithMedia } = await fetchAlbumsForGallery(0, 48);
+export default async function SchoolGalleryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const page = readPageParam(params?.page);
+  const { albumsWithMedia, totalAlbums } = await fetchAlbumsForGallery(page - 1, SCHOOL_PAGE_SIZE);
 
   return (
     <>
@@ -37,6 +43,13 @@ export default async function SchoolGalleryPage() {
             })}
           </ul>
         )}
+        <SchoolPager
+          page={page}
+          pageSize={SCHOOL_PAGE_SIZE}
+          total={totalAlbums || albumsWithMedia.length}
+          noun="albums"
+          hrefFor={(next) => `/gallery?page=${next}`}
+        />
       </Container>
     </>
   );

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { SchoolPageFrame } from '@/components/school/ui';
 import type { Metadata } from 'next';
 import { auth } from '@clerk/nextjs/server';
 import { getAppUrl } from '@/lib/env';
@@ -66,8 +67,6 @@ async function fetchUserProfileById(baseUrl: string, id: number) {
     return null;
   }
 }
-
-const PAGE_TOP_OFFSET = 120;
 
 type PageParams = Promise<{ slug: string }> | { slug: string };
 
@@ -199,11 +198,12 @@ export default async function FocusGroupDetailPage({ params }: { params: PagePar
   const cardAccentColors = ['border-indigo-500', 'border-teal-500', 'border-amber-500'] as const;
 
   return (
-    <div
-      className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50"
-      style={{ paddingTop: `${PAGE_TOP_OFFSET}px` }}
+    <SchoolPageFrame
+      eyebrow="Community circles"
+      title={groupName}
+      intro={publicDescription || undefined}
+      crumbs={[{ label: 'Focus Groups', href: '/focus-groups' }, { label: groupName }]}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         <div className="mb-4 sm:mb-6 md:mb-8">
           <div
             className="relative w-full h-[250px] overflow-hidden rounded-xl shadow-md bg-transparent"
@@ -222,9 +222,6 @@ export default async function FocusGroupDetailPage({ params }: { params: PagePar
               </div>
             )}
           </div>
-          <h1 className="mt-6 text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 pb-2 border-b-2 border-indigo-200 text-center sm:text-left">
-            {groupName}
-          </h1>
           <p className="text-sm text-gray-500 text-center sm:text-left mb-2">
             {memberCount === 1 ? '1 member' : `${memberCount} members`}
           </p>
@@ -398,7 +395,6 @@ export default async function FocusGroupDetailPage({ params }: { params: PagePar
             )}
           </div>
         </div>
-      </div>
-    </div>
+    </SchoolPageFrame>
   );
 }

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { fetchSchoolResource } from '@/lib/school/schoolPublic';
-import { Container, DateBadge, EmptyState, PageBanner, colourAt } from '@/components/school/ui';
+import { fetchSchoolPage } from '@/lib/school/schoolPublic';
+import { Container, DateBadge, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Events' };
 
@@ -25,11 +25,28 @@ function EventList({ events }: { events: EventRow[] }) {
   );
 }
 
-export default async function SchoolEventsPage() {
+export default async function SchoolEventsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ upcoming?: string | string[]; past?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const upcomingPage = readPageParam(params?.upcoming);
+  const pastPage = readPageParam(params?.past);
   const today = new Date().toISOString().slice(0, 10);
   const [upcoming, past] = await Promise.all([
-    fetchSchoolResource<EventRow>('event-details', { sort: 'startDate,asc', 'startDate.greaterThanOrEqual': today }),
-    fetchSchoolResource<EventRow>('event-details', { sort: 'startDate,desc', 'startDate.lessThan': today, size: '12' }),
+    fetchSchoolPage<EventRow>(
+      'event-details',
+      { sort: 'startDate,asc', 'startDate.greaterThanOrEqual': today },
+      upcomingPage,
+      SCHOOL_PAGE_SIZE,
+    ),
+    fetchSchoolPage<EventRow>(
+      'event-details',
+      { sort: 'startDate,desc', 'startDate.lessThan': today },
+      pastPage,
+      SCHOOL_PAGE_SIZE,
+    ),
   ]);
 
   return (
@@ -43,18 +60,34 @@ export default async function SchoolEventsPage() {
       <Container className="py-12 sm:py-16">
         <section className="mb-14">
           <h2 className="h2 mb-6">Upcoming</h2>
-          {upcoming.length > 0 ? (
-            <EventList events={upcoming} />
+          {upcoming.items.length > 0 ? (
+            <EventList events={upcoming.items} />
           ) : (
             <EmptyState title="No upcoming events." hint="New dates are added here as soon as they are announced." />
           )}
+          <SchoolPager
+            page={upcoming.page}
+            pageSize={upcoming.pageSize}
+            total={upcoming.total}
+            noun="upcoming events"
+            hrefFor={(page) => `/events?upcoming=${page}&past=${pastPage}`}
+          />
         </section>
-        {past.length > 0 && (
-          <section>
-            <h2 className="h2 mb-6">Recently held</h2>
-            <EventList events={past} />
-          </section>
-        )}
+        <section>
+          <h2 className="h2 mb-6">Recently held</h2>
+          {past.items.length > 0 ? (
+            <EventList events={past.items} />
+          ) : (
+            <EmptyState title="No past events yet." hint="Earlier celebrations appear here once they have been held." />
+          )}
+          <SchoolPager
+            page={past.page}
+            pageSize={past.pageSize}
+            total={past.total}
+            noun="past events"
+            hrefFor={(page) => `/events?upcoming=${upcomingPage}&past=${page}`}
+          />
+        </section>
       </Container>
     </>
   );

@@ -245,6 +245,127 @@ export function DateBadge({ value, colour = 'c-red' }: { value?: string | null; 
   );
 }
 
+export const SCHOOL_PAGE_SIZE = 8;
+
+export function readPageParam(value?: string | string[]) {
+  const raw = Array.isArray(value) ? value[0] : value;
+  const page = Number(raw);
+  return Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
+}
+
+function PagerArrow({ direction }: { direction: 'prev' | 'next' }) {
+  const path = direction === 'prev' ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7';
+  return (
+    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={path} />
+    </svg>
+  );
+}
+
+/**
+ * Previous / page / next footer. Links for server pages, buttons when a client list owns the page.
+ */
+export function SchoolPager({
+  page,
+  pageSize,
+  total,
+  noun,
+  hrefFor,
+  onPage,
+  emptyNote,
+}: {
+  page: number;
+  pageSize: number;
+  total: number;
+  noun: string;
+  hrefFor?: (page: number) => string;
+  onPage?: (page: number) => void;
+  emptyNote?: string;
+}) {
+  if (total <= 0) {
+    if (!emptyNote) return null;
+    return (
+      <div className="school-pager">
+        <p className="school-pager-note">{emptyNote}</p>
+      </div>
+    );
+  }
+
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const current = Math.min(Math.max(1, page), totalPages);
+  const start = (current - 1) * pageSize + 1;
+  const end = Math.min(current * pageSize, total);
+
+  const control = (target: number, label: string, direction: 'prev' | 'next', disabled: boolean) => {
+    const className = 'btn btn-outline school-pager-btn';
+    const content = (
+      <>
+        {direction === 'prev' && <PagerArrow direction="prev" />}
+        <span>{label}</span>
+        {direction === 'next' && <PagerArrow direction="next" />}
+      </>
+    );
+    if (disabled) {
+      return (
+        <button type="button" className={`${className} is-disabled`} disabled aria-label={label} title={label}>
+          {content}
+        </button>
+      );
+    }
+    if (onPage) {
+      return (
+        <button type="button" className={className} aria-label={label} title={label} onClick={() => onPage(target)}>
+          {content}
+        </button>
+      );
+    }
+    return (
+      <Link href={hrefFor ? hrefFor(target) : `?page=${target}`} className={className} aria-label={label} title={label}>
+        {content}
+      </Link>
+    );
+  };
+
+  return (
+    <nav className="school-pager" aria-label={`${noun} pages`}>
+      <div className="school-pager-row">
+        {control(current - 1, 'Previous', 'prev', current <= 1)}
+        <p className="school-pager-info">
+          Page <strong>{current}</strong> of <strong>{totalPages}</strong>
+        </p>
+        {control(current + 1, 'Next', 'next', current >= totalPages)}
+      </div>
+      <p className="school-pager-count">
+        Showing <strong>{start}</strong> to <strong>{end}</strong> of <strong>{total}</strong> {noun}
+      </p>
+    </nav>
+  );
+}
+
+/** Inner-page banner plus a padded wrap. Safe inside or outside the school shell. */
+export function SchoolPageFrame({
+  eyebrow,
+  title,
+  intro,
+  crumbs = [],
+  children,
+}: {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  crumbs?: Crumb[];
+  children: ReactNode;
+}) {
+  return (
+    <div className="school-theme theme-a site">
+      <PageBanner eyebrow={eyebrow} title={title} intro={intro} crumbs={crumbs} />
+      <Container className="py-12 sm:py-16">
+        <div className="school-legacy">{children}</div>
+      </Container>
+    </div>
+  );
+}
+
 /** Title, summary and body of a school content record, with an optional lead image. */
 export function Article({ summary, body, imageUrl }: { summary?: string; body?: string; imageUrl?: string }) {
   return (

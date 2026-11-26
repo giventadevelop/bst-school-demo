@@ -229,3 +229,57 @@
 .school-theme.theme-a .foot .rule{ border-color:rgba(255,255,255,.18); }
 .school-theme .foot img{ content:url('/school/logo-bst-white.svg'); }
 .school-theme .foot :focus-visible{ outline-color:#fff; }
+
+/* Public pages that still carry older markup sit under the school banner. */
+.school-theme .school-legacy .mh-events-hero{ display:none; }
+.school-theme .school-legacy .mh-events-page,
+.school-theme .school-legacy main,
+.school-theme .school-legacy .min-h-screen{ background:transparent; min-height:0; }
+.school-theme .school-legacy .py-24{ padding-top:0; padding-bottom:0; }
+.school-theme .school-legacy .mh-events-grid,
+.school-theme .school-legacy .mh-team-grid,
+.school-theme .school-legacy ul.grid{ display:grid; gap:1.5rem; grid-template-columns:1fr; }
+@media (min-width:640px){
+  .school-theme .school-legacy .mh-events-grid,
+  .school-theme .school-legacy .mh-team-grid,
+  .school-theme .school-legacy ul.grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+.school-theme .school-legacy .mh-event-card,
+.school-theme .school-legacy .mh-team-card,
+.school-theme .school-legacy .bg-card{ background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.school-theme .school-legacy .mh-btn{ border-radius:4px; }
+
+.school-theme .school-pager{ margin-top:2rem; }
+.school-theme .school-pager-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.school-theme .school-pager-btn{ min-height:44px; }
+.school-theme .school-pager-info,
+.school-theme .school-pager-count{
+  margin:0;
+  padding:8px 16px;
+  background:var(--mist);
+  border:2px solid var(--line);
+  border-radius:4px;
+  color:var(--ink);
+  font:600 14px/20px var(--font);
+}
+.school-theme .school-pager-info strong{ color:var(--blue-600); }
+.school-theme .school-pager-count{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-top:12px;
+  color:var(--body);
+  font-weight:500;
+}
+.school-theme .school-pager-count strong{ color:var(--blue-600); }
+.school-theme .school-pager-note{
+  display:inline-flex;
+  margin:0;
+  padding:8px 16px;
+  background:var(--gold-50);
+  border:2px solid var(--gold);
+  border-radius:4px;
+  color:var(--ink);
+  font:500 14px/20px var(--font);
+}

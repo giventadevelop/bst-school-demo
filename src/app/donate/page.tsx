@@ -2,6 +2,7 @@
 
 import React from 'react';
 import GivebutterWidget from '@/components/GivebutterWidget';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 /**
  * Donation Page
@@ -9,21 +10,13 @@ import GivebutterWidget from '@/components/GivebutterWidget';
  */
 export default function DonatePage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Support Our Mission
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Your generous donation helps us continue our mission to preserve and promote Malayali culture
-            across the United States. Every contribution makes a difference.
-          </p>
-        </div>
-
-        {/* Givebutter Widget */}
-        <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
+    <SchoolPageFrame
+      eyebrow="Support"
+      title="Support Our Mission"
+      intro="Your generous donation helps us continue our mission to preserve and promote Malayali culture across the United States. Every contribution makes a difference."
+      crumbs={[{ label: 'Donate' }]}
+    >
+        <div className="card stripe c-green p-6 md:p-8">
           <GivebutterWidget />
         </div>
 
@@ -34,7 +27,6 @@ export default function DonatePage() {
             Your information is protected and your contribution is tax-deductible.
           </p>
         </div>
-      </div>
-    </div>
+    </SchoolPageFrame>
   );
 }

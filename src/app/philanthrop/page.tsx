@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import './styles.css'
+import { SchoolPageFrame } from '@/components/school/ui'
 
 export default function PhilantropPage() {
     const [isMobileMenuActive, setIsMobileMenuActive] = useState(false)
@@ -179,6 +180,7 @@ export default function PhilantropPage() {
     ]
 
     return (
+        <SchoolPageFrame eyebrow="Support" title="Philanthropy" crumbs={[{ label: 'Philanthropy' }]}>
         <div className={`home wp-singular page-template-default page page-id-12 wp-theme-philantrop theme-philantrop woocommerce-no-js tribe-no-js elementor-default elementor-kit-6 elementor-page elementor-page-12`}>
             
             {/* Preloader */}
@@ -631,5 +633,6 @@ export default function PhilantropPage() {
                 <div className="philantrop_back_to_top_button" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}></div>
             </div>
         </div>
+        </SchoolPageFrame>
     )
 }

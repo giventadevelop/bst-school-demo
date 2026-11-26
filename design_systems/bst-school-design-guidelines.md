@@ -194,6 +194,8 @@ Under 960px the margin collapses, blocks stack, the label stops sticking, and th
 3. Content in `.wrap` / `.sec`. Lists of people, departments, news, and albums are `.card-grid`: one column, then two equal columns from 640px. Long copy is `.sch-prose` beside an optional 4:5 portrait, copy column capped near 720px. A band behind plain content may be one `.wash` plus one `.c-*` (gold on the About actions, green behind fees, blue behind department faculty). A grid of already-tinted tiles stays on white.
 4. `.foot` in navy, four-ish columns, white type, sky descriptions, a legal line ruled in 18% white.
 
+An event detail page, a download detail page, and any other public page outside the original school list uses this same banner and card grid. The old flyer hero is not used on the school site. Ticket, checkout, register, donation, and competition pages keep their payment widgets and form fields, and wear the same banner and `.wrap` / `.btn` chrome.
+
 ---
 
 ## Shape, shadow, motion

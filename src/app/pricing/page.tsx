@@ -1,6 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { Metadata } from 'next';
 import { PricingPlans } from '@/components/subscription/PricingPlans';
+import { SchoolPageFrame } from '@/components/school/ui';
 import { redirect } from 'next/navigation';
 import type { UserProfileDTO, UserSubscriptionDTO } from '@/types';
 
@@ -179,8 +180,12 @@ export default async function PricingPage(props: any) {
       : null;
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-20">
-        <div className="container mx-auto px-4">
+      <SchoolPageFrame
+        eyebrow="Membership"
+        title="Simple, Transparent Pricing"
+        intro="Choose the plan that best fits your needs"
+        crumbs={[{ label: 'Pricing' }]}
+      >
           {userProfileError ? (
             <div className="bg-red-50 p-4 rounded-md mb-8">
               <h2 className="text-red-800">Error loading your profile</h2>
@@ -197,30 +202,20 @@ export default async function PricingPage(props: any) {
               <p>{messageConfig.text}</p>
             </div>
           )}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Simple, Transparent Pricing
-            </h1>
-            <p className="text-xl text-gray-600">
-              Choose the plan that best fits your needs
-            </p>
-          </div>
-          {/* Only show PricingPlans if no errors */}
           {!userProfileError && !subscriptionError && (
             <PricingPlans currentSubscription={subscription} />
           )}
-        </div>
-      </div>
+      </SchoolPageFrame>
     );
   } catch (error) {
     console.error('Error in pricing page:', error);
     return (
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
+      <SchoolPageFrame eyebrow="Membership" title="Pricing" crumbs={[{ label: 'Pricing' }]}>
         <div className="bg-red-50 p-4 rounded-md">
           <h2 className="text-red-800">Error loading pricing information</h2>
           <p className="text-red-600">Please try again later</p>
         </div>
-      </div>
+      </SchoolPageFrame>
     );
   }
 }

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import SubpageHomeDesignBackground from '@/components/SubpageHomeDesignBackground';
 import { ProfileServiceCard } from '@/components/profile/ProfileServiceCard';
+import { SchoolPageFrame } from '@/components/school/ui';
 import {
   fetchProfileServiceBySlugServer,
   fetchPublishedPublicProfileForPagesServer,
@@ -22,18 +22,17 @@ export default async function ServiceSlugPage({ params }: ServiceSlugPageProps) 
   }
 
   return (
-    <>
-      <SubpageHomeDesignBackground />
-      <main className="min-h-screen py-24 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="max-w-3xl mx-auto mb-8">
-          <Link href="/services" className="text-primary font-semibold hover:underline text-sm">
-            ← Back to services
-          </Link>
-        </div>
-        <div className="max-w-3xl mx-auto">
-          <ProfileServiceCard service={service} bookingUrl={profile?.bookingUrl} variant="detail" />
-        </div>
-      </main>
-    </>
+    <SchoolPageFrame
+      eyebrow="School life"
+      title={service.title || 'Service'}
+      crumbs={[{ label: 'Services', href: '/services' }, { label: service.title || 'Service' }]}
+    >
+      <ProfileServiceCard service={service} bookingUrl={profile?.bookingUrl} variant="detail" />
+      <p className="mt-8">
+        <Link href="/services" className="btn btn-text">
+          Back to services
+        </Link>
+      </p>
+    </SchoolPageFrame>
   );
 }

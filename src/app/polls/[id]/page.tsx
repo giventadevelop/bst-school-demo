@@ -4,8 +4,7 @@ import { PollDetailsPage } from './PollDetailsPage';
 import { fetchEventPollServer, fetchEventPollOptionsServer } from '@/lib/polls/pollServer';
 import { fetchUserProfileServer } from '@/app/profile/ApiServerActions';
 import type { EventPollDTO, EventPollOptionDTO } from '@/types';
-import PollsPageBackground from '../PollsPageBackground';
-import '@/styles/modernist-homepage.css';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 interface PollPageProps {
   params: {
@@ -54,14 +53,17 @@ export default async function PollPage({ params }: PollPageProps) {
   }
 
   return (
-    <>
-      <PollsPageBackground />
+    <SchoolPageFrame
+      eyebrow="Community voice"
+      title={poll.title || 'Poll'}
+      crumbs={[{ label: 'Polls', href: '/polls' }, { label: poll.title || 'Poll' }]}
+    >
       <PollDetailsPage
         poll={poll}
         options={options}
         userId={userProfile?.id}
       />
-    </>
+    </SchoolPageFrame>
   );
 }
 

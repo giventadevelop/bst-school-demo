@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,8 +9,7 @@ import { Camera, Video, Eye } from 'lucide-react';
 import styles from '../../events/[id]/GalleryThumbnails.module.css';
 import { EventMediaSlideshow } from '@/app/gallery/components/EventMediaSlideshow';
 import { SponsorContactSocialIconRow } from '@/components/sponsors/SponsorCard';
-import PageHeaderRibbonMedia from '@/components/PageHeaderRibbonMedia';
-import '@/styles/modernist-homepage.css';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 const getMediaTypeIcon = (mediaType: string) => {
   if (mediaType.startsWith('video/')) {
@@ -47,13 +46,6 @@ export default function SponsorDetailsPage() {
   const [showSlideshow, setShowSlideshow] = useState(false);
   const [slideshowInitialIndex, setSlideshowInitialIndex] = useState(0);
   const [bannerImageError, setBannerImageError] = useState(false);
-
-  useLayoutEffect(() => {
-    document.body.classList.add('modernist-home', 'organic-home');
-    return () => {
-      /* PublicOrganicDesignBody owns cleanup on route change */
-    };
-  }, []);
 
   useEffect(() => {
     async function fetchSponsorDetails() {
@@ -116,14 +108,16 @@ export default function SponsorDetailsPage() {
 
   if (loading) {
     return (
-      <div className="mh-event-detail-status">Loading sponsor details…</div>
+      <SchoolPageFrame eyebrow="KCNJ partners" title="Sponsor" crumbs={[{ label: 'Sponsors', href: '/sponsors' }, { label: 'Sponsor' }]}>
+        <p className="muted">Loading sponsor details…</p>
+      </SchoolPageFrame>
     );
   }
   if (!sponsor) {
     return (
-      <div className="mh-event-detail-status mh-event-detail-status--error">
-        Sponsor not found.
-      </div>
+      <SchoolPageFrame eyebrow="KCNJ partners" title="Sponsor" crumbs={[{ label: 'Sponsors', href: '/sponsors' }, { label: 'Sponsor' }]}>
+        <p className="muted">Sponsor not found.</p>
+      </SchoolPageFrame>
     );
   }
 
@@ -152,25 +146,16 @@ export default function SponsorDetailsPage() {
     : '';
 
   return (
-    <div className="mh-event-detail mh-sponsor-detail">
-      {/* Shared page ribbon under header — same shell as /events and /sponsors */}
-      <section className="mh-events-hero" aria-label="Sponsor">
-        <PageHeaderRibbonMedia />
-        <div className="mh-events-hero-scrim" aria-hidden="true" />
-        <div className="mh-events-hero-content">
-          <div className="mh-events-hero-kicker">
-            <span className="mh-dot" aria-hidden="true" />
-            <span>KCNJ partners</span>
-          </div>
-          <h1>{sponsor.name}</h1>
-          <p className="mh-events-hero-lede">
-            {sponsor.type
-              ? `${sponsor.type} sponsor supporting our community.`
-              : 'Partner supporting our community initiatives.'}
-          </p>
-        </div>
-      </section>
-
+    <SchoolPageFrame
+      eyebrow="KCNJ partners"
+      title={sponsor.name}
+      intro={
+        sponsor.type
+          ? `${sponsor.type} sponsor supporting our community.`
+          : 'Partner supporting our community initiatives.'
+      }
+      crumbs={[{ label: 'Sponsors', href: '/sponsors' }, { label: sponsor.name }]}
+    >
       <div className="mh-event-detail-body">
         {/* Same full-width poster containment as /events mh-event-card-media */}
         {displayBannerUrl && (
@@ -539,6 +524,6 @@ export default function SponsorDetailsPage() {
           </Link>
         </div>
       </div>
-    </div>
+    </SchoolPageFrame>
   );
 }

@@ -11,11 +11,10 @@ import {
   PUBLIC_SPONSOR_SEARCH_FIELDS,
 } from '@/lib/publicTypeaheadSearch';
 import { SponsorContactSocialIconRow } from '@/components/sponsors/SponsorCard';
-import PageHeaderRibbonMedia from '@/components/PageHeaderRibbonMedia';
 import SponsorsCatalogSearch from '@/components/sponsors/SponsorsCatalogSearch';
-import '@/styles/modernist-homepage.css';
+import { SchoolPageFrame, SchoolPager, SCHOOL_PAGE_SIZE } from '@/components/school/ui';
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = SCHOOL_PAGE_SIZE;
 
 export default function SponsorsPage() {
   const [sponsors, setSponsors] = useState<EventSponsorsDTO[]>([]);
@@ -26,20 +25,12 @@ export default function SponsorsPage() {
   const [isSearching, setIsSearching] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const pendingScrollToTopRef = useRef(false);
   const sawPageFetchRef = useRef(false);
 
   const scrollPageToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   };
-
-  useLayoutEffect(() => {
-    document.body.classList.add('modernist-home', 'organic-home');
-    return () => {
-      /* PublicOrganicDesignBody owns cleanup on route change */
-    };
-  }, []);
 
   useEffect(() => {
     async function fetchSponsors() {
@@ -83,7 +74,6 @@ export default function SponsorsPage() {
             setFetchError(true);
             setSponsors([]);
             setTotalCount(0);
-            setTotalPages(0);
             return;
           }
           sponsorsList = parseProxyList<EventSponsorsDTO>(await response.json());
@@ -93,16 +83,13 @@ export default function SponsorsPage() {
             : sponsorsList.length;
         }
 
-        const pages = Math.ceil(count / PAGE_SIZE) || 1;
         setSponsors(sponsorsList);
         setTotalCount(count);
-        setTotalPages(pages);
       } catch (error) {
         console.error('Error fetching sponsors:', error);
         setFetchError(true);
         setSponsors([]);
         setTotalCount(0);
-        setTotalPages(0);
       } finally {
         setLoading(false);
         setIsSearching(false);
@@ -154,31 +141,13 @@ export default function SponsorsPage() {
     scrollPageToTop();
   }, [loading, sponsors]);
 
-  const hasPrevPage = currentPage > 1;
-  const hasNextPage = currentPage < totalPages;
-  const startItem = totalCount > 0 ? (currentPage - 1) * PAGE_SIZE + 1 : 0;
-  const endItem =
-    totalCount > 0
-      ? (currentPage - 1) * PAGE_SIZE + sponsors.length
-      : 0;
-
   return (
-    <main className="mh-events-page modernist-home mh-sponsors-page">
-      <section className="mh-events-hero" aria-label="Sponsors">
-        <PageHeaderRibbonMedia />
-        <div className="mh-events-hero-scrim" aria-hidden="true" />
-        <div className="mh-events-hero-content">
-          <div className="mh-events-hero-kicker">
-            <span className="mh-dot" aria-hidden="true" />
-            <span>KCNJ partners</span>
-          </div>
-          <h1>Our Sponsors</h1>
-          <p className="mh-events-hero-lede">
-            Meet the organizations that support our community initiatives.
-          </p>
-        </div>
-      </section>
-
+    <SchoolPageFrame
+      eyebrow="KCNJ partners"
+      title="Our Sponsors"
+      intro="Meet the organizations that support our community initiatives."
+      crumbs={[{ label: 'Our Sponsors' }]}
+    >
       <div className="mh-events-body">
         <div className="mh-events-toolbar">
           <div className="mh-events-head">
@@ -376,77 +345,17 @@ export default function SponsorsPage() {
               ))}
             </div>
 
-            <div className="mh-events-pagination">
-              <div className="mh-events-pagination-row">
-                <button
-                  onClick={() => goToPage(Math.max(1, currentPage - 1))}
-                  disabled={!hasPrevPage || loading}
-                  className="mh-btn mh-btn-readmore mh-events-page-btn"
-                  title="Previous Page"
-                  aria-label="Previous Page"
-                  type="button"
-                >
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                  Previous
-                </button>
-
-                <div className="mh-events-page-info">
-                  Page <strong>{currentPage}</strong> of{' '}
-                  <strong>{Math.max(totalPages, 1)}</strong>
-                </div>
-
-                <button
-                  onClick={() => goToPage(currentPage + 1)}
-                  disabled={!hasNextPage || loading}
-                  className="mh-btn mh-btn-readmore mh-events-page-btn"
-                  title="Next Page"
-                  aria-label="Next Page"
-                  type="button"
-                >
-                  Next
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              <div className="mh-events-count">
-                {totalCount > 0 ? (
-                  <>
-                    Showing <strong>{startItem}</strong> to{' '}
-                    <strong>{endItem}</strong> of <strong>{totalCount}</strong>{' '}
-                    sponsor{totalCount !== 1 ? 's' : ''}
-                  </>
-                ) : (
-                  'No sponsors found'
-                )}
-              </div>
-            </div>
+            <SchoolPager
+              page={currentPage}
+              pageSize={PAGE_SIZE}
+              total={totalCount}
+              noun={totalCount === 1 ? 'sponsor' : 'sponsors'}
+              onPage={goToPage}
+              emptyNote={loading ? undefined : 'No sponsors found'}
+            />
           </>
         )}
       </div>
-    </main>
+    </SchoolPageFrame>
   );
 }

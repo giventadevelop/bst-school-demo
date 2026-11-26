@@ -1,5 +1,5 @@
-import { fetchSchoolResource } from '@/lib/school/schoolPublic';
-import { Container, EmptyState, PageBanner } from '@/components/school/ui';
+import { fetchSchoolPage } from '@/lib/school/schoolPublic';
+import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, readPageParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Video gallery' };
 
@@ -15,11 +15,20 @@ function youtubeId(url: string) {
   return match?.[1] || null;
 }
 
-export default async function SchoolVideosPage() {
-  const rows = await fetchSchoolResource<SchoolVideo>('gallery-youtube-videos', {
-    sort: 'displayOrder,asc',
-    'isActive.equals': 'true',
-  });
+export default async function SchoolVideosPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const page = readPageParam(params?.page);
+  const result = await fetchSchoolPage<SchoolVideo>(
+    'gallery-youtube-videos',
+    { sort: 'displayOrder,asc', 'isActive.equals': 'true' },
+    page,
+    SCHOOL_PAGE_SIZE,
+  );
+  const rows = result.items;
   const videos = rows
     .map((row) => ({ ...row, id: row.id, videoId: row.youtubeUrl ? youtubeId(row.youtubeUrl) : null }))
     .filter((row) => row.videoId);
@@ -56,6 +65,7 @@ export default async function SchoolVideosPage() {
             ))}
           </ul>
         )}
+        <SchoolPager page={result.page} pageSize={result.pageSize} total={result.total} noun="videos" hrefFor={(next) => `/videos?page=${next}`} />
       </Container>
     </>
   );

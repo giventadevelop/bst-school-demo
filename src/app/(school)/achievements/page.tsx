@@ -1,13 +1,22 @@
-import { fetchSchoolResource, type SchoolHighlightRecord } from '@/lib/school/schoolPublic';
-import { Container, EmptyState, PageBanner, colourAt } from '@/components/school/ui';
+import { fetchSchoolPage, type SchoolHighlightRecord } from '@/lib/school/schoolPublic';
+import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Achievements' };
 
-export default async function SchoolAchievementsPage() {
-  const highlights = await fetchSchoolResource<SchoolHighlightRecord>('school-highlights', {
-    sort: 'sortOrder,asc',
-    'isActive.equals': 'true',
-  });
+export default async function SchoolAchievementsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const page = readPageParam(params?.page);
+  const result = await fetchSchoolPage<SchoolHighlightRecord>(
+    'school-highlights',
+    { sort: 'sortOrder,asc', 'isActive.equals': 'true' },
+    page,
+    SCHOOL_PAGE_SIZE,
+  );
+  const highlights = result.items;
 
   const years = new Map<string, SchoolHighlightRecord[]>();
   for (const item of highlights) {
@@ -51,6 +60,13 @@ export default async function SchoolAchievementsPage() {
             </ul>
           </section>
         ))}
+        <SchoolPager
+          page={result.page}
+          pageSize={result.pageSize}
+          total={result.total}
+          noun="achievements"
+          hrefFor={(next) => `/achievements?page=${next}`}
+        />
       </Container>
     </>
   );

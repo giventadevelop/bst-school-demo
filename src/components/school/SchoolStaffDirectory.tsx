@@ -1,5 +1,5 @@
 import { fetchSchoolResource, type SchoolStaffRecord } from '@/lib/school/schoolPublic';
-import { Container, EmptyState, PageBanner, PersonCard, TextLink, colourAt } from '@/components/school/ui';
+import { Container, EmptyState, PageBanner, PersonCard, SchoolPager, SCHOOL_PAGE_SIZE, TextLink, colourAt } from '@/components/school/ui';
 
 function humanize(value: string) {
   const text = value.replace(/[_-]+/g, ' ').toLowerCase();
@@ -16,25 +16,30 @@ export async function SchoolStaffDirectory({
   crumb,
   category,
   stage,
+  page = 1,
 }: {
   title: string;
   intro: string;
   crumb: string;
   category?: string;
   stage?: string;
+  page?: number;
 }) {
   const rows = await fetchSchoolResource<SchoolStaffRecord>('school-staff-members', {
     sort: 'priorityOrder,asc',
     'isActive.equals': 'true',
+    size: '200',
   });
   const staff = rows.filter((member) => {
     if (category && member.staffCategory !== category) return false;
     if (stage && member.stage !== stage) return false;
     return true;
   });
+  const pageStart = (Math.max(1, page) - 1) * SCHOOL_PAGE_SIZE;
+  const visible = staff.slice(pageStart, pageStart + SCHOOL_PAGE_SIZE);
 
   const categories = new Map<string, Map<string, SchoolStaffRecord[]>>();
-  for (const member of staff) {
+  for (const member of visible) {
     const memberCategory = member.staffCategory || 'STAFF';
     const memberStage = member.stage || '';
     const stages = categories.get(memberCategory) || new Map<string, SchoolStaffRecord[]>();
@@ -87,6 +92,8 @@ export async function SchoolStaffDirectory({
             ))}
           </section>
         ))}
+
+        <SchoolPager page={page} pageSize={SCHOOL_PAGE_SIZE} total={staff.length} noun="staff" />
 
         {!category && !stage && (
           <div className="mt-12 border-t pt-8" style={{ borderColor: 'var(--line)' }}>

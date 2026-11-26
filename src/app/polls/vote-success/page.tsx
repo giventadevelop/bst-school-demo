@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 interface VoteSuccessPageProps {
   searchParams: {
@@ -15,7 +16,12 @@ export default function VoteSuccessPage({ searchParams }: VoteSuccessPageProps) 
   const { pollTitle = 'this poll', pollId } = searchParams;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
+    <SchoolPageFrame
+      eyebrow="Community voice"
+      title="Vote submitted"
+      crumbs={[{ label: 'Polls', href: '/polls' }, { label: 'Vote submitted' }]}
+    >
+    <div className="flex items-center justify-center">
       <div className="w-full max-w-md">
         <Card className="border-0 shadow-2xl">
           <CardContent className="p-8 text-center">
@@ -92,5 +98,6 @@ export default function VoteSuccessPage({ searchParams }: VoteSuccessPageProps) 
         </Card>
       </div>
     </div>
+    </SchoolPageFrame>
   );
 }

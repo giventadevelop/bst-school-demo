@@ -1,6 +1,7 @@
 import { Download, FileText } from 'lucide-react';
-import { fetchDownloadableProfileMediaAssetsServer } from '@/lib/profileSiteServer';
-import { Container, EmptyState, PageBanner, colourAt } from '@/components/school/ui';
+import type { ProfileMediaAssetDTO } from '@/types/profileSite';
+import { fetchSchoolPage } from '@/lib/school/schoolPublic';
+import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Downloads' };
 
@@ -9,8 +10,20 @@ function formatSize(bytes?: number) {
   return bytes >= 1048576 ? `${(bytes / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
 }
 
-export default async function SchoolDownloadsPage() {
-  const assets = await fetchDownloadableProfileMediaAssetsServer();
+export default async function SchoolDownloadsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>;
+}) {
+  const params = await searchParams;
+  const page = readPageParam(params?.page);
+  const result = await fetchSchoolPage<ProfileMediaAssetDTO>(
+    'profile-media-assets',
+    { sort: 'displayOrder,asc', 'isDownloadable.equals': 'true' },
+    page,
+    SCHOOL_PAGE_SIZE,
+  );
+  const assets = result.items.filter((asset) => asset.isDownloadable !== false);
 
   return (
     <>
@@ -49,6 +62,13 @@ export default async function SchoolDownloadsPage() {
             ))}
           </ul>
         )}
+        <SchoolPager
+          page={result.page}
+          pageSize={result.pageSize}
+          total={result.total}
+          noun="downloads"
+          hrefFor={(next) => `/downloads?page=${next}`}
+        />
       </Container>
     </>
   );

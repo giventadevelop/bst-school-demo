@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 export const metadata: Metadata = {
   title: 'Terms and Conditions',
@@ -11,9 +12,8 @@ const CONTACT_EMAIL = 'keralacenternj@gmail.com';
 
 export default function TermsPage() {
   return (
-    <div className="max-w-5xl mx-auto px-8 py-8">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Terms and Conditions</h1>
+    <SchoolPageFrame eyebrow="Policies" title="Terms and Conditions" crumbs={[{ label: 'Terms and Conditions' }]}>
+      <article className="card stripe c-blue p-6 sm:p-8">
 
         <div className="prose prose-lg max-w-none">
           <p className="text-gray-600 mb-6">
@@ -132,12 +132,12 @@ export default function TermsPage() {
           </section>
         </div>
 
-        <div className="flex justify-center mt-8">
-          <Link href="/" className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md">
+        <div className="mt-8">
+          <Link href="/" className="btn btn-primary">
             Return to Home
           </Link>
         </div>
-      </div>
-    </div>
+      </article>
+    </SchoolPageFrame>
   );
 }

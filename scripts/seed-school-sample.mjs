@@ -117,21 +117,33 @@ function people(main) {
   return found;
 }
 
+function uploadPhoto(url) {
+  if (!url || !url.includes('wp-content/uploads')) return '';
+  if (/logo|androidapp|cropped-|favicon|elementor\/css|\.(css|js)(\?|$)/i.test(url)) return '';
+  if (/\d\.png$/i.test(url)) return '';
+  return url.split('?')[0];
+}
+
 function images(main) {
   const found = [];
   const re = /<img\b[^>]*>/g;
   let match;
   while ((match = re.exec(main))) {
     const tag = match[0];
-    const src = tag.match(/\ssrc="([^"]+)"/);
-    if (!src) continue;
-    const url = src[1];
-    if (!url.includes('wp-content/uploads')) continue;
-    if (/logo|androidapp|cropped-|favicon|\d\.png$/i.test(url)) continue;
-    if (/-\d+x\d+\.(jpe?g|png|webp)$/i.test(url)) continue;
-    const width = Number((tag.match(/\swidth="(\d+)"/) || [])[1] || 0);
-    if (width && width < 180) continue;
-    found.push(url);
+    const src = uploadPhoto((tag.match(/\ssrc="([^"]+)"/) || [])[1]);
+    const srcset = (tag.match(/\ssrcset="([^"]+)"/) || [])[1] || '';
+    const sized = srcset
+      .split(',')
+      .map((part) => {
+        const bits = part.trim().split(/\s+/);
+        return { url: uploadPhoto(bits[0]), width: Number((bits[1] || '').replace('w', '')) || 0 };
+      })
+      .filter((part) => part.url);
+    const full = [src, ...sized.map((part) => part.url)].find((url) => url && !/-\d+x\d+\.(jpe?g|png|webp)$/i.test(url));
+    sized.sort((a, b) => b.width - a.width);
+    const url = full || sized.find((part) => part.width >= 300)?.url || '';
+    if (!url) continue;
+    if (!found.includes(url)) found.push(url);
   }
   return found;
 }
@@ -180,7 +192,29 @@ function bundle(rel) {
     summary: clip(body, 900),
     people: people(page.main),
     imageSrc: pics[0] || '',
+    pics,
   };
+}
+
+function dateFromSlug(slug) {
+  const match = String(slug).match(/(?:19|20)\d{2}/);
+  return match ? `${match[0]}-06-01` : '2019-01-01';
+}
+
+function safeBundle(rel) {
+  if (!fs.existsSync(pageFile(rel))) return null;
+  try {
+    return bundle(rel);
+  } catch (error) {
+    console.error(`SKIP read ${rel} ${error.message}`);
+    return null;
+  }
+}
+
+function localImage(pageDir, src) {
+  if (!src) return '';
+  const abs = path.normalize(path.join(pageDir, src.split('?')[0]));
+  return fs.existsSync(abs) ? abs : '';
 }
 
 const departments = [
@@ -242,6 +276,16 @@ const newsPages = [
   ['merit-day-2026', 'excellence-in-focus-merit-day-2026'],
   ['prathibhotsav-2026', 'prathibhotsav-2026-a-vibrant-tapestry-of-talent-and-expression'],
   ['christ-nagar-at-50', 'christ-nagar-at-50-a-year-of-celebration-begins'],
+  ['rangotsav-2026', 'rangotsav-2026-an-inter-school-cultural-showcase'],
+  ['teachers-day-2026', 'honouring-the-guiding-lights-teachers-day-2026'],
+  ['talent-day-2026', 'talent-day-2026-a-lesson-beyond-the-classroom'],
+  ['horse-project', 'horse-project-swiss-collaboration'],
+  ['artmile-japan', 'artmile-japan-collaboration'],
+  ['celebration-of-faith', 'a-celebration-of-faith-excellence-and-festivity'],
+  ['black-and-white-day', 'a-striking-contrast-black-and-white-day'],
+  ['rising-to-responsibility', 'rising-to-responsibility'],
+  ['newsletter-2026', 'newsletter-2026'],
+  ['german-pasch', 'german-pasch-school-partners-for-the-future'],
 ];
 
 const highlights = [
@@ -351,7 +395,7 @@ async function main() {
 
   for (const [slug, name, rel] of departments) {
     const item = bundle(rel);
-    const teachers = item.people.slice(0, 2);
+    const teachers = item.people;
     const imageUrl = copyImage(item.dir, item.imageSrc || teachers[0]?.src, slug);
     const body = departmentBody({ title: name, body: item.body }, teachers);
     await save('school-departments', `slug.equals=${slug}`, {
@@ -436,7 +480,7 @@ async function main() {
   }
 
   const kg = bundle('teaching-kg');
-  for (const [index, person] of kg.people.slice(0, 4).entries()) {
+  for (const [index, person] of kg.people.entries()) {
     const names = splitName(person.name);
     const profileImageUrl = copyImage(kg.dir, person.src, `kg-${index + 1}`);
     await save(
@@ -458,7 +502,7 @@ async function main() {
   }
 
   const support = bundle('supporting-staff');
-  for (const [index, person] of support.people.slice(0, 4).entries()) {
+  for (const [index, person] of support.people.entries()) {
     const names = splitName(person.name);
     const profileImageUrl = copyImage(support.dir, person.src, `support-${index + 1}`);
     await save(
@@ -496,7 +540,7 @@ async function main() {
     const item = bundle(rel);
     const featuredImageUrl = copyImage(item.dir, item.imageSrc, slug);
     const body = item.body || item.title;
-    await save('profile-writings', `slug.equals=${slug}`, {
+    await save('profile-writings', `title.equals=${encodeURIComponent(clip(item.title, 500))}`, {
       title: clip(item.title, 500),
       slug,
       excerpt: clip(body, 500),
@@ -554,17 +598,20 @@ async function main() {
     });
   }
 
-  const events = [
-    ['School reopening', '2027-06-01', 'events/school-reopening'],
-    ['Prathibhotsav arts fest', '2027-01-20', 'events/prathibhotsav-26-arts-fest'],
-    ['Merit day', '2027-03-12', 'excellence-in-focus-merit-day-2026'],
-  ];
-  for (const [title, startDate, rel] of events) {
-    const item = bundle(rel);
-    await save('event-details', `title.equals=${encodeURIComponent(title)}`, {
-      title,
-      caption: clip(item.title, 255),
-      description: clip(item.body || item.title, 900),
+  async function findOne(resource, query) {
+    const result = await api('GET', resource, {
+      query: `tenantId.equals=${encodeURIComponent(tenantId)}&${query}&size=1`,
+    });
+    if (!result.ok) return null;
+    return rows(result.data)[0] || null;
+  }
+
+  async function saveEvent(title, startDate, item) {
+    const storedTitle = clip(title, 180);
+    await save('event-details', `title.equals=${encodeURIComponent(storedTitle)}`, {
+      title: storedTitle,
+      caption: clip(item?.title || storedTitle, 255),
+      description: clip(item?.body || item?.title || storedTitle, 900),
       startDate,
       endDate: startDate,
       promotionStartDate: '2026-11-23',
@@ -582,6 +629,188 @@ async function main() {
       isSportsEvent: false,
       featuredEventPriorityRanking: 0,
       liveEventPriorityRanking: 0,
+      createdAt: now,
+      updatedAt: now,
+    });
+  }
+
+  const events = [
+    ['School reopening', '2027-06-01', 'events/school-reopening'],
+    ['Prathibhotsav arts fest', '2027-01-20', 'events/prathibhotsav-26-arts-fest'],
+    ['Merit day', '2027-03-12', 'excellence-in-focus-merit-day-2026'],
+    ['Girls cell inauguration', '2019-01-01', 'events/girls-cell-inauguration'],
+    ['Prathibhotsav inter-house cultural fest', '2026-08-12', 'events/prathibhotsav-26-inter-house-cultural-fest'],
+  ];
+  for (const [title, startDate, rel] of events) {
+    await saveEvent(title, startDate, safeBundle(rel));
+  }
+
+  const galleryRoot = path.join(scrapeRoot, 'photo_gallery');
+  const gallerySlugs = fs.existsSync(galleryRoot)
+    ? fs
+        .readdirSync(galleryRoot, { withFileTypes: true })
+        .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(galleryRoot, entry.name, 'index.html')))
+        .map((entry) => entry.name)
+    : [];
+
+  const appUrl = 'http://localhost:3004';
+
+  async function uploadAlbumPhoto(albumId, filePath, displayOrder) {
+    const filename = path.basename(filePath);
+    const ext = path.extname(filePath).toLowerCase();
+    const type = ext === '.png' ? 'image/png' : ext === '.webp' ? 'image/webp' : ext === '.gif' ? 'image/gif' : 'image/jpeg';
+    const bytes = fs.readFileSync(filePath);
+    const form = new FormData();
+    form.append('files', new Blob([bytes], { type }), filename);
+    form.append('titles', filename);
+    form.append('descriptions', filename);
+    form.append('tenantId', tenantId);
+    form.append('isPublic', 'true');
+    form.append('albumId', String(albumId));
+    form.append('eventId', '');
+    form.append('displayOrder', String(displayOrder));
+    form.append('startDisplayingFromDate', now.slice(0, 10));
+    const response = await fetch(`${appUrl}/api/proxy/event-medias/upload-multiple`, {
+      method: 'POST',
+      headers: { 'X-Tenant-ID': tenantId },
+      body: form,
+    });
+    if (!response.ok) {
+      const detail = (await response.text()).slice(0, 180);
+      console.error(`FAIL album photo ${filename} ${response.status} ${detail}`);
+      return null;
+    }
+    const data = await response.json().catch(() => null);
+    const media = Array.isArray(data) ? data[0] : data;
+    return media?.id ? media : null;
+  }
+
+  async function unusedPhoto(filename) {
+    const result = await api('GET', 'event-medias', {
+      query: `tenantId.equals=${encodeURIComponent(tenantId)}&title.equals=${encodeURIComponent(filename)}&size=20`,
+    });
+    if (!result.ok) return null;
+    return rows(result.data).find((row) => row.albumId == null) || null;
+  }
+
+  async function attachToAlbum(media, albumId, displayOrder) {
+    const payload = {
+      id: media.id,
+      title: media.title || '',
+      eventMediaType: media.eventMediaType || 'image/jpeg',
+      storageType: media.storageType || 'S3',
+      createdAt: media.createdAt || now,
+      isHomePageHeroImage: false,
+      isFeaturedEventImage: false,
+      isLiveEventImage: false,
+      albumId,
+      eventId: null,
+      tenantId,
+      updatedAt: now,
+      description: media.description || '',
+      fileUrl: media.fileUrl,
+      isPublic: true,
+      eventFlyer: false,
+      isEventManagementOfficialDocument: false,
+      displayOrder,
+      isHeroImage: false,
+      isActiveHeroImage: false,
+      startDisplayingFromDate: now.slice(0, 10),
+      priorityRanking: 0,
+    };
+    const response = await fetch(`${apiBase}/api/event-medias/${media.id}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-Tenant-ID': tenantId,
+        'Content-Type': 'application/merge-patch+json',
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      console.error(`FAIL attach ${media.id} ${(await response.text()).slice(0, 180)}`);
+      return false;
+    }
+    return true;
+  }
+
+  for (const slug of gallerySlugs) {
+    const rel = `photo_gallery/${slug}`;
+    const item = safeBundle(rel);
+    if (!item) continue;
+    const title = clip(item.title || slug.replace(/-/g, ' '), 180);
+    const startDate = dateFromSlug(slug);
+    await saveEvent(title, startDate, item);
+
+    const coverImageUrl = copyImage(item.dir, item.imageSrc, `album-${slug}`);
+    const year = Number(startDate.slice(0, 4));
+    await save('gallery-albums', `title.equals=${encodeURIComponent(title)}`, {
+      title,
+      description: clip(item.body || title, 900),
+      coverImageUrl,
+      isPublic: true,
+      displayOrder: gallerySlugs.indexOf(slug),
+      albumYear: year,
+      eventLocation: 'Christ Nagar Higher Secondary School, Kowdiar',
+      eventDateStart: startDate,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    const album = await findOne('gallery-albums', `title.equals=${encodeURIComponent(title)}`);
+    if (!album?.id) {
+      console.log(`SKIP album photos ${title} (album not found)`);
+      continue;
+    }
+    const existingMedia = await api('GET', 'event-medias', {
+      query: `tenantId.equals=${encodeURIComponent(tenantId)}&albumId.equals=${album.id}&size=1`,
+    });
+    if (existingMedia.ok && rows(existingMedia.data).length > 0) {
+      console.log(`SKIP album photos ${title}`);
+      continue;
+    }
+    const files = (item.pics || [])
+      .map((src) => localImage(item.dir, src))
+      .filter(Boolean)
+      .slice(0, 4);
+    if (!files.length) console.log(`SKIP album photos ${title} (no local files, pics=${(item.pics || []).length})`);
+    for (const [index, filePath] of files.entries()) {
+      const filename = path.basename(filePath);
+      try {
+        let media = await unusedPhoto(filename);
+        if (!media) media = await uploadAlbumPhoto(album.id, filePath, index);
+        if (media && (await attachToAlbum(media, album.id, index))) {
+          console.log(`OK album photo ${filename}`);
+        }
+      } catch (error) {
+        console.error(`FAIL album photo ${filename} ${error.message}`);
+      }
+    }
+  }
+
+  const downloads = [
+    ['First term calendar', 'wp-content/uploads/2026/06/FirstTerm.pdf', 'first-term-calendar.pdf'],
+    ['Bus routes', 'wp-content/uploads/2026/06/BUSROUTES.pdf', 'bus-routes.pdf'],
+  ];
+  for (const [title, rel, filename] of downloads) {
+    const source = path.join(scrapeRoot, rel);
+    if (!fs.existsSync(source)) {
+      console.error(`SKIP profile-media-assets missing ${rel}`);
+      continue;
+    }
+    fs.mkdirSync(sampleDir, { recursive: true });
+    fs.copyFileSync(source, path.join(sampleDir, filename));
+    const fileSizeBytes = fs.statSync(source).size;
+    await save('profile-media-assets', `title.equals=${encodeURIComponent(title)}`, {
+      title,
+      description: title,
+      fileUrl: `/school/samples/${filename}`,
+      fileType: 'application/pdf',
+      mediaKind: 'DOCUMENT',
+      fileSizeBytes,
+      displayOrder: downloads.findIndex((row) => row[0] === title),
+      isDownloadable: true,
+      requiresEmail: false,
       createdAt: now,
       updatedAt: now,
     });

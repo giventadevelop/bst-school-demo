@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import SubpageHomeDesignBackground from '@/components/SubpageHomeDesignBackground';
+import { SchoolPageFrame } from '@/components/school/ui';
 import {
   fetchPublishedPublicProfileForPagesServer,
   fetchPublishedProfileWritingsServer,
@@ -58,14 +58,12 @@ export default async function LinksListPage() {
   const groups = Array.from(new Set(allLinks.map((l) => l.group)));
 
   return (
-    <>
-      <SubpageHomeDesignBackground />
-      <main className="min-h-screen py-24 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="font-heading text-3xl md:text-4xl font-semibold text-foreground mb-3">Links</h1>
-          <p className="font-body text-muted-foreground mb-10 max-w-2xl">
-            Social profiles, external articles, and affiliated organizations.
-          </p>
+    <SchoolPageFrame
+      eyebrow="School life"
+      title="Links"
+      intro="Social profiles, external articles, and affiliated organizations."
+      crumbs={[{ label: 'Links' }]}
+    >
 
           {allLinks.length === 0 ? (
             <p className="font-body text-muted-foreground">No links available yet.</p>
@@ -83,7 +81,7 @@ export default async function LinksListPage() {
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-between gap-4 bg-card rounded-lg sacred-shadow px-5 py-4 hover:bg-muted/50 reverent-transition"
+                            className="card stripe c-gold flex items-center justify-between gap-4 px-5 py-4"
                           >
                             <span className="font-body font-medium text-foreground">{link.label}</span>
                             <span className="text-primary text-sm font-semibold flex-shrink-0">Open →</span>
@@ -96,15 +94,12 @@ export default async function LinksListPage() {
             </div>
           )}
 
-          <p className="mt-12 text-sm text-muted-foreground">
+          <p className="mt-12 text-sm">
             Looking for on-site articles?{' '}
-            <Link href="/news" className="text-primary font-semibold hover:underline">
+            <Link href="/news" className="btn btn-text">
               Visit News
             </Link>
-            .
           </p>
-        </div>
-      </main>
-    </>
+    </SchoolPageFrame>
   );
 }

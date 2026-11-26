@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@clerk/nextjs';
+import { SchoolPageFrame } from '@/components/school/ui';
 
 interface TicketType {
   id: number;
@@ -153,8 +154,11 @@ const EventPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <SchoolPageFrame
+      eyebrow="What's happening"
+      title="Kanj Cine Star 2025"
+      crumbs={[{ label: 'Event' }]}
+    >
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="relative h-[400px]">
             <Image
@@ -240,8 +244,7 @@ const EventPage = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    </SchoolPageFrame>
   );
 };
 

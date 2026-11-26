@@ -6,9 +6,7 @@ import type { ExecutiveCommitteeTeamMemberDTO } from '@/types';
 import { parseExecutiveCommitteeTeamMembersResponse } from '@/lib/parseExecutiveCommitteeTeamMembersResponse';
 import Modal from '@/components/ui/Modal';
 import { getHomepageCacheKey } from '@/lib/homepageCacheKeys';
-import TeamPageBackground from './TeamPageBackground';
-import PageHeaderRibbonMedia from '@/components/PageHeaderRibbonMedia';
-import '@/styles/modernist-homepage.css';
+import { SchoolPageFrame, SchoolPager, SCHOOL_PAGE_SIZE } from '@/components/school/ui';
 
 /** Max characters to show in card before "Read more". Longer bios open in popup. */
 const BIO_TRUNCATE_LENGTH = 120;
@@ -21,7 +19,7 @@ export default function TeamPage() {
   const [showImages, setShowImages] = useState(false);
   const [page, setPage] = useState(0);
   const [profileModalMember, setProfileModalMember] = useState<ExecutiveCommitteeTeamMemberDTO | null>(null);
-  const pageSize = 20;
+  const pageSize = SCHOOL_PAGE_SIZE;
 
   const CACHE_KEY = getHomepageCacheKey('team_page_cache');
   const CACHE_DURATION = 5 * 60 * 1000;
@@ -107,10 +105,6 @@ export default function TeamPage() {
   const totalCount = teamMembers.length;
   const totalPages = Math.ceil(totalCount / pageSize) || 1;
   const currentPage = page + 1;
-  const startItem = totalCount > 0 ? page * pageSize + 1 : 0;
-  const endItem = totalCount > 0 ? Math.min(page * pageSize + pageSize, totalCount) : 0;
-  const isPrevDisabled = page === 0 || loading;
-  const isNextDisabled = page >= totalPages - 1 || loading;
   const paginatedTeamMembers = teamMembers.slice(page * pageSize, page * pageSize + pageSize);
 
   useEffect(() => {
@@ -120,25 +114,12 @@ export default function TeamPage() {
   }, [totalPages, page]);
 
   return (
-    <>
-      <TeamPageBackground />
-      <main className="mh-events-page modernist-home mh-team-page">
-        <section className="mh-events-hero" aria-label="Team">
-          <PageHeaderRibbonMedia />
-          <div className="mh-events-hero-scrim" aria-hidden="true" />
-          <div className="mh-events-hero-content">
-            <div className="mh-events-hero-kicker">
-              <span className="mh-dot" aria-hidden="true" />
-              <span>Leadership</span>
-            </div>
-            <h1>Our Team</h1>
-            <p className="mh-events-hero-lede">
-              Meet the dedicated professionals working together to make a positive impact in our
-              communities.
-            </p>
-          </div>
-        </section>
-
+    <SchoolPageFrame
+      eyebrow="Leadership"
+      title="Our Team"
+      intro="Meet the dedicated professionals working together to make a positive impact in our communities."
+      crumbs={[{ label: 'Our Team' }]}
+    >
         <div className="mh-events-body">
           <Modal
             isOpen={!!profileModalMember}
@@ -445,62 +426,16 @@ export default function TeamPage() {
                 })}
               </div>
 
-              {totalCount > 0 && (
-                <div className="mh-events-pagination">
-                  <div className="mh-events-pagination-row">
-                    <button
-                      onClick={() => setPage((prev) => Math.max(0, prev - 1))}
-                      disabled={isPrevDisabled}
-                      className="mh-btn mh-btn-readmore mh-events-page-btn"
-                      title="Previous Page"
-                      aria-label="Previous Page"
-                      type="button"
-                    >
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2.5}
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                      Previous
-                    </button>
-
-                    <div className="mh-events-page-info">
-                      Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
-                    </div>
-
-                    <button
-                      onClick={() => setPage((prev) => Math.min(totalPages - 1, prev + 1))}
-                      disabled={isNextDisabled}
-                      className="mh-btn mh-btn-readmore mh-events-page-btn"
-                      title="Next Page"
-                      aria-label="Next Page"
-                      type="button"
-                    >
-                      Next
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2.5}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-
-                  <p className="mh-events-count">
-                    Showing <strong>{startItem}</strong> to <strong>{endItem}</strong> of{' '}
-                    <strong>{totalCount}</strong> team members
-                  </p>
-                </div>
-              )}
+              <SchoolPager
+                page={currentPage}
+                pageSize={pageSize}
+                total={totalCount}
+                noun="team members"
+                onPage={(next) => setPage(next - 1)}
+              />
             </>
           )}
         </div>
-      </main>
-    </>
+    </SchoolPageFrame>
   );
 }

@@ -73,27 +73,63 @@ export type NewsFlashRecord = {
 
 function asList<T>(data: unknown): T[] {
   if (Array.isArray(data)) return data as T[];
-  if (data && typeof data === 'object' && Array.isArray((data as { content?: T[] }).content)) {
-    return (data as { content: T[] }).content;
+  if (data && typeof data === 'object') {
+    const record = data as { content?: T[]; _embedded?: Record<string, unknown> };
+    if (Array.isArray(record.content)) return record.content;
+    const embedded = record._embedded;
+    if (embedded) {
+      const list = Object.values(embedded).find((value) => Array.isArray(value));
+      if (Array.isArray(list)) return list as T[];
+    }
   }
   return [];
 }
 
 export async function fetchSchoolResource<T>(path: string, query: Record<string, string> = {}): Promise<T[]> {
+  const page = await fetchSchoolPage<T>(path, query, 1, Number(query.size || 100));
+  return page.items;
+}
+
+export type SchoolPageResult<T> = {
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+};
+
+/** One page of a school list, keeping the backend total for the pager. */
+export async function fetchSchoolPage<T>(
+  path: string,
+  query: Record<string, string> = {},
+  page = 1,
+  pageSize = 8,
+): Promise<SchoolPageResult<T>> {
+  const safePage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
+  const safeSize = Number.isFinite(pageSize) && pageSize > 0 ? Math.floor(pageSize) : 8;
   try {
     const params = new URLSearchParams({
       'tenantId.equals': getTenantId(),
-      size: '100',
       ...query,
+      page: String(safePage - 1),
+      size: String(safeSize),
     });
     const response = await fetchWithJwtRetry(`${getApiBaseUrl()}/api/${path}?${params.toString()}`, {
       cache: 'no-store',
     });
-    if (!response.ok) return [];
-    return asList<T>(await response.json());
+    if (!response.ok) return { items: [], total: 0, page: safePage, pageSize: safeSize };
+    const data = await response.json();
+    const items = asList<T>(data);
+    const headerTotal = Number(response.headers.get('x-total-count'));
+    const bodyTotal =
+      data && typeof data === 'object' && !Array.isArray(data)
+        ? Number((data as { totalElements?: number }).totalElements)
+        : NaN;
+    let total = Number.isFinite(headerTotal) && headerTotal > 0 ? headerTotal : Number.isFinite(bodyTotal) ? bodyTotal : items.length;
+    if (total < items.length) total = items.length;
+    return { items, total, page: safePage, pageSize: safeSize };
   } catch (error) {
     console.error(`[school] ${path}`, error);
-    return [];
+    return { items: [], total: 0, page: safePage, pageSize: safeSize };
   }
 }
 
