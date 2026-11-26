@@ -121,10 +121,12 @@ export default function SchoolNav({
   schoolName,
   phone,
   email,
+  logoUrl,
 }: {
   schoolName: string;
   phone?: string;
   email?: string;
+  logoUrl?: string;
 }) {
   const pathname = usePathname() ?? '/';
   const [open, setOpen] = useState(false);
@@ -157,11 +159,11 @@ export default function SchoolNav({
         </div>
       </div>
 
-      <div className="nav min-h-[76px] gap-7 px-[clamp(20px,5cqw,64px)]">
+      <div className="nav min-h-[76px] gap-7 px-4">
         <Link href="/" className="flex min-w-0 items-center gap-3 no-underline" style={{ color: 'var(--ink)' }}>
-          <img src="/school/logo-bst-red.svg" alt="" width={44} height={44} className="shrink-0" />
+          <img src={logoUrl || '/school/logo-bst-red.svg'} alt="" width={44} height={44} className="shrink-0" />
           <span className="flex min-w-0 flex-col leading-tight">
-            <span className="truncate text-lg font-bold">{schoolName}</span>
+            <span className="truncate text-xl font-extrabold">{schoolName}</span>
             <span className="muted text-xs font-medium uppercase tracking-[0.08em]">School</span>
           </span>
         </Link>

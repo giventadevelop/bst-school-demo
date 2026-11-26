@@ -805,6 +805,10 @@ export interface TenantSettingsDTO {
   /** @deprecated v2.0 — use tenant_organization.stateProvince */
   stateProvince?: string;
   email?: string;
+  /** Uploaded school mark from tenant settings. */
+  logoImageUrl?: string;
+  /** Display name stored on the tenant settings row. */
+  tenantName?: string;
   // Social media URLs (Follow our journey / organization links)
   facebookUrl?: string;
   instagramUrl?: string;
@@ -812,6 +816,8 @@ export interface TenantSettingsDTO {
   linkedinUrl?: string;
   youtubeUrl?: string;
   tiktokUrl?: string;
+  /** Full WhatsApp link, or a phone number used to build one. */
+  whatsappUrl?: string;
   createdAt: string; // date-time
   updatedAt: string; // date-time
   tenantOrganization?: TenantOrganizationDTO;

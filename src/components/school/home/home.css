@@ -18,7 +18,7 @@
   --nb-line: #d5deeb;
   --nb-display: var(--font-nb-display), 'Segoe UI', system-ui, sans-serif;
   --nb-text: var(--font-nb-text), var(--font-malayalam), 'Segoe UI', system-ui, sans-serif;
-  --nb-margin: 176px;
+  --nb-margin: 128px;
   background: var(--nb-paper);
   color: var(--nb-navy);
   font-family: var(--nb-text);
@@ -46,9 +46,9 @@
   border-radius: 6px;
 }
 .school-theme .nb-wrap {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 16px;
 }
 
 /* buttons */
@@ -99,8 +99,8 @@
   grid-template-columns: 1.05fr 0.95fr;
   gap: 56px;
   align-items: center;
-  padding-top: 72px;
-  padding-bottom: 96px;
+  padding-top: 56px;
+  padding-bottom: 72px;
 }
 .school-theme .nb-hero h1 {
   font: 800 clamp(46px, 7vw, 92px) / 0.95 var(--nb-display);
@@ -162,7 +162,7 @@
 .school-theme .nb-label { padding: 44px 22px 0 28px; }
 .school-theme .nb-label h2 { position: sticky; top: 150px; font: 700 17px/1.25 var(--nb-display); color: var(--nb-red); }
 .school-theme .nb-label h2 small { display: block; margin-top: 6px; font: 500 14px/1.4 var(--nb-text); color: var(--nb-muted); }
-.school-theme .nb-body { padding: 44px 44px 52px 40px; min-width: 0; }
+.school-theme .nb-body { padding: 36px 24px 44px 28px; min-width: 0; }
 .school-theme .nb-big { font: 800 clamp(30px, 3.6vw, 46px) / 1.05 var(--nb-display); letter-spacing: -0.02em; margin-bottom: 26px; max-width: 20ch; }
 .school-theme .nb-empty { border: 2px dashed var(--nb-line); border-radius: 16px; padding: 30px; color: var(--nb-muted); }
 

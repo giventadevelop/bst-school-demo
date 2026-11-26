@@ -41,7 +41,7 @@ export default function SchoolFooter({ school }: { school: SchoolIdentity }) {
       <div className="wrap grid gap-10 pt-16" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 190px), 1fr))' }}>
         <div className="min-w-0">
           <Link href="/" className="flex items-center gap-3">
-            <img src="/school/logo-bst-red.svg" alt="" width={44} height={44} />
+            <img src={school.logoUrl} alt="" width={44} height={44} />
             <span className="text-lg font-bold leading-tight">{school.name}</span>
           </Link>
           {school.description && <p className="fm mt-4 max-w-sm text-sm leading-6">{school.description}</p>}

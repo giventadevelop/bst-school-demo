@@ -34,7 +34,7 @@
 .school-theme .on-dark :focus-visible,.school-theme .on-dark:focus-visible{ outline-color:#fff; }
 .school-theme .body{ color:var(--body); }
 .school-theme .muted{ color:var(--muted); }
-.school-theme .wrap{ max-width:1280px; margin:0 auto; padding:0 clamp(20px,5cqw,64px); }
+.school-theme .wrap{ max-width:1600px; margin:0 auto; padding:0 16px; }
 .school-theme .sec{ padding:clamp(56px,7cqw,104px) 0; }
 .school-theme .alt{ background:var(--ground-alt); }
 .school-theme .wash{ background:var(--c50,var(--ground-alt)); }
@@ -143,7 +143,7 @@
 .school-theme .band .ph-label{ position:absolute; top:16px; right:16px; }
 
 /* nav */
-.school-theme .topbar{ background:var(--topbar); color:var(--topbar-text); font-size:13px; line-height:20px; }
+.school-theme .topbar{ background:var(--topbar); color:var(--topbar-text); font-size:16px; line-height:24px; font-weight:700; }
 /* .wrap sets padding:0 on the block axis, which cancels Tailwind py-* and pt-* */
 .school-theme .topbar .wrap{ padding-top:16px; padding-bottom:16px; }
 .school-theme .foot > .wrap:first-child{ padding-top:64px; }
@@ -153,7 +153,7 @@
 @media (min-width: 1024px) {
   .school-theme .nav > button.nav-toggle { display: none; }
 }
-.school-theme .nav-link{ display:inline-flex; align-items:center; gap:4px; align-self:stretch; font:500 15px/20px var(--font); color:var(--ink)!important; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; padding-top:3px; transition:color .15s,border-color .15s; }
+.school-theme .nav-link{ display:inline-flex; align-items:center; gap:4px; align-self:stretch; font:700 17px/22px var(--font); color:var(--ink)!important; text-decoration:none; white-space:nowrap; border-bottom:3px solid transparent; padding-top:3px; transition:color .15s,border-color .15s; }
 .school-theme .nav-chevron{ flex-shrink:0; }
 .school-theme .nav-link:hover,.nav-link[aria-current]{ color:var(--red)!important; border-bottom-color:var(--red); }
 .school-theme .menu{ position:absolute; left:-16px; top:100%; min-width:240px; max-height:70vh; overflow:auto; background:#fff; border:1px solid var(--line); border-top:4px solid var(--red); border-radius:0 0 8px 8px; box-shadow:var(--shadow-lift); padding:8px 0; z-index:50; display:flex; flex-direction:column; }
@@ -283,3 +283,74 @@
   color:var(--ink);
   font:500 14px/20px var(--font);
 }
+
+.school-theme .school-social-rail{
+  position:fixed;
+  z-index:40;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:6px;
+}
+.school-theme .school-social-rail-toggle{
+  width:36px;
+  height:44px;
+  border:0;
+  border-radius:0 8px 8px 0;
+  background:#000;
+  color:#fff;
+  font:700 20px/1 var(--font);
+  cursor:pointer;
+}
+.school-theme .school-social-rail ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.school-theme .school-social-rail.is-collapsed ul{ display:none; }
+.school-theme .school-social-rail a{
+  display:flex;
+  align-items:stretch;
+  text-decoration:none;
+  color:#fff;
+}
+.school-theme .school-social-rail-icon{
+  width:60px;
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--rail, #333);
+}
+.school-theme .school-social-rail-icon svg{ width:32px; height:32px; }
+.school-theme .school-social-rail-label{
+  display:flex;
+  align-items:center;
+  max-width:0;
+  overflow:hidden;
+  padding:0;
+  background:var(--rail, #333);
+  font:600 14px/1 var(--font);
+  white-space:nowrap;
+  transition:max-width .2s ease, padding .2s ease;
+}
+.school-theme .school-social-rail a:hover .school-social-rail-label,
+.school-theme .school-social-rail a:focus-visible .school-social-rail-label{
+  max-width:140px;
+  padding:0 14px;
+}
+.school-theme .school-social-rail .is-whatsapp{ --rail:#26D367; }
+.school-theme .school-social-rail .is-facebook{ --rail:#4267B2; }
+.school-theme .school-social-rail .is-phone{ --rail:#26D37C; }
+.school-theme .school-social-rail .is-instagram{ --rail:#E1306C; }
+.school-theme .school-social-rail .is-youtube{ --rail:#F54E4E; }
+.school-theme .school-social-rail .is-youtube .school-social-rail-icon{ border-bottom-right-radius:10px; }
+.school-theme .school-social-rail .is-twitter{ --rail:#111; }
+.school-theme .school-social-rail .is-linkedin{ --rail:#0A66C2; }
+.school-theme .school-social-rail .is-tiktok{ --rail:#111; }

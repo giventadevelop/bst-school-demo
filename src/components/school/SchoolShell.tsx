@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import SchoolNav from '@/components/school/SchoolNav';
 import SchoolFooter from '@/components/school/SchoolFooter';
+import SchoolSocialRail from '@/components/school/SchoolSocialRail';
 import { schoolThemeClass } from '@/components/school/schoolFonts';
 import { getSchoolIdentity } from '@/lib/school/schoolIdentity';
 import './school-theme.css';
@@ -17,7 +18,8 @@ export default async function SchoolShell({ children }: { children: ReactNode })
       >
         Skip to content
       </a>
-      <SchoolNav schoolName={school.name} phone={school.phone} email={school.email} />
+      <SchoolNav schoolName={school.name} phone={school.phone} email={school.email} logoUrl={school.logoUrl} />
+      <SchoolSocialRail />
       <main id="school-main" className="flex-1">
         {children}
       </main>
@@ -34,7 +36,7 @@ export async function SchoolSiteHeader() {
   const school = await getSchoolIdentity();
   return (
     <div className={`${schoolThemeClass} contents`}>
-      <SchoolNav schoolName={school.name} phone={school.phone} email={school.email} />
+      <SchoolNav schoolName={school.name} phone={school.phone} email={school.email} logoUrl={school.logoUrl} />
     </div>
   );
 }
