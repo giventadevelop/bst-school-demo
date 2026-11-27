@@ -1,12 +1,12 @@
 import { SchoolStaffDirectory } from '@/components/school/SchoolStaffDirectory';
-import { readPageParam } from '@/components/school/ui';
+import { readPageParam, readQueryParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Supporting staff' };
 
 export default async function SchoolSupportingStaffPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string | string[] }>;
+  searchParams: Promise<{ page?: string | string[]; q?: string | string[] }>;
 }) {
   const params = await searchParams;
   return (
@@ -15,7 +15,9 @@ export default async function SchoolSupportingStaffPage({
       intro="The office and support team."
       crumb="Supporting staff"
       category="SUPPORTING"
+      pathname="/staff/supporting-staff"
       page={readPageParam(params?.page)}
+      query={readQueryParam(params?.q)}
     />
   );
 }

@@ -1,7 +1,9 @@
 import { Download, FileText } from 'lucide-react';
 import type { ProfileMediaAssetDTO } from '@/types/profileSite';
-import { fetchSchoolPage } from '@/lib/school/schoolPublic';
-import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam } from '@/components/school/ui';
+import { searchSchoolPage } from '@/lib/school/schoolPublic';
+import { SCHOOL_DOWNLOAD_SEARCH_FIELDS } from '@/lib/publicTypeaheadSearch';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
+import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam, readQueryParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Downloads' };
 
@@ -13,13 +15,16 @@ function formatSize(bytes?: number) {
 export default async function SchoolDownloadsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string | string[] }>;
+  searchParams: Promise<{ page?: string | string[]; q?: string | string[] }>;
 }) {
   const params = await searchParams;
   const page = readPageParam(params?.page);
-  const result = await fetchSchoolPage<ProfileMediaAssetDTO>(
+  const query = readQueryParam(params?.q);
+  const result = await searchSchoolPage<ProfileMediaAssetDTO>(
     'profile-media-assets',
     { sort: 'displayOrder,asc', 'isDownloadable.equals': 'true' },
+    query,
+    SCHOOL_DOWNLOAD_SEARCH_FIELDS,
     page,
     SCHOOL_PAGE_SIZE,
   );
@@ -34,8 +39,26 @@ export default async function SchoolDownloadsPage({
         crumbs={[{ label: 'Downloads' }]}
       />
       <Container className="py-12 sm:py-16">
+        <SchoolListSearch
+          label="Search downloads"
+          placeholder="Search by title, description, or file type"
+          committedQuery={query}
+          pathname="/downloads"
+          items={assets}
+          resource="profile-media-assets"
+          containsFields={SCHOOL_DOWNLOAD_SEARCH_FIELDS}
+          extraParams={{ sort: 'displayOrder,asc', 'isDownloadable.equals': 'true' }}
+          fields={['title', 'description', 'fileType', 'id']}
+          commitFields={['title']}
+          primaryFields={['title']}
+          secondaryFields={['fileType', 'description']}
+          primaryFallback="Untitled file"
+        />
         {assets.length === 0 ? (
-          <EmptyState title="No downloads available yet." hint="Documents appear here when the office publishes them." />
+          <EmptyState
+            title={query ? 'No downloads match that search.' : 'No downloads available yet.'}
+            hint={query ? 'Try another word, or clear the search.' : 'Documents appear here when the office publishes them.'}
+          />
         ) : (
           <ul className="grid gap-4">
             {assets.map((asset, index) => (
@@ -67,7 +90,7 @@ export default async function SchoolDownloadsPage({
           pageSize={result.pageSize}
           total={result.total}
           noun="downloads"
-          hrefFor={(next) => `/downloads?page=${next}`}
+          list={{ pathname: '/downloads', query }}
         />
       </Container>
     </>

@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
-import { fetchSchoolResource, type SchoolNamedRecord, type SchoolPageRecord } from '@/lib/school/schoolPublic';
-import { Article, Container, EmptyState, FeatureCard, NotFoundBlock, PageBanner, colourAt, type Crumb } from '@/components/school/ui';
+import { fetchSchoolResource, searchSchoolPage, type SchoolNamedRecord, type SchoolPageRecord } from '@/lib/school/schoolPublic';
+import { SCHOOL_NAMED_SEARCH_FIELDS } from '@/lib/publicTypeaheadSearch';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
+import { Article, Container, EmptyState, FeatureCard, NotFoundBlock, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, type Crumb } from '@/components/school/ui';
 
 type Collection = {
   /** Backend resource, e.g. `school-facilities`. */
@@ -29,16 +31,25 @@ export async function CollectionList({
   eyebrow,
   intro,
   groupByKind = false,
+  page = 1,
+  query = '',
 }: {
   collection: Collection;
   eyebrow: string;
   intro: string;
   groupByKind?: boolean;
+  page?: number;
+  query?: string;
 }) {
-  const rows = await fetchSchoolResource<SchoolNamedRecord>(collection.resource, {
-    sort: 'sortOrder,asc',
-    'isActive.equals': 'true',
-  });
+  const result = await searchSchoolPage<SchoolNamedRecord>(
+    collection.resource,
+    { sort: 'sortOrder,asc', 'isActive.equals': 'true' },
+    query,
+    SCHOOL_NAMED_SEARCH_FIELDS,
+    page,
+    SCHOOL_PAGE_SIZE,
+  );
+  const rows = result.items;
 
   const groups = new Map<string, SchoolNamedRecord[]>();
   for (const row of rows) {
@@ -50,8 +61,26 @@ export async function CollectionList({
     <>
       <PageBanner eyebrow={eyebrow} title={collection.label} intro={intro} crumbs={[{ label: collection.label }]} />
       <Container className="py-12 sm:py-16">
+        <SchoolListSearch
+          label={`Search ${collection.label.toLowerCase()}`}
+          placeholder="Search by name, summary, or id"
+          committedQuery={query}
+          pathname={`/${collection.segment}`}
+          items={rows}
+          resource={collection.resource}
+          containsFields={SCHOOL_NAMED_SEARCH_FIELDS}
+          extraParams={{ sort: 'sortOrder,asc', 'isActive.equals': 'true' }}
+          fields={['name', 'summary', 'body', 'slug', 'activityKind', 'id']}
+          commitFields={['name']}
+          primaryFields={['name']}
+          secondaryFields={['summary']}
+          primaryFallback={collection.noun}
+        />
         {rows.length === 0 && (
-          <EmptyState title={`No ${collection.label.toLowerCase()} published yet.`} hint="Please check back soon." />
+          <EmptyState
+            title={query ? `No ${collection.label.toLowerCase()} match that search.` : `No ${collection.label.toLowerCase()} published yet.`}
+            hint={query ? 'Try another word, or clear the search.' : 'Please check back soon.'}
+          />
         )}
         {Array.from(groups.entries()).map(([kind, items]) => (
           <section key={kind || 'all'} className="mb-12 last:mb-0">
@@ -72,6 +101,13 @@ export async function CollectionList({
             </ul>
           </section>
         ))}
+        <SchoolPager
+          page={result.page}
+          pageSize={result.pageSize}
+          total={result.total}
+          noun={collection.label.toLowerCase()}
+          list={{ pathname: `/${collection.segment}`, query }}
+        />
       </Container>
     </>
   );

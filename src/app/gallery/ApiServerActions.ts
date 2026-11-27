@@ -4,6 +4,7 @@ import { fetchWithJwtRetry } from '@/lib/proxyHandler';
 import { getTenantId, getApiBaseUrl } from '@/lib/env';
 import {
   applyContainsTokens,
+  matchesPublicSearchFields,
   mergePublicSearchItems,
   parseProxyList,
   PUBLIC_EVENT_SEARCH_FIELDS,
@@ -72,7 +73,17 @@ async function fetchBackendSearchPage<T extends { id?: number | string | null }>
   };
 
   const jobs: Promise<{ items: T[]; totalCount: number }>[] = options.containsFields.map(
-    (field) => fetchBy((p) => applyContainsTokens(p, field, raw)),
+    (field) =>
+      fetchBy((p) => applyContainsTokens(p, field, raw)).then((result) => {
+        const matched = result.items.filter((item) =>
+          matchesPublicSearchFields(
+            [item && typeof item === 'object' ? (item as Record<string, unknown>)[field] as string : ''],
+            raw,
+          ),
+        );
+        if (matched.length !== result.items.length) return { items: [] as T[], totalCount: 0 };
+        return result;
+      }),
   );
   if (/^\d+$/.test(raw)) {
     jobs.push(fetchBy((p) => p.set('id.equals', raw)));

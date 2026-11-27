@@ -1,20 +1,25 @@
 import type { ProfileWritingDTO } from '@/types/profileSite';
-import { fetchSchoolPage } from '@/lib/school/schoolPublic';
+import { searchSchoolPage } from '@/lib/school/schoolPublic';
+import { SCHOOL_NEWS_SEARCH_FIELDS } from '@/lib/publicTypeaheadSearch';
 import { getProfileWritingDetailPath } from '@/lib/profileSitePaths';
-import { Container, EmptyState, FeatureCard, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, formatDate, readPageParam } from '@/components/school/ui';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
+import { Container, EmptyState, FeatureCard, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, formatDate, readPageParam, readQueryParam } from '@/components/school/ui';
 
 export const metadata = { title: 'News' };
 
 export default async function SchoolNewsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string | string[] }>;
+  searchParams: Promise<{ page?: string | string[]; q?: string | string[] }>;
 }) {
   const params = await searchParams;
   const page = readPageParam(params?.page);
-  const result = await fetchSchoolPage<ProfileWritingDTO>(
+  const query = readQueryParam(params?.q);
+  const result = await searchSchoolPage<ProfileWritingDTO>(
     'profile-writings',
     { 'status.equals': 'PUBLISHED', sort: 'displayOrder,asc' },
+    query,
+    SCHOOL_NEWS_SEARCH_FIELDS,
     page,
     SCHOOL_PAGE_SIZE,
   );
@@ -29,8 +34,26 @@ export default async function SchoolNewsPage({
         crumbs={[{ label: 'News' }]}
       />
       <Container className="py-12 sm:py-16">
+        <SchoolListSearch
+          label="Search news"
+          placeholder="Search by title, story, or id"
+          committedQuery={query}
+          pathname="/news"
+          items={articles}
+          resource="profile-writings"
+          containsFields={SCHOOL_NEWS_SEARCH_FIELDS}
+          extraParams={{ 'status.equals': 'PUBLISHED', sort: 'displayOrder,asc' }}
+          fields={['title', 'excerpt', 'body', 'slug', 'publicationName', 'id']}
+          commitFields={['title']}
+          primaryFields={['title']}
+          secondaryFields={['excerpt']}
+          primaryFallback="Untitled story"
+        />
         {articles.length === 0 ? (
-          <EmptyState title="No news published yet." hint="Please check back soon." />
+          <EmptyState
+            title={query ? 'No stories match that search.' : 'No news published yet.'}
+            hint={query ? 'Try another word, or clear the search.' : 'Please check back soon.'}
+          />
         ) : (
           <ul className="card-grid">
             {articles.map((writing, index) => {
@@ -52,7 +75,7 @@ export default async function SchoolNewsPage({
             })}
           </ul>
         )}
-        <SchoolPager page={result.page} pageSize={result.pageSize} total={result.total} noun="stories" hrefFor={(next) => `/news?page=${next}`} />
+        <SchoolPager page={result.page} pageSize={result.pageSize} total={result.total} noun="stories" list={{ pathname: '/news', query }} />
       </Container>
     </>
   );

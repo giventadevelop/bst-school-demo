@@ -1,5 +1,7 @@
-import { fetchSchoolPage } from '@/lib/school/schoolPublic';
-import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, readPageParam } from '@/components/school/ui';
+import { searchSchoolPage } from '@/lib/school/schoolPublic';
+import { SCHOOL_VIDEO_SEARCH_FIELDS } from '@/lib/publicTypeaheadSearch';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
+import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, readPageParam, readQueryParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Video gallery' };
 
@@ -18,13 +20,16 @@ function youtubeId(url: string) {
 export default async function SchoolVideosPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string | string[] }>;
+  searchParams: Promise<{ page?: string | string[]; q?: string | string[] }>;
 }) {
   const params = await searchParams;
   const page = readPageParam(params?.page);
-  const result = await fetchSchoolPage<SchoolVideo>(
+  const query = readQueryParam(params?.q);
+  const result = await searchSchoolPage<SchoolVideo>(
     'gallery-youtube-videos',
     { sort: 'displayOrder,asc', 'isActive.equals': 'true' },
+    query,
+    SCHOOL_VIDEO_SEARCH_FIELDS,
     page,
     SCHOOL_PAGE_SIZE,
   );
@@ -42,8 +47,26 @@ export default async function SchoolVideosPage({
         crumbs={[{ label: 'Video gallery' }]}
       />
       <Container className="py-12 sm:py-16">
+        <SchoolListSearch
+          label="Search videos"
+          placeholder="Search by title or description"
+          committedQuery={query}
+          pathname="/videos"
+          items={videos}
+          resource="gallery-youtube-videos"
+          containsFields={SCHOOL_VIDEO_SEARCH_FIELDS}
+          extraParams={{ sort: 'displayOrder,asc', 'isActive.equals': 'true' }}
+          fields={['title', 'description', 'id']}
+          commitFields={['title']}
+          primaryFields={['title']}
+          secondaryFields={['description']}
+          primaryFallback="School video"
+        />
         {videos.length === 0 ? (
-          <EmptyState title="No videos published yet." hint="Recordings appear here after each event." />
+          <EmptyState
+            title={query ? 'No videos match that search.' : 'No videos published yet.'}
+            hint={query ? 'Try another word, or clear the search.' : 'Recordings appear here after each event.'}
+          />
         ) : (
           <ul className="card-grid">
             {videos.map((video) => (
@@ -65,7 +88,7 @@ export default async function SchoolVideosPage({
             ))}
           </ul>
         )}
-        <SchoolPager page={result.page} pageSize={result.pageSize} total={result.total} noun="videos" hrefFor={(next) => `/videos?page=${next}`} />
+        <SchoolPager page={result.page} pageSize={result.pageSize} total={result.total} noun="videos" list={{ pathname: '/videos', query }} />
       </Container>
     </>
   );

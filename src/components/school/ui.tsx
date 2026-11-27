@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { SchoolPageJump } from '@/components/school/SchoolPageJump';
+import { schoolListTargetHref, type SchoolListTarget } from '@/components/school/listQuery';
+
+export { schoolListHref, type SchoolListTarget } from '@/components/school/listQuery';
 
 /** Shared, server-safe building blocks. Visuals come from school-ds.css (Direction A). */
 
@@ -253,6 +257,11 @@ export function readPageParam(value?: string | string[]) {
   return Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
 }
 
+export function readQueryParam(value?: string | string[]) {
+  const raw = Array.isArray(value) ? value[0] : value;
+  return (raw ?? '').trim();
+}
+
 function PagerArrow({ direction }: { direction: 'prev' | 'next' }) {
   const path = direction === 'prev' ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7';
   return (
@@ -272,6 +281,7 @@ export function SchoolPager({
   noun,
   hrefFor,
   onPage,
+  list,
   emptyNote,
 }: {
   page: number;
@@ -280,6 +290,8 @@ export function SchoolPager({
   noun: string;
   hrefFor?: (page: number) => string;
   onPage?: (page: number) => void;
+  /** Plain list address. Use this from server pages so the jump box can change pages. */
+  list?: SchoolListTarget;
   emptyNote?: string;
 }) {
   if (total <= 0) {
@@ -319,8 +331,9 @@ export function SchoolPager({
         </button>
       );
     }
+    const href = list ? schoolListTargetHref(list, target) : hrefFor ? hrefFor(target) : `?page=${target}`;
     return (
-      <Link href={hrefFor ? hrefFor(target) : `?page=${target}`} className={className} aria-label={label} title={label}>
+      <Link href={href} className={className} aria-label={label} title={label}>
         {content}
       </Link>
     );
@@ -330,9 +343,19 @@ export function SchoolPager({
     <nav className="school-pager" aria-label={`${noun} pages`}>
       <div className="school-pager-row">
         {control(current - 1, 'Previous', 'prev', current <= 1)}
-        <p className="school-pager-info">
-          Page <strong>{current}</strong> of <strong>{totalPages}</strong>
-        </p>
+        <div className="school-pager-mid">
+          <p className="school-pager-info">
+            Page <strong>{current}</strong> of <strong>{totalPages}</strong>
+          </p>
+          {totalPages > 1 && (
+            <SchoolPageJump
+              current={current}
+              totalPages={totalPages}
+              list={list}
+              {...(onPage ? { onPage } : {})}
+            />
+          )}
+        </div>
         {control(current + 1, 'Next', 'next', current >= totalPages)}
       </div>
       <p className="school-pager-count">

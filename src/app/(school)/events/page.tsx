@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { fetchSchoolPage } from '@/lib/school/schoolPublic';
-import { Container, DateBadge, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam } from '@/components/school/ui';
+import { searchSchoolPage } from '@/lib/school/schoolPublic';
+import { PUBLIC_EVENT_SEARCH_FIELDS } from '@/lib/publicTypeaheadSearch';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
+import { Container, DateBadge, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam, readQueryParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Events' };
 
@@ -28,22 +30,27 @@ function EventList({ events }: { events: EventRow[] }) {
 export default async function SchoolEventsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ upcoming?: string | string[]; past?: string | string[] }>;
+  searchParams: Promise<{ upcoming?: string | string[]; past?: string | string[]; q?: string | string[] }>;
 }) {
   const params = await searchParams;
   const upcomingPage = readPageParam(params?.upcoming);
   const pastPage = readPageParam(params?.past);
+  const query = readQueryParam(params?.q);
   const today = new Date().toISOString().slice(0, 10);
   const [upcoming, past] = await Promise.all([
-    fetchSchoolPage<EventRow>(
+    searchSchoolPage<EventRow>(
       'event-details',
       { sort: 'startDate,asc', 'startDate.greaterThanOrEqual': today },
+      query,
+      PUBLIC_EVENT_SEARCH_FIELDS,
       upcomingPage,
       SCHOOL_PAGE_SIZE,
     ),
-    fetchSchoolPage<EventRow>(
+    searchSchoolPage<EventRow>(
       'event-details',
       { sort: 'startDate,desc', 'startDate.lessThan': today },
+      query,
+      PUBLIC_EVENT_SEARCH_FIELDS,
       pastPage,
       SCHOOL_PAGE_SIZE,
     ),
@@ -58,19 +65,36 @@ export default async function SchoolEventsPage({
         crumbs={[{ label: 'Events' }]}
       />
       <Container className="py-12 sm:py-16">
+        <SchoolListSearch
+          label="Search events"
+          placeholder="Search by title, place, description, or id"
+          committedQuery={query}
+          pathname="/events"
+          items={[...upcoming.items, ...past.items]}
+          resource="event-details"
+          containsFields={PUBLIC_EVENT_SEARCH_FIELDS}
+          fields={['searchText', 'title', 'caption', 'description', 'location', 'id']}
+          commitFields={['title']}
+          primaryFields={['title']}
+          secondaryFields={['startDate']}
+          primaryFallback="Untitled event"
+        />
         <section className="mb-14">
           <h2 className="h2 mb-6">Upcoming</h2>
           {upcoming.items.length > 0 ? (
             <EventList events={upcoming.items} />
           ) : (
-            <EmptyState title="No upcoming events." hint="New dates are added here as soon as they are announced." />
+            <EmptyState
+              title={query ? 'No upcoming events match that search.' : 'No upcoming events.'}
+              hint={query ? 'Try another word, or clear the search.' : 'New dates are added here as soon as they are announced.'}
+            />
           )}
           <SchoolPager
             page={upcoming.page}
             pageSize={upcoming.pageSize}
             total={upcoming.total}
             noun="upcoming events"
-            hrefFor={(page) => `/events?upcoming=${page}&past=${pastPage}`}
+            list={{ pathname: '/events', query, param: 'upcoming', extra: { past: pastPage > 1 ? pastPage : undefined } }}
           />
         </section>
         <section>
@@ -78,14 +102,17 @@ export default async function SchoolEventsPage({
           {past.items.length > 0 ? (
             <EventList events={past.items} />
           ) : (
-            <EmptyState title="No past events yet." hint="Earlier celebrations appear here once they have been held." />
+            <EmptyState
+              title={query ? 'No past events match that search.' : 'No past events yet.'}
+              hint={query ? 'Try another word, or clear the search.' : 'Earlier celebrations appear here once they have been held.'}
+            />
           )}
           <SchoolPager
             page={past.page}
             pageSize={past.pageSize}
             total={past.total}
             noun="past events"
-            hrefFor={(page) => `/events?upcoming=${upcomingPage}&past=${page}`}
+            list={{ pathname: '/events', query, param: 'past', extra: { upcoming: upcomingPage > 1 ? upcomingPage : undefined } }}
           />
         </section>
       </Container>

@@ -7,6 +7,8 @@ import { parseExecutiveCommitteeTeamMembersResponse } from '@/lib/parseExecutive
 import Modal from '@/components/ui/Modal';
 import { getHomepageCacheKey } from '@/lib/homepageCacheKeys';
 import { SchoolPageFrame, SchoolPager, SCHOOL_PAGE_SIZE } from '@/components/school/ui';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
+import { matchesPublicSearchFields } from '@/lib/publicTypeaheadSearch';
 
 /** Max characters to show in card before "Read more". Longer bios open in popup. */
 const BIO_TRUNCATE_LENGTH = 120;
@@ -18,6 +20,7 @@ export default function TeamPage() {
   const [loading, setLoading] = useState(true);
   const [showImages, setShowImages] = useState(false);
   const [page, setPage] = useState(0);
+  const [query, setQuery] = useState('');
   const [profileModalMember, setProfileModalMember] = useState<ExecutiveCommitteeTeamMemberDTO | null>(null);
   const pageSize = SCHOOL_PAGE_SIZE;
 
@@ -102,10 +105,22 @@ export default function TeamPage() {
   const getDefaultProfileImage = (member: ExecutiveCommitteeTeamMemberDTO) =>
     member.profileImageUrl || '/images/user_profile_loading.webp';
 
-  const totalCount = teamMembers.length;
+  const teamFields = (member: ExecutiveCommitteeTeamMemberDTO) => [
+    member.firstName,
+    member.lastName,
+    member.title,
+    member.designation,
+    member.department,
+    member.bio,
+    member.expertise,
+    member.email,
+    member.id,
+  ];
+  const filteredMembers = teamMembers.filter((member) => matchesPublicSearchFields(teamFields(member), query));
+  const totalCount = filteredMembers.length;
   const totalPages = Math.ceil(totalCount / pageSize) || 1;
   const currentPage = page + 1;
-  const paginatedTeamMembers = teamMembers.slice(page * pageSize, page * pageSize + pageSize);
+  const paginatedTeamMembers = filteredMembers.slice(page * pageSize, page * pageSize + pageSize);
 
   useEffect(() => {
     if (totalPages > 0 && page >= totalPages) {
@@ -276,12 +291,35 @@ export default function TeamPage() {
             </p>
           </div>
 
+          {!loading && teamMembers.length > 0 && (
+            <SchoolListSearch
+              label="Search the team"
+              placeholder="Search by name, title, or role"
+              committedQuery={query}
+              pathname="/team"
+              onCommit={(value) => {
+                setQuery(value);
+                setPage(0);
+              }}
+              items={teamMembers}
+              getSearchFields={teamFields}
+              getCommitValue={(member) => `${member.firstName} ${member.lastName}`.trim()}
+              formatPrimary={(member) => `${member.firstName} ${member.lastName}`.trim() || 'Team member'}
+              formatSecondary={(member) => member.designation || member.title || ''}
+            />
+          )}
+
           {loading ? (
             <div className="mh-events-loading">Loading team members…</div>
           ) : teamMembers.length === 0 ? (
             <div className="mh-events-empty">
               <p>Team members information is temporarily unavailable.</p>
               <p className="mh-events-hint">Please check back later.</p>
+            </div>
+          ) : filteredMembers.length === 0 ? (
+            <div className="mh-events-empty">
+              <p>No team members match that search.</p>
+              <p className="mh-events-hint">Try another word, or clear the search.</p>
             </div>
           ) : (
             <>

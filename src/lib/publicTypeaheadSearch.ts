@@ -29,6 +29,21 @@ export const PUBLIC_SPONSOR_SEARCH_FIELDS = [
   'type',
 ] as const;
 
+/** School news (`profile-writings`). */
+export const SCHOOL_NEWS_SEARCH_FIELDS = ['title', 'excerpt', 'body', 'slug', 'publicationName'] as const;
+
+/** School downloads (`profile-media-assets`). */
+export const SCHOOL_DOWNLOAD_SEARCH_FIELDS = ['title', 'description', 'fileType'] as const;
+
+/** School videos (`gallery-youtube-videos`). */
+export const SCHOOL_VIDEO_SEARCH_FIELDS = ['title', 'description'] as const;
+
+/** School achievements (`school-highlights`). */
+export const SCHOOL_HIGHLIGHT_SEARCH_FIELDS = ['personName', 'subtitle', 'academicYear'] as const;
+
+/** Departments, facilities and activities. */
+export const SCHOOL_NAMED_SEARCH_FIELDS = ['name', 'summary', 'body', 'slug', 'activityKind'] as const;
+
 /** Lowercase, hyphens to spaces, collapse whitespace. Tokens are words of length >= 2. */
 export function normalizePublicSearchQuery(raw: string): { phrase: string; tokens: string[] } {
   const phrase = raw

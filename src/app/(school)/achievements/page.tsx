@@ -1,18 +1,23 @@
-import { fetchSchoolPage, type SchoolHighlightRecord } from '@/lib/school/schoolPublic';
-import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam } from '@/components/school/ui';
+import { searchSchoolPage, type SchoolHighlightRecord } from '@/lib/school/schoolPublic';
+import { SCHOOL_HIGHLIGHT_SEARCH_FIELDS } from '@/lib/publicTypeaheadSearch';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
+import { Container, EmptyState, PageBanner, SchoolPager, SCHOOL_PAGE_SIZE, colourAt, readPageParam, readQueryParam } from '@/components/school/ui';
 
 export const metadata = { title: 'Achievements' };
 
 export default async function SchoolAchievementsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string | string[] }>;
+  searchParams: Promise<{ page?: string | string[]; q?: string | string[] }>;
 }) {
   const params = await searchParams;
   const page = readPageParam(params?.page);
-  const result = await fetchSchoolPage<SchoolHighlightRecord>(
+  const query = readQueryParam(params?.q);
+  const result = await searchSchoolPage<SchoolHighlightRecord>(
     'school-highlights',
     { sort: 'sortOrder,asc', 'isActive.equals': 'true' },
+    query,
+    SCHOOL_HIGHLIGHT_SEARCH_FIELDS,
     page,
     SCHOOL_PAGE_SIZE,
   );
@@ -33,7 +38,27 @@ export default async function SchoolAchievementsPage({
         crumbs={[{ label: 'Achievements' }]}
       />
       <Container className="py-12 sm:py-16">
-        {highlights.length === 0 && <EmptyState title="No achievements published yet." hint="Please check back soon." />}
+        <SchoolListSearch
+          label="Search achievements"
+          placeholder="Search by name, award, or year"
+          committedQuery={query}
+          pathname="/achievements"
+          items={highlights}
+          resource="school-highlights"
+          containsFields={SCHOOL_HIGHLIGHT_SEARCH_FIELDS}
+          extraParams={{ sort: 'sortOrder,asc', 'isActive.equals': 'true' }}
+          fields={['personName', 'subtitle', 'academicYear', 'id']}
+          commitFields={['personName']}
+          primaryFields={['personName']}
+          secondaryFields={['subtitle', 'academicYear']}
+          primaryFallback="Achievement"
+        />
+        {highlights.length === 0 && (
+          <EmptyState
+            title={query ? 'No achievements match that search.' : 'No achievements published yet.'}
+            hint={query ? 'Try another word, or clear the search.' : 'Please check back soon.'}
+          />
+        )}
         {Array.from(years.entries()).map(([year, items]) => (
           <section key={year || 'all'} className="mb-14 last:mb-0">
             {year && <h2 className="h2 mb-8">{year}</h2>}
@@ -65,7 +90,7 @@ export default async function SchoolAchievementsPage({
           pageSize={result.pageSize}
           total={result.total}
           noun="achievements"
-          hrefFor={(next) => `/achievements?page=${next}`}
+          list={{ pathname: '/achievements', query }}
         />
       </Container>
     </>

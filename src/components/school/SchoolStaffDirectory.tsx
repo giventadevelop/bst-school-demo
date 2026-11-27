@@ -1,4 +1,6 @@
 import { fetchSchoolResource, type SchoolStaffRecord } from '@/lib/school/schoolPublic';
+import { matchesPublicSearchFields } from '@/lib/publicTypeaheadSearch';
+import { SchoolListSearch } from '@/components/school/SchoolListSearch';
 import { Container, EmptyState, PageBanner, PersonCard, SchoolPager, SCHOOL_PAGE_SIZE, TextLink, colourAt } from '@/components/school/ui';
 
 function humanize(value: string) {
@@ -17,6 +19,8 @@ export async function SchoolStaffDirectory({
   category,
   stage,
   page = 1,
+  query = '',
+  pathname,
 }: {
   title: string;
   intro: string;
@@ -24,19 +28,35 @@ export async function SchoolStaffDirectory({
   category?: string;
   stage?: string;
   page?: number;
+  query?: string;
+  pathname: string;
 }) {
   const rows = await fetchSchoolResource<SchoolStaffRecord>('school-staff-members', {
     sort: 'priorityOrder,asc',
     'isActive.equals': 'true',
     size: '200',
   });
-  const staff = rows.filter((member) => {
+  const directory = rows.filter((member) => {
     if (category && member.staffCategory !== category) return false;
     if (stage && member.stage !== stage) return false;
     return true;
   });
-  const pageStart = (Math.max(1, page) - 1) * SCHOOL_PAGE_SIZE;
-  const visible = staff.slice(pageStart, pageStart + SCHOOL_PAGE_SIZE);
+  const staffFields = (member: SchoolStaffRecord) => [
+    member.firstName,
+    member.lastName,
+    member.designation,
+    member.qualification,
+    member.subjectName,
+    member.classTeacherOf,
+    member.bio,
+    member.staffCategory,
+    member.stage,
+    member.id,
+  ];
+  const staff = directory.filter((member) => matchesPublicSearchFields(staffFields(member), query));
+  const totalPages = Math.max(1, Math.ceil(staff.length / SCHOOL_PAGE_SIZE));
+  const current = Math.min(Math.max(1, page), totalPages);
+  const visible = staff.slice((current - 1) * SCHOOL_PAGE_SIZE, current * SCHOOL_PAGE_SIZE);
 
   const categories = new Map<string, Map<string, SchoolStaffRecord[]>>();
   for (const member of visible) {
@@ -51,7 +71,24 @@ export async function SchoolStaffDirectory({
     <>
       <PageBanner eyebrow="Faculty" title={title} intro={intro} crumbs={[{ label: crumb }]} />
       <Container className="py-12 sm:py-16">
-        {staff.length === 0 && <EmptyState title="No staff published yet." hint="Please check back soon." />}
+        <SchoolListSearch
+          label="Search staff"
+          placeholder="Search by name, subject, or role"
+          committedQuery={query}
+          pathname={pathname}
+          items={directory}
+          fields={['firstName', 'lastName', 'designation', 'qualification', 'subjectName', 'classTeacherOf', 'bio', 'staffCategory', 'stage', 'id']}
+          commitFields={['firstName', 'lastName']}
+          primaryFields={['firstName', 'lastName']}
+          secondaryFields={['designation', 'subjectName']}
+          primaryFallback="Staff member"
+        />
+        {staff.length === 0 && (
+          <EmptyState
+            title={query ? 'No staff match that search.' : 'No staff published yet.'}
+            hint={query ? 'Try another word, or clear the search.' : 'Please check back soon.'}
+          />
+        )}
 
         {categories.size > 1 && (
           <nav aria-label="Staff categories" className="mb-10 flex flex-wrap gap-2">
@@ -93,7 +130,13 @@ export async function SchoolStaffDirectory({
           </section>
         ))}
 
-        <SchoolPager page={page} pageSize={SCHOOL_PAGE_SIZE} total={staff.length} noun="staff" />
+        <SchoolPager
+          page={current}
+          pageSize={SCHOOL_PAGE_SIZE}
+          total={staff.length}
+          noun="staff"
+          list={{ pathname, query }}
+        />
 
         {!category && !stage && (
           <div className="mt-12 border-t pt-8" style={{ borderColor: 'var(--line)' }}>
